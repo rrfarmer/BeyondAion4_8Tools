@@ -1,0 +1,30 @@
+{
+  "name": "aion-portal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "preicons:cache-codex": "npm run build",
+    "icons:cache-codex": "node dist/scripts/cacheCodexIcons.js",
+    "preicons:cache-codex-supervised": "npm run build",
+    "icons:cache-codex-supervised": "node dist/scripts/cacheCodexIconsSupervised.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/formbody": "^8.0.2",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.2",
+    "mysql2": "^3.15.3",
+    "sax": "^1.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/sax": "^1.2.7",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

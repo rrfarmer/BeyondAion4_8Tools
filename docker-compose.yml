@@ -1,0 +1,40 @@
+name: aion-portal
+
+services:
+  portal:
+    build:
+      context: .
+    container_name: aion-portal
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:-dev-only-change-before-sharing}
+      PORTAL_REGISTRATION_CODE: ${PORTAL_REGISTRATION_CODE:-}
+      DATA_DIR: /app/data
+      AION_REPO_ROOT: /aion-server
+      LOGIN_DB_HOST: mysql
+      LOGIN_DB_PORT: 3306
+      LOGIN_DB_USER: ${DB_USER:-root}
+      LOGIN_DB_PASSWORD: ${DB_PASSWORD:-aion}
+      LOGIN_DB_NAME: aion_ls
+      GAME_DB_HOST: mysql
+      GAME_DB_PORT: 3306
+      GAME_DB_USER: ${DB_USER:-root}
+      GAME_DB_PASSWORD: ${DB_PASSWORD:-aion}
+      GAME_DB_NAME: aion_gs
+      # Deliver mail through the LIVE game server (so online recipients get an instant bell + icon) instead of
+      # writing to the DB directly. Reachable on the shared aion_default network; token must match the game
+      # server's ADMIN_API_TOKEN (GAMESERVER_ADMIN_API_TOKEN).
+      GAME_SERVER_ADMIN_URL: ${GAME_SERVER_ADMIN_URL:-http://gameserver:7780}
+      GAME_SERVER_ADMIN_TOKEN: ${ADMIN_API_TOKEN:-change-me-admin-token}
+    ports:
+      - "${PORTAL_PORT:-3000}:3000"
+    volumes:
+      - ./data:/app/data
+      - ../aion-server:/aion-server:ro
+    networks:
+      - aion_default
+
+networks:
+  aion_default:
+    external: true

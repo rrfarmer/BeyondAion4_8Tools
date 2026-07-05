@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+data/*.json
+data/*.tmp
+data/*.pid
+data/icons/
+data/item-transfer-audit.jsonl
+*.log
