@@ -7,3 +7,4 @@ data/*.pid
 data/icons/
 data/item-transfer-audit.jsonl
 *.log
+data/admin-mail-audit.jsonl
