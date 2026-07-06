@@ -1,9 +1,11 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
+import type { GameServerAdminClient } from "./gameServerAdminClient.js";
 import { ItemCatalog } from "./itemCatalog.js";
 
 const KINAH_ITEM_ID = 182400001;
 const MAX_ITEM_COUNT = 2_147_483_647;
+const MAX_SAFE_MAIL_KINAH = 2_147_483_647n;
 
 export type GameServerAdminConfig = {
   baseUrl: string;
@@ -21,6 +23,16 @@ export type SendAdminItemMailInput = {
   message: string;
 };
 
+export type SendAdminKinahMailInput = {
+  adminPortalUserId: string;
+  adminUsername: string;
+  recipientCharacterId: number;
+  kinahAmount: string;
+  senderName: string;
+  title: string;
+  message: string;
+};
+
 export type SendAdminItemMailResult = {
   recipientName: string;
   itemId: number;
@@ -29,15 +41,14 @@ export type SendAdminItemMailResult = {
   delivered: "online" | "offline";
 };
 
-type EndpointResponse = {
-  ok: boolean;
-  delivered?: "online" | "offline";
-  recipientName?: string;
-  error?: string;
+export type SendAdminKinahMailResult = {
+  recipientName: string;
+  kinahAmount: string;
+  delivered: "online" | "offline";
 };
 
 /**
- * Delivers express item mail by calling the game server's admin HTTP endpoint, which runs the real
+ * Delivers express mail by calling the game server's admin HTTP endpoint, which runs the real
  * SystemMailService.SendMail on the LIVE server. That is what makes an online recipient get the instant
  * bell + icon (SM_MAIL_SERVICE + STR_POSTMAN_NOTIFY) and keeps the in-memory mailbox/counter consistent
  * with the DB. (The previous approach wrote mail/inventory rows straight into the game DB, which could not
@@ -47,48 +58,20 @@ export class AdminMailService {
   constructor(
     private readonly itemCatalog: ItemCatalog,
     private readonly auditPath: string,
-    private readonly gameServer: GameServerAdminConfig,
+    private readonly gameServerAdmin: Pick<GameServerAdminClient, "sendExpressMail">,
   ) {}
 
   async sendItemMail(input: SendAdminItemMailInput): Promise<SendAdminItemMailResult> {
-    const normalized = this.normalizeInput(input);
-
-    const endpoint = `${this.gameServer.baseUrl.replace(/\/+$/, "")}/admin/express-item-mail`;
-    let response: Response;
-    try {
-      response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "x-admin-token": this.gameServer.adminToken,
-        },
-        body: JSON.stringify({
-          recipientCharacterId: normalized.recipientCharacterId,
-          itemId: normalized.itemId,
-          itemCount: normalized.itemCount,
-          senderName: normalized.senderName,
-          title: normalized.title,
-          message: normalized.message,
-        }),
-      });
-    } catch (error) {
-      throw new Error(
-        `Could not reach the game server admin endpoint (${endpoint}). Is the game server running with the admin API enabled? ${
-          (error as Error).message
-        }`,
-      );
-    }
-
-    let payload: EndpointResponse;
-    try {
-      payload = (await response.json()) as EndpointResponse;
-    } catch {
-      throw new Error(`Game server returned a non-JSON response (HTTP ${response.status}).`);
-    }
-
-    if (!response.ok || !payload.ok) {
-      throw new Error(payload?.error ?? `Game server rejected the mail (HTTP ${response.status}).`);
-    }
+    const normalized = this.normalizeItemInput(input);
+    const payload = await this.gameServerAdmin.sendExpressMail({
+      recipientCharacterId: normalized.recipientCharacterId,
+      itemId: normalized.itemId,
+      itemCount: normalized.itemCount,
+      kinah: 0,
+      senderName: normalized.senderName,
+      title: normalized.title,
+      message: normalized.message,
+    });
 
     const result: SendAdminItemMailResult = {
       recipientName: payload.recipientName ?? String(normalized.recipientCharacterId),
@@ -101,10 +84,48 @@ export class AdminMailService {
     return result;
   }
 
-  private normalizeInput(input: SendAdminItemMailInput): SendAdminItemMailInput & { itemName: string } {
+  async sendKinahMail(input: SendAdminKinahMailInput): Promise<SendAdminKinahMailResult> {
+    const normalized = this.normalizeKinahInput(input);
+    const payload = await this.gameServerAdmin.sendExpressMail({
+      recipientCharacterId: normalized.recipientCharacterId,
+      itemId: 0,
+      itemCount: 0,
+      kinah: normalized.kinahNumber,
+      senderName: normalized.senderName,
+      title: normalized.title,
+      message: normalized.message,
+    });
+
+    const result: SendAdminKinahMailResult = {
+      recipientName: payload.recipientName ?? String(normalized.recipientCharacterId),
+      kinahAmount: normalized.kinahAmount,
+      delivered: payload.delivered === "online" ? "online" : "offline",
+    };
+    await this.auditKinah(input, result).catch(() => undefined);
+    return result;
+  }
+
+  private normalizeCommonInput<T extends SendAdminItemMailInput | SendAdminKinahMailInput>(
+    input: T,
+  ): T & { senderName: string; title: string; message: string } {
     if (!Number.isInteger(input.recipientCharacterId) || input.recipientCharacterId <= 0) {
       throw new Error("Recipient character is not valid.");
     }
+
+    const senderName = normalizeRequiredText(input.senderName || "Aion Portal", "Sender", 16);
+    const title = normalizeRequiredText(input.title || "Admin Delivery", "Title", 20);
+    const message = normalizeRequiredText(input.message || "Admin delivery.", "Message", 1000);
+
+    return {
+      ...input,
+      senderName,
+      title,
+      message,
+    };
+  }
+
+  private normalizeItemInput(input: SendAdminItemMailInput): SendAdminItemMailInput & { itemName: string } {
+    const common = this.normalizeCommonInput(input);
     if (!Number.isInteger(input.itemId) || input.itemId <= 0) {
       throw new Error("Item id is not valid.");
     }
@@ -124,17 +145,23 @@ export class AdminMailService {
       throw new Error(`Item count exceeds this template's max stack count of ${maxStackCount}.`);
     }
 
-    const senderName = normalizeRequiredText(input.senderName || "Aion Portal", "Sender", 16);
-    const title = normalizeRequiredText(input.title || "Admin Delivery", "Title", 20);
-    const message = normalizeRequiredText(input.message || "Admin delivery.", "Message", 1000);
+    return {
+      ...common,
+      itemCount: input.itemCount,
+      itemName: template.name,
+    };
+  }
+
+  private normalizeKinahInput(
+    input: SendAdminKinahMailInput,
+  ): SendAdminKinahMailInput & { kinahAmount: string; kinahNumber: number } {
+    const common = this.normalizeCommonInput(input);
+    const kinahAmount = normalizePositiveIntegerText(input.kinahAmount, "Kinah amount", MAX_SAFE_MAIL_KINAH);
 
     return {
-      ...input,
-      itemCount: input.itemCount,
-      senderName,
-      title,
-      message,
-      itemName: template.name,
+      ...common,
+      kinahAmount,
+      kinahNumber: Number(kinahAmount),
     };
   }
 
@@ -158,6 +185,25 @@ export class AdminMailService {
       "utf8",
     );
   }
+
+  private async auditKinah(input: SendAdminKinahMailInput, result: SendAdminKinahMailResult): Promise<void> {
+    await mkdir(path.dirname(this.auditPath), { recursive: true });
+    await appendFile(
+      this.auditPath,
+      `${JSON.stringify({
+        at: new Date().toISOString(),
+        adminPortalUserId: input.adminPortalUserId,
+        adminUsername: input.adminUsername,
+        action: "admin_express_kinah_mail",
+        via: "gameserver",
+        delivered: result.delivered,
+        recipientCharacterId: input.recipientCharacterId,
+        recipientName: result.recipientName,
+        kinahAmount: result.kinahAmount,
+      })}\n`,
+      "utf8",
+    );
+  }
 }
 
 function normalizeRequiredText(value: string, label: string, maxLength: number): string {
@@ -169,4 +215,21 @@ function normalizeRequiredText(value: string, label: string, maxLength: number):
     throw new Error(`${label} must be ${maxLength} characters or fewer.`);
   }
   return trimmed;
+}
+
+function normalizePositiveIntegerText(value: string, label: string, maxValue: bigint): string {
+  const normalized = value.trim().replace(/[,_\s]/g, "");
+  if (!/^\d+$/.test(normalized)) {
+    throw new Error(`${label} must be a positive whole number.`);
+  }
+
+  const parsed = BigInt(normalized);
+  if (parsed <= 0n) {
+    throw new Error(`${label} must be greater than zero.`);
+  }
+  if (parsed > maxValue) {
+    throw new Error(`${label} is too large for the current admin mail endpoint.`);
+  }
+
+  return parsed.toString();
 }

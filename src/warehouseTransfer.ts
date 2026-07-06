@@ -57,10 +57,38 @@ export type WarehouseKinahTransferResult = {
   toStorageName: string;
 };
 
+export type ItemStorageValidationInput = {
+  itemId: number;
+  isSoulBound: boolean;
+  targetStorageId: number;
+  targetPolicy: WarehouseStorageDefinition["policy"];
+};
+
+export type ItemStorageValidationResult = {
+  valid: boolean;
+  targetAllowed: boolean | undefined;
+  errors: string[];
+  warnings: string[];
+};
+
+export type ItemStorageValidator = (input: ItemStorageValidationInput) => Promise<ItemStorageValidationResult>;
+
+export type AccountLiveStateResult = {
+  loaded?: boolean;
+  online?: boolean;
+  onlineCount?: number;
+  accountName?: string;
+  players?: Array<{ name?: string }>;
+};
+
+export type AccountLiveStateChecker = (accountId: number) => Promise<AccountLiveStateResult>;
+
 export class WarehouseTransferService {
   constructor(
     private readonly itemCatalog: ItemCatalog,
     private readonly auditFile: string,
+    private readonly itemStorageValidator?: ItemStorageValidator,
+    private readonly accountLiveStateChecker?: AccountLiveStateChecker,
   ) {}
 
   async moveItem(request: WarehouseTransferRequest): Promise<WarehouseTransferResult> {
@@ -95,6 +123,9 @@ export class WarehouseTransferService {
       if (source.storageId === target.storageId) {
         throw new TransferError("Choose a different destination warehouse.");
       }
+      if (source.owner === "account" || target.owner === "account") {
+        await this.assertAccountOffline(connection, request.accountId);
+      }
 
       const expectedSourceOwner = ownerIdFor(source, request.accountId, request.characterId);
       if (item.ownerId !== expectedSourceOwner) {
@@ -107,7 +138,7 @@ export class WarehouseTransferService {
         throw new TransferError("Kinah transfers are not enabled in this warehouse MVP.");
       }
 
-      validateDestination(target, item, this.itemCatalog);
+      await this.validateDestination(target, item);
 
       const targetOwnerId = ownerIdFor(target, request.accountId, request.characterId);
       const capacity = capacityFor(target, character);
@@ -203,6 +234,7 @@ export class WarehouseTransferService {
       if (Boolean(character.online)) {
         throw new TransferError("Log the character out before moving warehouse Kinah.");
       }
+      await this.assertAccountOffline(connection, request.accountId);
 
       const sourceOwnerId = ownerIdFor(source, request.accountId, request.characterId);
       const targetOwnerId = ownerIdFor(target, request.accountId, request.characterId);
@@ -293,6 +325,52 @@ export class WarehouseTransferService {
       connection.release();
     }
   }
+
+  private async validateDestination(target: WarehouseStorageDefinition, item: ItemLockRow): Promise<void> {
+    if (!this.itemStorageValidator) {
+      validateDestinationWithLocalCatalog(target, item, this.itemCatalog);
+      return;
+    }
+
+    const validation = await this.itemStorageValidator({
+      itemId: item.itemId,
+      isSoulBound: Boolean(item.soulBound),
+      targetStorageId: target.storageId,
+      targetPolicy: target.policy,
+    });
+    if (!validation.valid || validation.targetAllowed === false) {
+      const detail = validation.errors.filter(Boolean).join(" ");
+      throw new TransferError(detail || "The game server rejected this warehouse destination.");
+    }
+  }
+
+  private async assertAccountOffline(connection: PoolConnection, accountId: number): Promise<void> {
+    await assertAccountOfflineInDb(connection, accountId);
+    if (!this.accountLiveStateChecker) {
+      return;
+    }
+
+    let state: AccountLiveStateResult;
+    try {
+      state = await this.accountLiveStateChecker(accountId);
+    } catch (error) {
+      throw new TransferError(
+        `Could not verify live account state with the game server; account warehouse moves are blocked. ${(error as Error).message}`,
+        502,
+      );
+    }
+
+    const players = Array.isArray(state.players) ? state.players : [];
+    const onlineCount = Number.isInteger(state.onlineCount) ? Number(state.onlineCount) : players.length;
+    if (state.loaded || state.online || onlineCount > 0) {
+      const firstName = players.find(player => player.name)?.name;
+      throw new TransferError(
+        `Log all characters on this account out before moving account warehouse items.${
+          firstName ? ` ${firstName} is loaded in the game server.` : ""
+        }`,
+      );
+    }
+  }
 }
 
 type CharacterLockRow = RowDataPacket & {
@@ -300,6 +378,11 @@ type CharacterLockRow = RowDataPacket & {
   online: number | boolean;
   whNpcExpands: number;
   whBonusExpands: number;
+};
+
+type OnlineAccountCharacterRow = RowDataPacket & {
+  id: number;
+  name: string;
 };
 
 type ItemLockRow = RowDataPacket & {
@@ -354,6 +437,28 @@ async function lockCharacter(
   return rows[0];
 }
 
+async function assertAccountOfflineInDb(connection: PoolConnection, accountId: number): Promise<void> {
+  const [rows] = await connection.query<OnlineAccountCharacterRow[]>(
+    `
+      SELECT id, name
+      FROM players
+      WHERE account_id = ?
+        AND online <> 0
+        AND (deletion_date IS NULL OR deletion_date > CURRENT_TIMESTAMP)
+      ORDER BY name
+      LIMIT 1
+      FOR UPDATE
+    `,
+    [accountId],
+  );
+  const onlineCharacter = rows[0];
+  if (onlineCharacter) {
+    throw new TransferError(
+      `Log all characters on this account out before moving account warehouse items. ${onlineCharacter.name} is online.`,
+    );
+  }
+}
+
 async function lockItem(connection: PoolConnection, itemUniqueId: number): Promise<ItemLockRow | undefined> {
   const [rows] = await connection.query<ItemLockRow[]>(
     `
@@ -401,7 +506,7 @@ function ownerIdFor(definition: WarehouseStorageDefinition, accountId: number, c
   return definition.owner === "account" ? accountId : characterId;
 }
 
-function validateDestination(
+function validateDestinationWithLocalCatalog(
   target: WarehouseStorageDefinition,
   item: ItemLockRow,
   itemCatalog: ItemCatalog,
