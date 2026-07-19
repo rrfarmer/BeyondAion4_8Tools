@@ -343,6 +343,13 @@
   overflow-wrap: anywhere;
 }
 
+.spawn-detail-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
 .spawn-eyebrow {
   display: block;
   color: #8fa2ba;
@@ -744,6 +751,10 @@
 .walker-step-icon {
   background: transparent;
   border: 0;
+}
+
+.walker-step-icon.viewer {
+  pointer-events: none;
 }
 
 .walker-step-icon span {

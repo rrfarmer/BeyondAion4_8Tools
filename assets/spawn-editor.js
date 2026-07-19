@@ -31,6 +31,7 @@
     detailType: root.querySelector("[data-detail-type]"),
     detailName: root.querySelector("[data-detail-name]"),
     detailDraft: root.querySelector("[data-detail-draft]"),
+    detailClose: root.querySelector("[data-detail-close]"),
     detailFacts: root.querySelector("[data-detail-facts]"),
     detailWarnings: root.querySelector("[data-detail-warnings]"),
     noWalker: root.querySelector("[data-no-walker]"),
@@ -146,6 +147,7 @@
     elements.snapGround.addEventListener("click", () => snapCurrentPosition("update"));
     elements.undoSelected.addEventListener("click", undoSelected);
     elements.deleteSelected.addEventListener("click", stageDelete);
+    elements.detailClose.addEventListener("click", () => deselectSpot());
     elements.walkerFit.addEventListener("click", fitWalkerRoute);
     elements.walkerCreate.addEventListener("click", createWalkerDraft);
     elements.walkerEdit.addEventListener("click", editWalkerRoute);
@@ -185,9 +187,12 @@
     elements.placeRespawn.addEventListener("input", updateCreateButton);
     elements.applyChanges.addEventListener("click", applyChanges);
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && (state.pickMode || state.walkerDrawMode || state.walkerPickMode)) {
+      if (event.key !== "Escape") return;
+      if (state.pickMode || state.walkerDrawMode || state.walkerPickMode) {
         cancelPick();
         stopWalkerMapMode();
+      } else if (state.selectedKey && !elements.reviewDialog.open && !elements.walkerReviewDialog.open) {
+        deselectSpot();
       }
     });
     window.addEventListener("beforeunload", event => {
@@ -414,6 +419,7 @@
       fillColor: draft ? "#57d69b" : colorForType(entry.group?.npc.type),
       fillOpacity: entry.editable ? 0.9 : 0.48,
       opacity: 0.96,
+      bubblingMouseEvents: false,
     };
   }
 
@@ -429,7 +435,7 @@
   }
 
   function selectSpot(key) {
-    if (state.walkerDraft && state.walkerSpotKey !== key && !window.confirm("Discard draft patrol path changes?")) return;
+    if (state.walkerSpotKey !== key && !confirmWalkerDraftDiscard("Discard draft patrol path changes?")) return;
     if (state.walkerSpotKey !== key) clearWalkerRoute();
     state.selectedKey = key;
     closePlacement();
@@ -437,6 +443,23 @@
     renderInspector();
     const entry = selectedEntry();
     if (entry?.walkerId) loadWalkerRoute(entry);
+  }
+
+  function deselectSpot() {
+    if (!state.selectedKey) return true;
+    if (!confirmWalkerDraftDiscard("Discard draft patrol path changes and clear the selection?")) return false;
+    cancelGroundLookup("update");
+    cancelPick();
+    clearWalkerRoute();
+    state.selectedKey = undefined;
+    closePlacement();
+    renderMarkers();
+    renderInspector();
+    return true;
+  }
+
+  function confirmWalkerDraftDiscard(message) {
+    return !walkerDraftIsDirty() || window.confirm(message);
   }
 
   function selectedEntry() {
@@ -629,24 +652,26 @@
 
     for (const step of route.authoredSteps) {
       const severity = terrainMismatch(step);
-      const selected = Boolean(state.walkerDraft) && state.walkerSelectedIndex === step.authoredIndex - 1;
+      const editing = Boolean(state.walkerDraft);
+      const selected = editing && state.walkerSelectedIndex === step.authoredIndex - 1;
       const marker = L.marker(gameToMap(step.x, step.y), {
         icon: L.divIcon({
-          className: "walker-step-icon",
+          className: `walker-step-icon ${editing ? "editing" : "viewer"}`,
           html: `<span class="${severity}${step.authoredIndex === 1 ? " start" : ""}${selected ? " selected" : ""}">${step.authoredIndex}</span>`,
           iconSize: [24, 24],
           iconAnchor: [12, 12],
         }),
         keyboard: false,
-        riseOnHover: true,
+        interactive: editing,
+        riseOnHover: editing,
       });
-      marker.bindTooltip(walkerStepTooltip(step), {
-        direction: "right",
-        offset: [11, 0],
-        opacity: 1,
-        className: "spawn-tooltip walker-tooltip",
-      });
-      if (state.walkerDraft) {
+      if (editing) {
+        marker.bindTooltip(walkerStepTooltip(step), {
+          direction: "right",
+          offset: [11, 0],
+          opacity: 1,
+          className: "spawn-tooltip walker-tooltip",
+        });
         marker.on("click", event => {
           L.DomEvent.stopPropagation(event);
           selectWalkerPoint(step.authoredIndex - 1);
@@ -665,6 +690,7 @@
       unknown: "#8c9aae",
     };
     L.polyline([gameToMap(from.x, from.y), gameToMap(to.x, to.y)], {
+      renderer: state.renderer,
       color: colors[severity],
       weight: severity === "critical" ? 5 : 4,
       opacity: 0.94,
@@ -1399,7 +1425,10 @@
   }
 
   async function onMapClick(event) {
-    if (!state.pickMode && !state.walkerDrawMode && !state.walkerPickMode) return;
+    if (!state.pickMode && !state.walkerDrawMode && !state.walkerPickMode) {
+      if (!state.walkerDraft || !walkerDraftIsDirty()) deselectSpot();
+      return;
+    }
     const size = state.snapshot.map.worldSize;
     if (event.latlng.lat < 0 || event.latlng.lat > size || event.latlng.lng < 0 || event.latlng.lng > size) {
       showStatus("Select a position inside the mapped artwork.", "error");

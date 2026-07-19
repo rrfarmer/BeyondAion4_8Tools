@@ -71,7 +71,10 @@ export function spawnEditorPage(): string {
                 <span class="spawn-eyebrow" data-detail-type></span>
                 <h2 data-detail-name></h2>
               </div>
-              <span class="spawn-draft-state" data-detail-draft hidden>Draft</span>
+              <div class="spawn-detail-heading-actions">
+                <span class="spawn-draft-state" data-detail-draft hidden>Draft</span>
+                <button class="spawn-icon-button" type="button" data-detail-close aria-label="Clear spawn selection" title="Clear selection">&#215;</button>
+              </div>
             </div>
             <dl class="spawn-facts" data-detail-facts></dl>
             <div class="spawn-warning-list" data-detail-warnings hidden></div>

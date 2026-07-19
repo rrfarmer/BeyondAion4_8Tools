@@ -1,5 +1,11 @@
 # Progress
 
+## 2026-07-19 Iteration 102
+
+- Fixed walker overlays trapping the current spawn selection: view-only waypoint labels pass pointer events through, patrol lines share the spawn-marker renderer instead of leaving a blocking canvas above it, and marker clicks no longer bubble into blank-map deselection.
+- Added explicit spawn deselection through the inspector close button, blank-map clicks, and `Escape`.
+- Centralized patrol-draft discard handling so unchanged route editors close immediately while modified/new routes still require confirmation before changing or clearing the selection.
+
 ## 2026-07-19 Iteration 101
 
 - Added an inline patrol-path editor to the NPC spawn map: existing routes can be edited, redrawn, ground-snapped, and reviewed without leaving the selected spawn.
