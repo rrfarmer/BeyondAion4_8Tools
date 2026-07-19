@@ -1,5 +1,16 @@
 # Progress
 
+## 2026-07-19 Iteration 101
+
+- Added an inline patrol-path editor to the NPC spawn map: existing routes can be edited, redrawn, ground-snapped, and reviewed without leaving the selected spawn.
+- Added click-to-draw route creation for editable spawns without a `walker_id`; the spawn position seeds the path and every map-picked point resolves terrain Z before it is accepted.
+- Added waypoint selection and map movement, manual X/Y/Z and pause editing, point deletion, loop behavior controls, bulk terrain snapping, runtime `WALK_BACK` previews, and shared-route warnings.
+- Added authenticated validation/apply APIs for route updates and creation, plus optional new-route assignment to the selected spawn.
+- New-route applies preflight the spawn assignment before writing route XML; the unlikely route-saved/assignment-failed race remains explicit, visible after reload, and audit-recorded as a partial apply.
+- Walker persistence now preserves unrelated XML and route formation attributes, writes only authored steps, rejects stale source revisions, verifies serialized output, creates a pre-change backup, and atomically replaces the owning XML. New routes are appended to `custom_npc_walker.xml`.
+- Docker now mounts `npc_walker` read/write. Walker backups are stored under `DATA_DIR/walker-editor-backups`, and route applies are recorded in the JSONL admin audit.
+- Added service coverage for updates, route creation, duplicate and stale rejection, backups, CRLF and unrelated-route preservation, formation attributes, and spawn `walker_id` assignment.
+
 ## 2026-07-19 Iteration 100
 
 - Added a recursive walker-route catalog matching the .NET server's sorted `npc_walker` load order, default loop behavior, `WALK_BACK` runtime expansion, and formation normalization.

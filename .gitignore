@@ -10,4 +10,5 @@ data/item-transfer-audit.jsonl
 data/admin-mail-audit.jsonl
 data/admin-actions-audit.jsonl
 data/spawn-editor-backups/
+data/walker-editor-backups/
 scripts/__pycache__/

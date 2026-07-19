@@ -33,12 +33,34 @@
     detailDraft: root.querySelector("[data-detail-draft]"),
     detailFacts: root.querySelector("[data-detail-facts]"),
     detailWarnings: root.querySelector("[data-detail-warnings]"),
+    noWalker: root.querySelector("[data-no-walker]"),
+    walkerCreate: root.querySelector("[data-walker-create]"),
     walkerPanel: root.querySelector("[data-walker-panel]"),
     walkerId: root.querySelector("[data-walker-id]"),
     walkerStatus: root.querySelector("[data-walker-status]"),
     walkerFacts: root.querySelector("[data-walker-facts]"),
     walkerWarnings: root.querySelector("[data-walker-warnings]"),
     walkerFit: root.querySelector("[data-walker-fit]"),
+    walkerEdit: root.querySelector("[data-walker-edit]"),
+    walkerEditor: root.querySelector("[data-walker-editor]"),
+    walkerLoop: root.querySelector("[data-walker-loop]"),
+    walkerDraw: root.querySelector("[data-walker-draw]"),
+    walkerRedraw: root.querySelector("[data-walker-redraw]"),
+    walkerSnapAll: root.querySelector("[data-walker-snap-all]"),
+    walkerDrawingStatus: root.querySelector("[data-walker-drawing-status]"),
+    walkerPointList: root.querySelector("[data-walker-point-list]"),
+    walkerPointForm: root.querySelector("[data-walker-point-form]"),
+    walkerPointGroundStatus: root.querySelector("[data-walker-point-ground-status]"),
+    walkerMove: root.querySelector("[data-walker-move]"),
+    walkerPointSnap: root.querySelector("[data-walker-point-snap]"),
+    walkerPointDelete: root.querySelector("[data-walker-point-delete]"),
+    walkerDiscard: root.querySelector("[data-walker-discard]"),
+    walkerReview: root.querySelector("[data-walker-review]"),
+    walkerReviewDialog: root.querySelector("[data-walker-review-dialog]"),
+    walkerReviewSummary: root.querySelector("[data-walker-review-summary]"),
+    walkerReviewDetails: root.querySelector("[data-walker-review-details]"),
+    walkerChangeReason: root.querySelector("[data-walker-change-reason]"),
+    walkerApply: root.querySelector("[data-walker-apply]"),
     positionForm: root.querySelector("[data-position-form]"),
     stageUpdate: root.querySelector("[data-stage-update]"),
     pickPosition: root.querySelector("[data-pick-position]"),
@@ -94,6 +116,12 @@
     walkerSpotKey: undefined,
     walkerError: undefined,
     walkerRequestId: 0,
+    walkerDraft: undefined,
+    walkerSelectedIndex: undefined,
+    walkerDrawMode: false,
+    walkerPickMode: undefined,
+    walkerGroundBusy: false,
+    walkerGroundRequestId: 0,
     searchTimer: undefined,
     groundTimers: { update: undefined, create: undefined },
     groundRequestIds: { update: 0, create: 0 },
@@ -119,6 +147,20 @@
     elements.undoSelected.addEventListener("click", undoSelected);
     elements.deleteSelected.addEventListener("click", stageDelete);
     elements.walkerFit.addEventListener("click", fitWalkerRoute);
+    elements.walkerCreate.addEventListener("click", createWalkerDraft);
+    elements.walkerEdit.addEventListener("click", editWalkerRoute);
+    elements.walkerLoop.addEventListener("change", updateWalkerLoop);
+    elements.walkerDraw.addEventListener("click", toggleWalkerDrawing);
+    elements.walkerRedraw.addEventListener("click", redrawWalkerRoute);
+    elements.walkerSnapAll.addEventListener("click", snapAllWalkerPoints);
+    elements.walkerPointList.addEventListener("click", selectWalkerPointFromList);
+    elements.walkerPointForm.addEventListener("submit", updateWalkerPointFromForm);
+    elements.walkerMove.addEventListener("click", moveWalkerPointOnMap);
+    elements.walkerPointSnap.addEventListener("click", snapSelectedWalkerPoint);
+    elements.walkerPointDelete.addEventListener("click", deleteSelectedWalkerPoint);
+    elements.walkerDiscard.addEventListener("click", discardWalkerDraft);
+    elements.walkerReview.addEventListener("click", reviewWalkerRoute);
+    elements.walkerApply.addEventListener("click", applyWalkerRoute);
     elements.npcSearch.addEventListener("input", queueNpcSearch);
     elements.npcResults.addEventListener("click", selectNpcResult);
     elements.placePick.addEventListener("click", () => beginPick("create"));
@@ -143,10 +185,13 @@
     elements.placeRespawn.addEventListener("input", updateCreateButton);
     elements.applyChanges.addEventListener("click", applyChanges);
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && state.pickMode) cancelPick();
+      if (event.key === "Escape" && (state.pickMode || state.walkerDrawMode || state.walkerPickMode)) {
+        cancelPick();
+        stopWalkerMapMode();
+      }
     });
     window.addEventListener("beforeunload", event => {
-      if (!state.drafts.size) return;
+      if (!state.drafts.size && !walkerDraftIsDirty()) return;
       event.preventDefault();
       event.returnValue = "";
     });
@@ -186,7 +231,7 @@
   async function changeMap() {
     const nextMapId = Number(elements.mapSelect.value);
     if (nextMapId === state.mapId) return;
-    if (state.drafts.size && !window.confirm("Discard draft spawn changes and switch maps?")) {
+    if ((state.drafts.size || walkerDraftIsDirty()) && !window.confirm("Discard draft changes and switch maps?")) {
       elements.mapSelect.value = String(state.mapId);
       return;
     }
@@ -384,6 +429,7 @@
   }
 
   function selectSpot(key) {
+    if (state.walkerDraft && state.walkerSpotKey !== key && !window.confirm("Discard draft patrol path changes?")) return;
     if (state.walkerSpotKey !== key) clearWalkerRoute();
     state.selectedKey = key;
     closePlacement();
@@ -403,6 +449,7 @@
     if (!entry) {
       elements.emptyState.hidden = false;
       elements.detail.hidden = true;
+      elements.noWalker.hidden = true;
       elements.walkerPanel.hidden = true;
       state.selectionLayer?.clearLayers();
       return;
@@ -425,6 +472,7 @@
     const warnings = [...(entry.warnings || [])];
     elements.detailWarnings.hidden = warnings.length === 0;
     elements.detailWarnings.innerHTML = warnings.map(warning => `<span>${escapeHtml(warning)}</span>`).join("");
+    elements.noWalker.hidden = Boolean(entry.walkerId) || !entry.editable || Boolean(entry.draftKind) || Boolean(state.walkerDraft);
     renderWalkerPanel(entry);
     elements.positionForm.elements.x.value = formatNumber(entry.x);
     elements.positionForm.elements.y.value = formatNumber(entry.y);
@@ -494,29 +542,39 @@
 
   function clearWalkerRoute() {
     state.walkerRequestId++;
+    state.walkerGroundRequestId++;
+    state.walkerGroundBusy = false;
     state.walkerRoute = undefined;
     state.walkerSpotKey = undefined;
     state.walkerError = undefined;
+    state.walkerDraft = undefined;
+    state.walkerSelectedIndex = undefined;
+    stopWalkerMapMode();
     state.walkerLayer?.clearLayers();
     if (elements.walkerPanel) elements.walkerPanel.hidden = true;
   }
 
   function renderWalkerPanel(entry) {
-    if (!entry.walkerId) {
+    const draft = state.walkerSpotKey === entry.key ? state.walkerDraft : undefined;
+    const routeId = draft?.routeId || entry.walkerId;
+    if (!routeId) {
       elements.walkerPanel.hidden = true;
       return;
     }
     elements.walkerPanel.hidden = false;
-    elements.walkerId.textContent = entry.walkerId;
-    elements.walkerId.title = entry.walkerId;
-    const route = state.walkerSpotKey === entry.key ? state.walkerRoute : undefined;
+    elements.walkerId.textContent = routeId;
+    elements.walkerId.title = routeId;
+    const route = displayWalkerRoute();
     elements.walkerFit.disabled = !route;
+    elements.walkerEdit.hidden = Boolean(draft) || !route || !entry.editable;
+    elements.walkerEditor.hidden = !draft;
     if (!route) {
       elements.walkerStatus.hidden = false;
       elements.walkerStatus.textContent = state.walkerError || "Loading route waypoints...";
       elements.walkerStatus.className = `spawn-walker-status${state.walkerError ? " error" : ""}`;
       elements.walkerFacts.hidden = true;
       elements.walkerWarnings.hidden = true;
+      elements.walkerEditor.hidden = true;
       return;
     }
 
@@ -537,6 +595,10 @@
       ["Source", sourceName(route.sourceRelativePath)],
     ]);
     const warnings = [...route.warnings];
+    const mapUsage = entry.walkerId
+      ? state.snapshot.spots.filter(spot => spot.walkerId === entry.walkerId).length
+      : 0;
+    if (mapUsage > 1) warnings.unshift(`Shared by ${mapUsage} spawns on this map; edits affect all of them`);
     if (mismatches.length > 0) {
       warnings.unshift(`${mismatches.length} waypoint${mismatches.length === 1 ? "" : "s"} more than 3m from terrain`);
     }
@@ -545,12 +607,17 @@
     }
     elements.walkerWarnings.hidden = warnings.length === 0;
     elements.walkerWarnings.innerHTML = warnings.map(warning => `<span>${escapeHtml(warning)}</span>`).join("");
+    if (draft) renderWalkerEditor(entry, route);
+  }
+
+  function displayWalkerRoute() {
+    return state.walkerDraft ? routeFromWalkerDraft(state.walkerDraft) : state.walkerRoute;
   }
 
   function renderWalkerOverlay() {
     if (!state.walkerLayer) return;
     state.walkerLayer.clearLayers();
-    const route = state.walkerRoute;
+    const route = displayWalkerRoute();
     if (!route || route.effectiveSteps.length === 0) return;
 
     for (let index = 0; index < route.effectiveSteps.length - 1; index++) {
@@ -562,10 +629,11 @@
 
     for (const step of route.authoredSteps) {
       const severity = terrainMismatch(step);
+      const selected = Boolean(state.walkerDraft) && state.walkerSelectedIndex === step.authoredIndex - 1;
       const marker = L.marker(gameToMap(step.x, step.y), {
         icon: L.divIcon({
           className: "walker-step-icon",
-          html: `<span class="${severity}${step.authoredIndex === 1 ? " start" : ""}">${step.authoredIndex}</span>`,
+          html: `<span class="${severity}${step.authoredIndex === 1 ? " start" : ""}${selected ? " selected" : ""}">${step.authoredIndex}</span>`,
           iconSize: [24, 24],
           iconAnchor: [12, 12],
         }),
@@ -578,6 +646,12 @@
         opacity: 1,
         className: "spawn-tooltip walker-tooltip",
       });
+      if (state.walkerDraft) {
+        marker.on("click", event => {
+          L.DomEvent.stopPropagation(event);
+          selectWalkerPoint(step.authoredIndex - 1);
+        });
+      }
       marker.addTo(state.walkerLayer);
     }
   }
@@ -612,7 +686,7 @@
   }
 
   function fitWalkerRoute() {
-    const steps = state.walkerRoute?.authoredSteps || [];
+    const steps = displayWalkerRoute()?.authoredSteps || [];
     if (!state.leafletMap || steps.length === 0) return;
     const bounds = L.latLngBounds(steps.map(step => gameToMap(step.x, step.y)));
     if (steps.length === 1) state.leafletMap.setView(bounds.getCenter(), 2, { animate: false });
@@ -650,6 +724,524 @@
   function formatDuration(milliseconds) {
     if (milliseconds % 1000 === 0) return `${milliseconds / 1000}s`;
     return `${formatNumber(milliseconds / 1000)}s`;
+  }
+
+  function routeFromWalkerDraft(draft) {
+    const authoredSteps = draft.steps.map((step, index) => ({
+      ...step,
+      index: index + 1,
+      authoredIndex: index + 1,
+      synthesized: false,
+    }));
+    const effectiveSteps = authoredSteps.map(step => ({ ...step }));
+    if (draft.loopType === "WALK_BACK") {
+      for (let index = authoredSteps.length - 2; index > 0; index--) {
+        effectiveSteps.push({ ...authoredSteps[index], index: effectiveSteps.length + 1, synthesized: true });
+      }
+    }
+    const closesLoop = draft.loopType !== "NONE" && effectiveSteps.length > 1;
+    const bounds = authoredSteps.length ? {
+      minX: Math.min(...authoredSteps.map(step => step.x)),
+      maxX: Math.max(...authoredSteps.map(step => step.x)),
+      minY: Math.min(...authoredSteps.map(step => step.y)),
+      maxY: Math.max(...authoredSteps.map(step => step.y)),
+      minZ: Math.min(...authoredSteps.map(step => step.z)),
+      maxZ: Math.max(...authoredSteps.map(step => step.z)),
+    } : { minX: 0, maxX: 0, minY: 0, maxY: 0, minZ: 0, maxZ: 0 };
+    const lengths = walkerRouteLengths(effectiveSteps, closesLoop);
+    return {
+      id: draft.routeId,
+      revision: draft.revision || "",
+      sourceRelativePath: draft.sourceRelativePath,
+      loopType: draft.loopType,
+      pool: draft.pool,
+      formation: draft.formation,
+      rows: draft.rows,
+      closesLoop,
+      authoredStepCount: authoredSteps.length,
+      effectiveStepCount: effectiveSteps.length,
+      authoredSteps,
+      effectiveSteps,
+      bounds,
+      length2d: lengths.length2d,
+      length3d: lengths.length3d,
+      warnings: draft.warnings || [],
+    };
+  }
+
+  function walkerRouteLengths(steps, closesLoop) {
+    let length2d = 0;
+    let length3d = 0;
+    const count = steps.length > 1 ? steps.length - 1 + (closesLoop ? 1 : 0) : 0;
+    for (let index = 0; index < count; index++) {
+      const from = steps[index % steps.length];
+      const to = steps[(index + 1) % steps.length];
+      const horizontal = Math.hypot(to.x - from.x, to.y - from.y);
+      length2d += horizontal;
+      length3d += Math.hypot(horizontal, to.z - from.z);
+    }
+    return { length2d: roundCoordinate(length2d), length3d: roundCoordinate(length3d) };
+  }
+
+  function renderWalkerEditor(entry, route) {
+    const draft = state.walkerDraft;
+    if (!draft) return;
+    elements.walkerLoop.value = draft.loopType;
+    elements.walkerDraw.textContent = state.walkerDrawMode ? "Finish drawing" : "Add points";
+    elements.walkerDraw.disabled = state.walkerGroundBusy;
+    elements.walkerRedraw.disabled = state.walkerGroundBusy;
+    elements.walkerSnapAll.disabled = state.walkerGroundBusy || draft.steps.length === 0;
+    elements.walkerDrawingStatus.hidden = !state.walkerDrawMode && !state.walkerPickMode && !state.walkerGroundBusy;
+    if (state.walkerGroundBusy) elements.walkerDrawingStatus.textContent = "Resolving terrain height...";
+    else if (state.walkerDrawMode) elements.walkerDrawingStatus.textContent = "Drawing: click the map to append ground-snapped waypoints. Press Escape when finished.";
+    else if (state.walkerPickMode === "move") elements.walkerDrawingStatus.textContent = "Move point: click its new map position. Z will snap to terrain.";
+
+    elements.walkerPointList.innerHTML = draft.steps.length
+      ? draft.steps.map((step, index) => {
+          const severity = terrainMismatch(step);
+          const delta = step.terrain?.available ? `${signedNumber(step.terrain.delta)}m` : "No ground";
+          return `<button class="spawn-walker-point-row ${severity}${state.walkerSelectedIndex === index ? " selected" : ""}" type="button" data-walker-point-index="${index}">
+            <strong>#${index + 1}</strong>
+            <span>X ${formatNumber(step.x)} · Y ${formatNumber(step.y)} · Z ${formatNumber(step.z)}</span>
+            <em>${escapeHtml(delta)}</em>
+          </button>`;
+        }).join("")
+      : `<div class="spawn-empty-state"><span>Click Add points, then draw the patrol on the map.</span></div>`;
+
+    const selected = draft.steps[state.walkerSelectedIndex];
+    elements.walkerPointForm.hidden = !selected;
+    if (selected) {
+      elements.walkerPointForm.elements.x.value = formatNumber(selected.x);
+      elements.walkerPointForm.elements.y.value = formatNumber(selected.y);
+      elements.walkerPointForm.elements.z.value = formatNumber(selected.z);
+      elements.walkerPointForm.elements.restTime.value = String(selected.restTime || 0);
+      const groundText = selected.terrain?.available
+        ? `Ground Z ${formatNumber(selected.terrain.z)} · Difference ${signedNumber(selected.terrain.delta)}m`
+        : "Terrain height is unavailable for this point.";
+      elements.walkerPointGroundStatus.textContent = groundText;
+      elements.walkerPointGroundStatus.className = `spawn-ground-status ${selected.terrain?.available ? (terrainMismatch(selected) === "normal" ? "success" : "warning") : "warning"}`;
+      elements.walkerPointGroundStatus.hidden = false;
+    }
+    elements.walkerReview.disabled = state.walkerGroundBusy || draft.steps.length < 2 || !walkerDraftIsDirty();
+    elements.walkerDiscard.disabled = state.walkerGroundBusy;
+    elements.walkerChangeReason.value ||= `${state.snapshot.map.name} patrol path ${draft.mode === "create" ? "creation" : "update"}`;
+    renderWalkerOverlay();
+  }
+
+  function editWalkerRoute() {
+    const entry = selectedEntry();
+    const route = state.walkerRoute;
+    if (!entry || !route || !entry.editable) return;
+    state.walkerDraft = {
+      mode: "update",
+      routeId: route.id,
+      revision: route.revision,
+      sourceRelativePath: route.sourceRelativePath,
+      loopType: route.loopType,
+      pool: route.pool,
+      formation: route.formation,
+      rows: [...route.rows],
+      warnings: [...route.warnings],
+      steps: route.authoredSteps.map(step => walkerDraftPoint(step)),
+      originalSignature: walkerRouteSignature(route.loopType, route.authoredSteps),
+    };
+    state.walkerSelectedIndex = 0;
+    elements.walkerChangeReason.value = `${state.snapshot.map.name} patrol path update`;
+    refreshWalkerDraftUi();
+  }
+
+  async function createWalkerDraft() {
+    const entry = selectedEntry();
+    if (!entry || entry.walkerId || !entry.editable || entry.draftKind) return;
+    const requestId = ++state.walkerGroundRequestId;
+    state.walkerGroundBusy = true;
+    state.walkerSpotKey = entry.key;
+    elements.noWalker.hidden = true;
+    try {
+      const terrain = await lookupWalkerGround(entry.x, entry.y);
+      if (requestId !== state.walkerGroundRequestId || state.selectedKey !== entry.key) return;
+      const z = terrain.available ? terrain.z : entry.z;
+      state.walkerDraft = {
+        mode: "create",
+        routeId: newWalkerRouteId(),
+        revision: undefined,
+        sourceRelativePath: "game-server/data/static_data/npc_walker/custom_npc_walker.xml",
+        loopType: "NORMAL",
+        pool: 1,
+        formation: "POINT",
+        rows: [],
+        warnings: terrain.available ? [] : ["The starting point used the spawn Z because terrain was unavailable."],
+        steps: [walkerDraftPoint({ x: entry.x, y: entry.y, z, restTime: 0, terrain })],
+        originalSignature: "",
+        attachSpotKey: entry.key,
+        spawnRevision: state.snapshot.revision,
+      };
+      state.walkerSelectedIndex = 0;
+      elements.walkerChangeReason.value = `${state.snapshot.map.name} patrol path creation`;
+      state.walkerDrawMode = true;
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      state.walkerSpotKey = undefined;
+      showStatus(error.message || "Could not start a patrol path.", "error");
+    } finally {
+      if (requestId === state.walkerGroundRequestId) {
+        state.walkerGroundBusy = false;
+        if (state.walkerDraft) {
+          refreshWalkerDraftUi();
+          fitWalkerRoute();
+        } else {
+          renderInspector();
+        }
+      }
+    }
+  }
+
+  function updateWalkerLoop() {
+    if (!state.walkerDraft) return;
+    state.walkerDraft.loopType = elements.walkerLoop.value;
+    refreshWalkerDraftUi();
+  }
+
+  function toggleWalkerDrawing() {
+    if (!state.walkerDraft || state.walkerGroundBusy) return;
+    state.walkerDrawMode = !state.walkerDrawMode;
+    state.walkerPickMode = undefined;
+    elements.mapShell.classList.toggle("walker-draw-mode", state.walkerDrawMode);
+    refreshWalkerDraftUi();
+  }
+
+  async function redrawWalkerRoute() {
+    const draft = state.walkerDraft;
+    if (!draft || state.walkerGroundBusy) return;
+    const anchor = draft.steps[0] || selectedEntry();
+    if (!anchor) return;
+    const requestId = ++state.walkerGroundRequestId;
+    state.walkerGroundBusy = true;
+    try {
+      const terrain = await lookupWalkerGround(anchor.x, anchor.y);
+      if (requestId !== state.walkerGroundRequestId || state.walkerDraft !== draft) return;
+      draft.steps = [walkerDraftPoint({ ...anchor, z: terrain.available ? terrain.z : anchor.z, restTime: 0, terrain })];
+      state.walkerSelectedIndex = 0;
+      state.walkerDrawMode = true;
+      state.walkerPickMode = undefined;
+      elements.mapShell.classList.add("walker-draw-mode");
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      showStatus(error.message || "Could not reset the patrol path.", "error");
+    } finally {
+      finishWalkerGroundRequest(requestId);
+    }
+  }
+
+  async function snapAllWalkerPoints() {
+    const draft = state.walkerDraft;
+    if (!draft || state.walkerGroundBusy) return;
+    const requestId = ++state.walkerGroundRequestId;
+    state.walkerGroundBusy = true;
+    refreshWalkerDraftUi();
+    try {
+      const terrainValues = await Promise.all(draft.steps.map(step => lookupWalkerGround(step.x, step.y)));
+      if (requestId !== state.walkerGroundRequestId || state.walkerDraft !== draft) return;
+      draft.steps = draft.steps.map((step, index) => {
+        const terrain = terrainValues[index];
+        return walkerDraftPoint({ ...step, z: terrain.available ? terrain.z : step.z, terrain });
+      });
+      showStatus(`Snapped ${terrainValues.filter(value => value.available).length} patrol points to terrain.`, "success");
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      showStatus(error.message || "Could not resolve all patrol heights.", "error");
+    } finally {
+      finishWalkerGroundRequest(requestId);
+    }
+  }
+
+  function selectWalkerPointFromList(event) {
+    const button = event.target.closest("[data-walker-point-index]");
+    if (!button) return;
+    selectWalkerPoint(Number(button.dataset.walkerPointIndex));
+  }
+
+  function selectWalkerPoint(index) {
+    if (!state.walkerDraft?.steps[index]) return;
+    state.walkerSelectedIndex = index;
+    refreshWalkerDraftUi();
+  }
+
+  async function updateWalkerPointFromForm(event) {
+    event.preventDefault();
+    const draft = state.walkerDraft;
+    const index = state.walkerSelectedIndex;
+    if (!draft || index === undefined || !draft.steps[index]) return;
+    const fields = elements.walkerPointForm.elements;
+    const point = {
+      x: Number(fields.x.value),
+      y: Number(fields.y.value),
+      z: Number(fields.z.value),
+      restTime: Number(fields.restTime.value),
+    };
+    if (!validateWalkerPoint(point)) return;
+    const requestId = ++state.walkerGroundRequestId;
+    state.walkerGroundBusy = true;
+    try {
+      const terrain = await lookupWalkerGround(point.x, point.y);
+      if (requestId !== state.walkerGroundRequestId || state.walkerDraft !== draft) return;
+      draft.steps[index] = walkerDraftPoint({ ...point, terrain });
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      showStatus(error.message || "Could not compare the waypoint with terrain.", "error");
+      return;
+    } finally {
+      finishWalkerGroundRequest(requestId);
+    }
+  }
+
+  function moveWalkerPointOnMap() {
+    if (!state.walkerDraft || state.walkerSelectedIndex === undefined) return;
+    state.walkerDrawMode = false;
+    state.walkerPickMode = "move";
+    elements.mapShell.classList.add("walker-draw-mode");
+    refreshWalkerDraftUi();
+  }
+
+  async function snapSelectedWalkerPoint() {
+    const draft = state.walkerDraft;
+    const index = state.walkerSelectedIndex;
+    const point = draft?.steps[index];
+    if (!draft || index === undefined || !point || state.walkerGroundBusy) return;
+    const requestId = ++state.walkerGroundRequestId;
+    state.walkerGroundBusy = true;
+    refreshWalkerDraftUi();
+    try {
+      const terrain = await lookupWalkerGround(point.x, point.y);
+      if (requestId !== state.walkerGroundRequestId || state.walkerDraft !== draft) return;
+      if (!terrain.available) throw new Error("No terrain surface exists at this waypoint.");
+      draft.steps[index] = walkerDraftPoint({ ...point, z: terrain.z, terrain });
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      showStatus(error.message || "Could not snap the waypoint.", "error");
+    } finally {
+      finishWalkerGroundRequest(requestId);
+    }
+  }
+
+  function deleteSelectedWalkerPoint() {
+    const draft = state.walkerDraft;
+    const index = state.walkerSelectedIndex;
+    if (!draft || index === undefined || !draft.steps[index]) return;
+    draft.steps.splice(index, 1);
+    state.walkerSelectedIndex = draft.steps.length ? Math.min(index, draft.steps.length - 1) : undefined;
+    refreshWalkerDraftUi();
+  }
+
+  function discardWalkerDraft() {
+    if (!state.walkerDraft) return;
+    const wasCreate = state.walkerDraft.mode === "create";
+    state.walkerDraft = undefined;
+    state.walkerSelectedIndex = undefined;
+    stopWalkerMapMode();
+    if (wasCreate) {
+      state.walkerSpotKey = undefined;
+      state.walkerLayer?.clearLayers();
+    } else {
+      renderWalkerOverlay();
+    }
+    renderInspector();
+  }
+
+  function refreshWalkerDraftUi() {
+    const entry = selectedEntry();
+    if (!entry || !state.walkerDraft) return;
+    elements.mapShell.classList.toggle("walker-draw-mode", state.walkerDrawMode || Boolean(state.walkerPickMode));
+    renderWalkerPanel(entry);
+  }
+
+  function stopWalkerMapMode() {
+    state.walkerDrawMode = false;
+    state.walkerPickMode = undefined;
+    elements.mapShell?.classList.remove("walker-draw-mode");
+  }
+
+  function finishWalkerGroundRequest(requestId) {
+    if (requestId !== state.walkerGroundRequestId) return;
+    state.walkerGroundBusy = false;
+    refreshWalkerDraftUi();
+  }
+
+  function walkerDraftPoint(step) {
+    const terrain = step.terrain || { available: false, reason: "HEIGHTMAP_NOT_AVAILABLE" };
+    return {
+      x: roundWalkerCoordinate(step.x),
+      y: roundWalkerCoordinate(step.y),
+      z: roundWalkerCoordinate(step.z),
+      restTime: Number.isInteger(step.restTime) ? step.restTime : 0,
+      terrain: terrain.available
+        ? { ...terrain, delta: roundWalkerCoordinate(step.z - terrain.z) }
+        : { ...terrain },
+    };
+  }
+
+  function walkerDraftIsDirty() {
+    const draft = state.walkerDraft;
+    if (!draft) return false;
+    if (draft.mode === "create") return draft.steps.length > 0;
+    return walkerRouteSignature(draft.loopType, draft.steps) !== draft.originalSignature;
+  }
+
+  function walkerRouteSignature(loopType, steps) {
+    return JSON.stringify({
+      loopType,
+      steps: steps.map(step => [roundWalkerCoordinate(step.x), roundWalkerCoordinate(step.y), roundWalkerCoordinate(step.z), step.restTime || 0]),
+    });
+  }
+
+  function validateWalkerPoint(point) {
+    const bounds = state.snapshot.map.coordinateBounds;
+    if (!Number.isFinite(point.x) || point.x < bounds.minX || point.x > bounds.maxX
+      || !Number.isFinite(point.y) || point.y < bounds.minY || point.y > bounds.maxY
+      || !Number.isFinite(point.z) || point.z < -10000 || point.z > 10000
+      || !Number.isInteger(point.restTime) || point.restTime < 0 || point.restTime > 86400000) {
+      showStatus("Waypoint coordinates or pause are outside the allowed range.", "error");
+      return false;
+    }
+    return true;
+  }
+
+  async function lookupWalkerGround(x, y) {
+    return fetchJson(
+      `/admin/api/spawn-editor/maps/${state.mapId}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
+    );
+  }
+
+  function newWalkerRouteId() {
+    const bytes = new Uint8Array(20);
+    window.crypto.getRandomValues(bytes);
+    return [...bytes].map(value => value.toString(16).padStart(2, "0")).join("").toLocaleUpperCase();
+  }
+
+  function roundWalkerCoordinate(value) {
+    return Math.round(Number(value) * 100000) / 100000;
+  }
+
+  async function reviewWalkerRoute() {
+    const draft = state.walkerDraft;
+    if (!draft || draft.steps.length < 2 || !walkerDraftIsDirty()) return;
+    stopWalkerMapMode();
+    refreshWalkerDraftUi();
+    elements.walkerReview.disabled = true;
+    try {
+      const validation = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/walkers/validate`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(walkerEditorChangeRequest()),
+      });
+      const route = displayWalkerRoute();
+      const terrainFlags = route.authoredSteps.filter(step => terrainMismatch(step) === "critical").length;
+      elements.walkerReviewSummary.innerHTML = [
+        [validation.stepCount, "Waypoints"],
+        [`${formatNumber(validation.length2d)}m`, "Route length"],
+        [terrainFlags, "Terrain flags"],
+      ].map(([value, label]) => `<div class="spawn-review-stat"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
+      elements.walkerReviewDetails.innerHTML = `
+        <div class="spawn-review-row">
+          <span class="spawn-review-kind">${escapeHtml(validation.mode)}</span>
+          <span>${escapeHtml(validation.routeId)}</span>
+          <span class="spawn-review-coordinates">${escapeHtml(sourceName(validation.sourceRelativePath))}</span>
+        </div>
+        <div class="spawn-review-row">
+          <span class="spawn-review-kind">Loop</span>
+          <span>${escapeHtml(walkerLoopLabel(route))}</span>
+          <span class="spawn-review-coordinates">${draft.attachSpotKey ? "Attach selected spawn" : "Existing assignment"}</span>
+        </div>`;
+      elements.walkerReviewDialog.showModal();
+    } catch (error) {
+      showStatus(error.message, "error");
+      if (error.code === "STALE_WALKER_REVISION") await reloadSelectedWalkerRoute();
+    } finally {
+      elements.walkerReview.disabled = !walkerDraftIsDirty() || state.walkerDraft?.steps.length < 2;
+    }
+  }
+
+  async function applyWalkerRoute() {
+    const draft = state.walkerDraft;
+    const reason = elements.walkerChangeReason.value.trim();
+    if (!draft || !reason) {
+      elements.walkerChangeReason.focus();
+      return;
+    }
+    elements.walkerApply.disabled = true;
+    elements.walkerApply.textContent = "Applying...";
+    const selectedKey = state.selectedKey;
+    try {
+      const result = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/walkers/apply`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...walkerEditorChangeRequest(), reason }),
+      });
+      elements.walkerReviewDialog.close();
+      if (result.snapshot) {
+        installSnapshot(result.snapshot);
+        const attached = result.snapshot.spots.find(spot => spot.key === selectedKey)
+          || result.snapshot.spots.find(spot => spot.walkerId === result.route.id);
+        if (attached) {
+          state.selectedKey = attached.key;
+          state.walkerSpotKey = attached.key;
+          state.walkerRoute = result.route;
+        }
+        renderMarkers();
+        renderInspector();
+      } else {
+        state.walkerRoute = result.route;
+        state.walkerDraft = undefined;
+        state.walkerSelectedIndex = undefined;
+        stopWalkerMapMode();
+        renderWalkerOverlay();
+        renderInspector();
+      }
+      fitWalkerRoute();
+      showStatus(`Saved ${result.stepCount} patrol waypoints to ${sourceName(result.sourceRelativePath)}.`, "success");
+    } catch (error) {
+      showStatus(error.message, "error");
+      if (error.code === "STALE_WALKER_REVISION") {
+        elements.walkerReviewDialog.close();
+        await reloadSelectedWalkerRoute();
+      } else if (error.code === "WALKER_ATTACHMENT_FAILED") {
+        elements.walkerReviewDialog.close();
+        await loadSnapshot();
+        showStatus(error.message, "error");
+      }
+    } finally {
+      elements.walkerApply.disabled = false;
+      elements.walkerApply.textContent = "Apply path to repository";
+    }
+  }
+
+  function walkerEditorChangeRequest() {
+    const draft = state.walkerDraft;
+    return {
+      mode: draft.mode,
+      routeId: draft.routeId,
+      revision: draft.revision,
+      loopType: draft.loopType,
+      steps: draft.steps.map(step => ({
+        x: step.x,
+        y: step.y,
+        z: step.z,
+        restTime: step.restTime || 0,
+      })),
+      attachSpotKey: draft.attachSpotKey,
+      spawnRevision: draft.spawnRevision,
+    };
+  }
+
+  async function reloadSelectedWalkerRoute() {
+    const entry = selectedEntry();
+    if (!entry?.walkerId) {
+      await loadSnapshot();
+      return;
+    }
+    state.walkerDraft = undefined;
+    state.walkerSelectedIndex = undefined;
+    await loadWalkerRoute(entry);
   }
 
   function stageUpdate(event) {
@@ -714,6 +1306,7 @@
   }
 
   function openPlacement() {
+    if (walkerDraftIsDirty() && !window.confirm("Discard draft patrol path changes and place a new NPC?")) return;
     cancelGroundLookup("create");
     clearWalkerRoute();
     state.selectedKey = undefined;
@@ -806,13 +1399,17 @@
   }
 
   async function onMapClick(event) {
-    if (!state.pickMode) return;
+    if (!state.pickMode && !state.walkerDrawMode && !state.walkerPickMode) return;
     const size = state.snapshot.map.worldSize;
     if (event.latlng.lat < 0 || event.latlng.lat > size || event.latlng.lng < 0 || event.latlng.lng > size) {
       showStatus("Select a position inside the mapped artwork.", "error");
       return;
     }
     const position = mapToGame(event.latlng);
+    if (state.walkerDrawMode || state.walkerPickMode) {
+      await captureWalkerMapPoint(roundWalkerCoordinate(position.x), roundWalkerCoordinate(position.y));
+      return;
+    }
     const x = roundCoordinate(position.x);
     const y = roundCoordinate(position.y);
     const mode = state.pickMode;
@@ -827,6 +1424,41 @@
     cancelPick();
     showStatus(`Map position captured at X ${formatNumber(x)}, Y ${formatNumber(y)}. Resolving ground Z.`, "");
     await resolveGroundHeight(mode, x, y, true);
+  }
+
+  async function captureWalkerMapPoint(x, y) {
+    const draft = state.walkerDraft;
+    if (!draft || state.walkerGroundBusy) return;
+    const requestId = ++state.walkerGroundRequestId;
+    const pickMode = state.walkerPickMode;
+    const selectedIndex = state.walkerSelectedIndex;
+    state.walkerGroundBusy = true;
+    refreshWalkerDraftUi();
+    try {
+      const terrain = await lookupWalkerGround(x, y);
+      if (requestId !== state.walkerGroundRequestId || state.walkerDraft !== draft) return;
+      if (!terrain.available) {
+        throw new Error("No terrain surface exists at this location. Choose another point or enter coordinates manually.");
+      }
+      const point = walkerDraftPoint({ x, y, z: terrain.z, restTime: 0, terrain });
+      if (pickMode === "move") {
+        const index = selectedIndex;
+        if (index === undefined || !draft.steps[index]) return;
+        point.restTime = draft.steps[index].restTime || 0;
+        draft.steps[index] = point;
+        state.walkerPickMode = undefined;
+        elements.mapShell.classList.toggle("walker-draw-mode", state.walkerDrawMode);
+      } else {
+        draft.steps.push(point);
+        state.walkerSelectedIndex = draft.steps.length - 1;
+      }
+      showStatus(`Patrol point ${state.walkerSelectedIndex + 1} snapped to ground Z ${formatNumber(terrain.z)}.`, "success");
+    } catch (error) {
+      if (requestId !== state.walkerGroundRequestId) return;
+      showStatus(error.message || "Could not place the patrol point.", "error");
+    } finally {
+      finishWalkerGroundRequest(requestId);
+    }
   }
 
   function queueGroundLookup(mode) {

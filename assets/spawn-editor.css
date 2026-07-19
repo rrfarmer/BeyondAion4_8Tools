@@ -414,6 +414,13 @@
 
 .spawn-walker-panel[hidden] { display: none; }
 
+.spawn-no-walker {
+  margin: 0 0 16px;
+}
+
+.spawn-no-walker[hidden] { display: none; }
+.spawn-no-walker button { width: 100%; }
+
 .spawn-walker-heading {
   display: flex;
   align-items: flex-start;
@@ -444,6 +451,13 @@
   white-space: nowrap;
 }
 
+.spawn-walker-heading-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
 .spawn-walker-status {
   margin-top: 11px;
   color: var(--muted);
@@ -460,6 +474,107 @@
 
 .spawn-walker-warnings {
   margin: 11px 0 0;
+}
+
+.spawn-walker-editor {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.spawn-walker-editor[hidden] { display: none; }
+
+.spawn-walker-editor-toolbar {
+  display: grid;
+  gap: 9px;
+}
+
+.spawn-walker-editor-toolbar select {
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #080e17;
+  color: var(--text);
+}
+
+.spawn-walker-editor-actions,
+.spawn-walker-save-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.spawn-walker-editor-actions button,
+.spawn-walker-save-actions button {
+  min-height: 32px;
+  padding: 0 9px;
+}
+
+.spawn-walker-drawing-status {
+  margin-top: 10px;
+  padding: 7px 9px;
+  border: 1px solid #2d6f87;
+  border-radius: 5px;
+  background: #0d2732;
+  color: #bdebf2;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.spawn-walker-drawing-status[hidden] { display: none; }
+
+.spawn-walker-point-list {
+  display: grid;
+  max-height: 190px;
+  margin-top: 10px;
+  overflow: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 5px;
+  background: #080e17;
+}
+
+.spawn-walker-point-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: center;
+  width: 100%;
+  min-height: 38px;
+  padding: 5px 7px;
+  border: 0;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  box-shadow: none;
+}
+
+.spawn-walker-point-row:last-child { border-bottom: 0; }
+.spawn-walker-point-row:hover { background: #152131; }
+.spawn-walker-point-row.selected { background: #19344a; box-shadow: inset 3px 0 #62d5e4; }
+.spawn-walker-point-row strong { color: #dce8f5; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; }
+.spawn-walker-point-row span { overflow: hidden; color: #aebccc; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.spawn-walker-point-row em { color: #7fd8a9; font-size: 9px; font-style: normal; }
+.spawn-walker-point-row.warning em { color: #e4b957; }
+.spawn-walker-point-row.critical em { color: #ff8490; }
+
+.spawn-walker-point-form {
+  margin-top: 11px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.spawn-walker-point-form[hidden] { display: none; }
+.spawn-walker-point-form .spawn-coordinate-grid { margin-bottom: 9px; }
+
+.spawn-walker-save-actions {
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border-soft);
 }
 
 .spawn-coordinate-grid {
@@ -651,9 +766,11 @@
 .walker-step-icon span.critical { background: #ff5f6d; color: #240508; }
 .walker-step-icon span.unknown { background: #8c9aae; }
 .walker-step-icon span.start { border-color: #baf6cf; box-shadow: 0 0 0 2px #21804f, 0 2px 7px rgba(0, 0, 0, 0.7); }
+.walker-step-icon span.selected { border-color: #fff; box-shadow: 0 0 0 3px #247da6, 0 2px 8px rgba(0, 0, 0, 0.8); transform: scale(1.18); }
 .walker-tooltip.leaflet-tooltip { min-width: 250px; }
 
-.spawn-map-shell.pick-mode .leaflet-container { cursor: crosshair; }
+.spawn-map-shell.pick-mode .leaflet-container,
+.spawn-map-shell.walker-draw-mode .leaflet-container { cursor: crosshair; }
 .leaflet-container { background: #05080d; font-family: inherit; }
 .leaflet-control-zoom a { background: #101722; color: var(--text); border-color: var(--border); }
 .leaflet-control-zoom a:hover { background: #1c2737; color: white; }

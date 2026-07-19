@@ -75,17 +75,61 @@ export function spawnEditorPage(): string {
             </div>
             <dl class="spawn-facts" data-detail-facts></dl>
             <div class="spawn-warning-list" data-detail-warnings hidden></div>
+            <div class="spawn-no-walker" data-no-walker hidden>
+              <button type="button" data-walker-create>Draw patrol path</button>
+            </div>
             <section class="spawn-walker-panel" data-walker-panel hidden>
               <div class="spawn-walker-heading">
                 <div>
                   <span class="spawn-eyebrow">Patrol path</span>
                   <strong data-walker-id></strong>
                 </div>
-                <button class="secondary" type="button" data-walker-fit title="Fit patrol path on map">Fit path</button>
+                <div class="spawn-walker-heading-actions">
+                  <button class="secondary" type="button" data-walker-fit title="Fit patrol path on map">Fit path</button>
+                  <button type="button" data-walker-edit>Edit path</button>
+                </div>
               </div>
               <div class="spawn-walker-status" data-walker-status></div>
               <dl class="spawn-facts spawn-walker-facts" data-walker-facts hidden></dl>
               <div class="spawn-warning-list spawn-walker-warnings" data-walker-warnings hidden></div>
+              <section class="spawn-walker-editor" data-walker-editor hidden>
+                <div class="spawn-walker-editor-toolbar">
+                  <label class="spawn-field">
+                    <span>Route behavior</span>
+                    <select data-walker-loop>
+                      <option value="NORMAL">Continuous loop</option>
+                      <option value="WALK_BACK">Walk back</option>
+                      <option value="NONE">One way</option>
+                    </select>
+                  </label>
+                  <div class="spawn-walker-editor-actions">
+                    <button class="secondary" type="button" data-walker-draw>Add points</button>
+                    <button class="secondary" type="button" data-walker-redraw>Redraw</button>
+                    <button class="secondary" type="button" data-walker-snap-all>Snap all</button>
+                  </div>
+                </div>
+                <div class="spawn-walker-drawing-status" data-walker-drawing-status hidden></div>
+                <div class="spawn-walker-point-list" data-walker-point-list></div>
+                <form class="spawn-walker-point-form" data-walker-point-form hidden>
+                  <div class="spawn-coordinate-grid">
+                    <label><span>X</span><input name="x" type="number" step="0.001" required></label>
+                    <label><span>Y</span><input name="y" type="number" step="0.001" required></label>
+                    <label><span>Z</span><input name="z" type="number" step="0.001" required></label>
+                    <label><span>Pause ms</span><input name="restTime" type="number" min="0" max="86400000" step="1" required></label>
+                  </div>
+                  <div class="spawn-ground-status" data-walker-point-ground-status hidden></div>
+                  <div class="spawn-position-actions">
+                    <button type="submit">Update point</button>
+                    <button class="secondary" type="button" data-walker-move>Move on map</button>
+                    <button class="secondary" type="button" data-walker-point-snap>Snap point</button>
+                    <button class="danger" type="button" data-walker-point-delete>Delete point</button>
+                  </div>
+                </form>
+                <div class="spawn-walker-save-actions">
+                  <button class="secondary" type="button" data-walker-discard>Discard path edits</button>
+                  <button type="button" data-walker-review disabled>Review path</button>
+                </div>
+              </section>
             </section>
             <form data-position-form>
               <div class="spawn-coordinate-grid">
@@ -159,6 +203,28 @@ export function spawnEditorPage(): string {
           <div class="spawn-review-actions">
             <button class="secondary" value="cancel">Cancel</button>
             <button type="button" data-apply-changes>Apply to repository</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog class="spawn-review-dialog" data-walker-review-dialog>
+        <form method="dialog" class="spawn-review-card">
+          <div class="spawn-review-header">
+            <div>
+              <span class="spawn-eyebrow">Repository change</span>
+              <h2>Review patrol path</h2>
+            </div>
+            <button class="spawn-icon-button" value="cancel" aria-label="Close walker review" title="Close">&#215;</button>
+          </div>
+          <div class="spawn-review-summary" data-walker-review-summary></div>
+          <div class="spawn-review-list" data-walker-review-details></div>
+          <label class="spawn-field">
+            <span>Reason</span>
+            <input data-walker-change-reason maxlength="240" value="Patrol path update" required>
+          </label>
+          <div class="spawn-review-actions">
+            <button class="secondary" value="cancel">Cancel</button>
+            <button type="button" data-walker-apply>Apply path to repository</button>
           </div>
         </form>
       </dialog>

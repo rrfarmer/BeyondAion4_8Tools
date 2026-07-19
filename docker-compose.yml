@@ -37,8 +37,8 @@ services:
       - ../BeyondAionSharp/game-server/data/static_data/spawns/Npcs:/beyond-aion-sharp/game-server/data/static_data/spawns/Npcs
       # NPC templates are needed for names/search but are never changed by the spawn editor.
       - ../BeyondAionSharp/game-server/data/static_data/npcs:/beyond-aion-sharp/game-server/data/static_data/npcs:ro
-      # Walker routes are indexed recursively for the selected-mob patrol overlay.
-      - ../BeyondAionSharp/game-server/data/static_data/npc_walker:/beyond-aion-sharp/game-server/data/static_data/npc_walker:ro
+      # Walker routes are writable so reviewed patrol edits persist for the next game-server build.
+      - ../BeyondAionSharp/game-server/data/static_data/npc_walker:/beyond-aion-sharp/game-server/data/static_data/npc_walker
       # Prepared 16-bit terrain heightmaps provide ground Z defaults and are never modified by the portal.
       - ../BeyondAionSharp/game-server/data/geo:/beyond-aion-sharp/game-server/data/geo:ro
     networks:

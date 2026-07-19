@@ -100,15 +100,18 @@ The editor:
 - resolves ground Z from the server's prepared 16-bit terrain heightmaps after map picks or X/Y edits, while retaining manual Z entry
 - resolves selected `walker_id` routes from the complete recursive `npc_walker` catalog and draws numbered runtime paths over the calibrated map
 - compares every authored patrol waypoint with terrain Z so airborne or buried segments are immediately highlighted
+- edits existing patrols or draws new routes directly on the map, with each map-picked waypoint snapped to terrain by default
+- supports per-waypoint coordinates and pause time, route loop behavior, redraw, bulk ground snapping, and optional assignment of a new route to the selected spawn
 - stages all browser changes until an explicit review/apply step
 - rejects stale revisions, invalid coordinates, static/special placements, and invalid pooled groups
 - writes a pre-change backup per touched source under `DATA_DIR/spawn-editor-backups/<map id>`
+- writes walker-route backups under `DATA_DIR/walker-editor-backups` and verifies the serialized route before atomically replacing its XML source
 - rolls back already-renamed sources if a later file in a multi-XML apply fails
 - records the applied operations and reason in `DATA_DIR/admin-actions-audit.jsonl`
 
 This is repository editing, not live server editing. Changes take effect in game only after the updated `BeyondAionSharp` checkout is used for a later game-server build/restart.
 
-Docker mounts the repository NPC spawn directory read/write, plus the NPC template, walker-route, and geodata directories read-only. All locally generated map assets and the 43-map manifest are copied into the portal image during `docker compose build`. See `docs/MAP_ASSETS.md` for the repeatable client extraction command, coordinate transform, and terrain-height behavior.
+Docker mounts the repository NPC spawn and walker-route directories read/write, plus the NPC template and geodata directories read-only. All locally generated map assets and the 43-map manifest are copied into the portal image during `docker compose build`. See `docs/MAP_ASSETS.md` for the repeatable client extraction command, coordinate transform, and terrain-height behavior.
 
 ## Icon Cache
 

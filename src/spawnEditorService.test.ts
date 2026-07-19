@@ -157,6 +157,28 @@ test("aggregates repeated map blocks and applies multi-source changes with a bac
   assert.match(await readFile(fixture.overlayPath!, "utf8"), /x="151" y="251"/);
 });
 
+test("assigns a walker route to an editable spawn", async t => {
+  const fixture = await createFixture();
+  t.after(() => rm(fixture.root, { recursive: true, force: true }));
+  const initial = await fixture.service.snapshot(ISHALGEN_MAP_ID);
+  const spot = initial.spots.find(candidate => candidate.npcId === 210000 && candidate.editable)!;
+
+  const applied = await fixture.service.apply(ISHALGEN_MAP_ID, {
+    revision: initial.revision,
+    operations: [{ kind: "set-walker", spotKey: spot.key, walkerId: "NEW_ROUTE_220010000" }],
+  });
+  assert.equal(applied.snapshot.spots.find(candidate => candidate.key === spot.key)?.walkerId, "NEW_ROUTE_220010000");
+  assert.match(await readFile(fixture.spawnPath, "utf8"), /walker_id="NEW_ROUTE_220010000"/);
+
+  await assert.rejects(
+    fixture.service.validate(ISHALGEN_MAP_ID, {
+      revision: applied.snapshot.revision,
+      operations: [{ kind: "set-walker", spotKey: spot.key, walkerId: "bad route id" }],
+    }),
+    (error: unknown) => error instanceof SpawnEditorError && error.code === "INVALID_WALKER_ID",
+  );
+});
+
 async function createFixture(includeOverlay = false): Promise<{
   root: string;
   repoRoot: string;

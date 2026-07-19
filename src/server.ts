@@ -49,7 +49,12 @@ import { NpcCatalog } from "./npcCatalog.js";
 import { SpawnEditorError, SpawnEditorService, type SpawnEditorChangeRequest } from "./spawnEditorService.js";
 import { spawnEditorPage } from "./spawnEditorView.js";
 import { TerrainHeightService } from "./terrainHeightService.js";
-import { WalkerRouteService, type WalkerRouteStep } from "./walkerRouteService.js";
+import {
+  WalkerRouteService,
+  type WalkerRoute,
+  type WalkerRouteChangeRequest,
+  type WalkerRouteStep,
+} from "./walkerRouteService.js";
 
 const app = Fastify({ logger: true });
 const authStore = new AuthStore(config.usersFile);
@@ -81,7 +86,7 @@ const spawnEditor = new SpawnEditorService(
   config.spawnMapManifestPath,
 );
 const terrainHeights = new TerrainHeightService(config.beyondAionSharpRepoRoot);
-const walkerRoutes = new WalkerRouteService(config.beyondAionSharpRepoRoot);
+const walkerRoutes = new WalkerRouteService(config.beyondAionSharpRepoRoot, config.dataDir);
 
 await app.register(cookie, {
   secret: config.sessionSecret,
@@ -412,35 +417,98 @@ app.get("/admin/api/spawn-editor/maps/:mapId/walkers/:walkerId", async (request,
   try {
     const map = spawnEditor.getMap(spawnMapId(request));
     const route = await walkerRoutes.route(walkerRouteId(request));
-    const authoredGround = await Promise.all(route.authoredSteps.map(step =>
-      terrainHeights.lookup(map.id, map.worldSize, step.x, step.y),
-    ));
-    const groundByAuthoredIndex = new Map(authoredGround.map((ground, index) => [index + 1, ground]));
-    const enrich = (step: WalkerRouteStep) => {
-      const ground = groundByAuthoredIndex.get(step.authoredIndex);
-      return {
-        ...step,
-        terrain: ground?.available
-          ? {
-              available: true as const,
-              z: ground.z,
-              delta: step.z - ground.z,
-              sourceFile: ground.sourceFile,
-            }
-          : {
-              available: false as const,
-              reason: ground?.reason ?? "HEIGHTMAP_NOT_AVAILABLE",
-              sourceFile: ground?.sourceFile,
-            },
-      };
+    return reply.send({ ok: true, route: await enrichWalkerRoute(map, route) });
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.post("/admin/api/spawn-editor/maps/:mapId/walkers/validate", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) return;
+  try {
+    const map = spawnEditor.getMap(spawnMapId(request));
+    const change = walkerChangeRequest(request.body, map);
+    const validation = await walkerRoutes.validate(change);
+    let attachment;
+    if (change.mode === "create" && change.attachSpotKey) {
+      attachment = await spawnEditor.validate(map.id, walkerAttachmentChange(change));
+    }
+    return reply.send({ ...validation, attachment });
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.post("/admin/api/spawn-editor/maps/:mapId/walkers/apply", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) return;
+  try {
+    const map = spawnEditor.getMap(spawnMapId(request));
+    const change = walkerChangeRequest(request.body, map);
+    const reason = normalizeAdminText(change.reason ?? "", "Reason", 240);
+    const attachmentChange = change.mode === "create" && change.attachSpotKey
+      ? walkerAttachmentChange({ ...change, reason })
+      : undefined;
+    if (attachmentChange) await spawnEditor.validate(map.id, attachmentChange);
+    const applied = await walkerRoutes.apply({ ...change, reason });
+    const auditBase = {
+      adminPortalUserId: current.user.id,
+      adminAccountId: current.user.aionAccountId,
+      adminUsername: current.user.aionAccountName,
+      action: "walker_route_apply",
+      via: "repository",
+      mapId: map.id,
+      mapName: map.name,
+      reason,
+      mode: applied.mode,
+      routeId: applied.routeId,
+      loopType: applied.loopType,
+      stepCount: applied.stepCount,
+      sourceRelativePath: applied.sourceRelativePath,
+      backupRelativePath: applied.backupRelativePath,
+      previousRevision: applied.previousRevision,
+      revision: applied.route.revision,
+      attachedSpotKey: change.attachSpotKey,
     };
+    let attachment;
+    if (attachmentChange) {
+      try {
+        attachment = await spawnEditor.apply(map.id, attachmentChange);
+      } catch (error) {
+        app.log.error({ error, routeId: change.routeId }, "Walker route saved but spawn attachment failed");
+        await adminAudit.append({
+          ...auditBase,
+          attachmentStatus: "failed",
+          attachmentError: messageFor(error),
+        }).catch(auditError => {
+          app.log.error({ error: auditError, routeId: applied.routeId }, "Partial walker route apply audit failed");
+        });
+        throw new SpawnEditorError(
+          500,
+          "WALKER_ATTACHMENT_FAILED",
+          `Route ${change.routeId} was saved, but the selected spawn could not be attached. Reload and attach the route before rebuilding the game server.`,
+          { routePersisted: true, routeId: change.routeId },
+        );
+      }
+    }
+    const enrichedRoute = await enrichWalkerRoute(map, applied.route);
+    await adminAudit.append({
+      ...auditBase,
+      attachmentStatus: attachment ? "attached" : "not_requested",
+      spawnSourceRelativePaths: attachment?.sourceRelativePaths,
+      spawnBackupRelativePaths: attachment?.backupRelativePaths,
+    }).catch(error => {
+      app.log.error({ error, routeId: applied.routeId }, "Walker route applied but audit append failed");
+    });
     return reply.send({
-      ok: true,
-      route: {
-        ...route,
-        authoredSteps: route.authoredSteps.map(enrich),
-        effectiveSteps: route.effectiveSteps.map(enrich),
-      },
+      ...applied,
+      route: enrichedRoute,
+      snapshot: attachment?.snapshot,
+      attachment: attachment ? {
+        sourceRelativePaths: attachment.sourceRelativePaths,
+        backupRelativePaths: attachment.backupRelativePaths,
+      } : undefined,
     });
   } catch (error) {
     return spawnEditorFailure(reply, error);
@@ -2143,6 +2211,102 @@ function walkerRouteId(request: FastifyRequest): string {
     throw new SpawnEditorError(400, "INVALID_WALKER_ID", "Walker route id is not valid.");
   }
   return routeId;
+}
+
+type WalkerEditorChange = WalkerRouteChangeRequest & {
+  attachSpotKey?: string;
+  spawnRevision?: string;
+};
+
+function walkerChangeRequest(
+  body: unknown,
+  map: ReturnType<SpawnEditorService["getMap"]>,
+): WalkerEditorChange {
+  if (!body || typeof body !== "object") {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "A JSON walker route change is required.");
+  }
+  const candidate = body as Partial<WalkerEditorChange>;
+  if (
+    (candidate.mode !== "update" && candidate.mode !== "create")
+    || typeof candidate.routeId !== "string"
+    || !Array.isArray(candidate.steps)
+  ) {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "Mode, route id, and waypoints are required.");
+  }
+  if (candidate.reason !== undefined && typeof candidate.reason !== "string") {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "Reason must be text.");
+  }
+  if (candidate.attachSpotKey !== undefined && typeof candidate.attachSpotKey !== "string") {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "Attached spawn key must be text.");
+  }
+  if (candidate.attachSpotKey && candidate.mode !== "create") {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "Only a new route can be attached during creation.");
+  }
+  if (candidate.attachSpotKey && typeof candidate.spawnRevision !== "string") {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "The current spawn revision is required for attachment.");
+  }
+  for (const [index, step] of candidate.steps.entries()) {
+    if (!step || typeof step !== "object") {
+      throw new SpawnEditorError(400, "INVALID_WALKER_STEP", `Waypoint ${index + 1} is invalid.`);
+    }
+    if (
+      typeof step.x !== "number"
+      || typeof step.y !== "number"
+      || !Number.isFinite(step.x)
+      || !Number.isFinite(step.y)
+      || step.x < map.coordinateBounds.minX
+      || step.x > map.coordinateBounds.maxX
+      || step.y < map.coordinateBounds.minY
+      || step.y > map.coordinateBounds.maxY
+    ) {
+      throw new SpawnEditorError(400, "INVALID_WALKER_STEP", `Waypoint ${index + 1} is outside ${map.name}.`);
+    }
+  }
+  return candidate as WalkerEditorChange;
+}
+
+function walkerAttachmentChange(change: WalkerEditorChange): SpawnEditorChangeRequest {
+  if (!change.attachSpotKey || !change.spawnRevision) {
+    throw new SpawnEditorError(400, "INVALID_WALKER_CHANGE", "Spawn attachment information is incomplete.");
+  }
+  return {
+    revision: change.spawnRevision,
+    operations: [{ kind: "set-walker", spotKey: change.attachSpotKey, walkerId: change.routeId }],
+    reason: change.reason,
+  };
+}
+
+async function enrichWalkerRoute(
+  map: ReturnType<SpawnEditorService["getMap"]>,
+  route: WalkerRoute,
+) {
+  const authoredGround = await Promise.all(route.authoredSteps.map(step =>
+    terrainHeights.lookup(map.id, map.worldSize, step.x, step.y),
+  ));
+  const groundByAuthoredIndex = new Map(authoredGround.map((ground, index) => [index + 1, ground]));
+  const enrich = (step: WalkerRouteStep) => {
+    const ground = groundByAuthoredIndex.get(step.authoredIndex);
+    return {
+      ...step,
+      terrain: ground?.available
+        ? {
+            available: true as const,
+            z: ground.z,
+            delta: step.z - ground.z,
+            sourceFile: ground.sourceFile,
+          }
+        : {
+            available: false as const,
+            reason: ground?.reason ?? "HEIGHTMAP_NOT_AVAILABLE",
+            sourceFile: ground?.sourceFile,
+          },
+    };
+  };
+  return {
+    ...route,
+    authoredSteps: route.authoredSteps.map(enrich),
+    effectiveSteps: route.effectiveSteps.map(enrich),
+  };
 }
 
 function spawnChangeRequest(body: unknown): SpawnEditorChangeRequest {

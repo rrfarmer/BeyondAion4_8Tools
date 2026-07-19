@@ -107,6 +107,11 @@ export type SpawnEditorOperation =
       spotKey: string;
     }
   | {
+      kind: "set-walker";
+      spotKey: string;
+      walkerId: string;
+    }
+  | {
       kind: "create";
       clientKey?: string;
       npcId: number;
@@ -447,6 +452,16 @@ export class SpawnEditorService {
         touchedSources.add(spot.group.source);
         touchedSpotKeys.add(operation.spotKey);
         deleted++;
+      } else if (operation.kind === "set-walker") {
+        if (touchedSpotKeys.has(operation.spotKey)) {
+          throw new SpawnEditorError(400, "DUPLICATE_OPERATION", `Spawn ${operation.spotKey} has more than one operation.`);
+        }
+        const spot = this.requireEditableSpot(parsed, operation.spotKey);
+        const walkerId = requireWalkerId(operation.walkerId);
+        spot.element.setAttribute("walker_id", walkerId);
+        touchedSources.add(spot.group.source);
+        touchedSpotKeys.add(operation.spotKey);
+        updated++;
       } else if (operation.kind === "create") {
         const npcId = requirePositiveInt(operation.npcId, "NPC ID");
         const npc = this.npcCatalog.templateFor(npcId);
@@ -1083,6 +1098,14 @@ function requirePositiveInt(value: number, label: string): number {
     throw new SpawnEditorError(400, "INVALID_NUMBER", `${label} must be a positive whole number.`);
   }
   return value;
+}
+
+function requireWalkerId(value: string): string {
+  const routeId = typeof value === "string" ? value.trim() : "";
+  if (!routeId || routeId.length > 256 || !/^[A-Za-z0-9_.:-]+$/.test(routeId)) {
+    throw new SpawnEditorError(400, "INVALID_WALKER_ID", "Walker route id contains unsupported characters.");
+  }
+  return routeId;
 }
 
 function serializeDocument(document: XmlDocument, newline: "\r\n" | "\n"): string {
