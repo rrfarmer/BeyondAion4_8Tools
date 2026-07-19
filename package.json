@@ -12,8 +12,10 @@
     "preicons:cache-codex-supervised": "npm run build",
     "icons:cache-codex-supervised": "node dist/scripts/cacheCodexIconsSupervised.js",
     "maps:cache-client": "python scripts/cache_client_maps.py",
+    "prewalkers:audit-ground": "npm run build",
+    "walkers:audit-ground": "node dist/scripts/auditWalkerGround.js",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test dist/spawnEditorService.test.js dist/terrainHeightService.test.js dist/walkerRouteService.test.js"
+    "test": "npm run build && node --test dist/spawnEditorService.test.js dist/terrainHeightService.test.js dist/walkerRouteService.test.js dist/walkerGroundAuditService.test.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",

@@ -67,3 +67,19 @@ Visual map artwork contains no elevation data. The editor resolves default Z val
 Each heightmap pixel represents a 2x2 game-unit terrain sample. The backend follows the emulator's `Terrain` behavior: it reads PNG rows as game X and columns as game Y, converts an unsigned sample to `Z = sample * 2048 / 65536`, and interpolates the same two triangles formed by the four surrounding samples. A sample value of `65535` represents missing terrain.
 
 Heightmaps cover 31 of the 43 maps currently exposed by the editor. Geometry-only maps keep manual Z entry because their `.geo` placements and shared `models.mesh` collision surfaces may contain stacked floors or other positions that cannot be selected unambiguously from a two-dimensional click.
+
+## Patrol Ground Audit
+
+Run the same terrain comparison used by the admin review dialog from the repository root:
+
+```powershell
+npm run walkers:audit-ground
+```
+
+The default tolerance is 0.75 meters. A complete machine-readable report can be written without changing any spawn or walker XML:
+
+```powershell
+npm run walkers:audit-ground -- --tolerance-m 0.75 --output data\walker-ground-audit.json
+```
+
+Walker routes do not contain a map id, so the scanner first finds every `walker_id` usage in NPC spawn XML and audits the route separately on each referenced map. A route reused on two maps can therefore produce two findings. Missing heightmaps and `65535` terrain samples are reported as unavailable rather than treated as off-ground.

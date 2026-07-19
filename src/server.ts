@@ -49,6 +49,7 @@ import { NpcCatalog } from "./npcCatalog.js";
 import { SpawnEditorError, SpawnEditorService, type SpawnEditorChangeRequest } from "./spawnEditorService.js";
 import { spawnEditorPage } from "./spawnEditorView.js";
 import { TerrainHeightService } from "./terrainHeightService.js";
+import { WalkerGroundAuditService } from "./walkerGroundAuditService.js";
 import {
   WalkerRouteService,
   type WalkerRoute,
@@ -87,6 +88,7 @@ const spawnEditor = new SpawnEditorService(
 );
 const terrainHeights = new TerrainHeightService(config.beyondAionSharpRepoRoot);
 const walkerRoutes = new WalkerRouteService(config.beyondAionSharpRepoRoot, config.dataDir);
+const walkerGroundAudit = new WalkerGroundAuditService(spawnEditor, walkerRoutes, terrainHeights);
 
 await app.register(cookie, {
   secret: config.sessionSecret,
@@ -377,6 +379,17 @@ app.get("/admin/api/spawn-editor/maps", async (request, reply) => {
     return;
   }
   return reply.send({ ok: true, maps: spawnEditor.listMaps() });
+});
+
+app.get("/admin/api/spawn-editor/walker-ground-audit", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) return;
+  try {
+    await ensureNpcCatalogLoaded();
+    return reply.send(await walkerGroundAudit.scan());
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
 });
 
 app.get("/admin/api/spawn-editor/maps/:mapId/spawns", async (request, reply) => {

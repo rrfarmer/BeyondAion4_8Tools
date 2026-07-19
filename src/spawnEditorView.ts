@@ -34,6 +34,7 @@ export function spawnEditorPage(): string {
           <span>Editable</span>
         </label>
         <div class="spawn-toolbar-actions">
+          <button class="secondary" type="button" data-walker-audit-open>Ground review <span class="spawn-change-count" data-walker-audit-count hidden></span></button>
           <button class="secondary" type="button" data-place-toggle>Place NPC</button>
           <button class="secondary" type="button" data-discard-all disabled>Discard</button>
           <button type="button" data-review disabled>Review <span class="spawn-change-count" data-change-count>0</span></button>
@@ -187,6 +188,37 @@ export function spawnEditorPage(): string {
           </section>
         </aside>
       </div>
+
+      <dialog class="spawn-review-dialog spawn-audit-dialog" data-walker-audit-dialog>
+        <form method="dialog" class="spawn-review-card">
+          <div class="spawn-review-header">
+            <div>
+              <span class="spawn-eyebrow">Terrain comparison</span>
+              <h2>Patrol ground review</h2>
+            </div>
+            <button class="spawn-icon-button" value="cancel" aria-label="Close patrol ground review" title="Close">&#215;</button>
+          </div>
+          <div class="spawn-audit-status" data-walker-audit-status aria-live="polite">Loading patrol audit...</div>
+          <div class="spawn-review-summary" data-walker-audit-summary hidden></div>
+          <div class="spawn-audit-filters" data-walker-audit-filters hidden>
+            <label class="spawn-field">
+              <span>Find path</span>
+              <input type="search" data-walker-audit-search placeholder="Route, map, or NPC" autocomplete="off">
+            </label>
+            <label class="spawn-field">
+              <span>Map</span>
+              <select data-walker-audit-map aria-label="Patrol audit map">
+                <option value="">All maps</option>
+              </select>
+            </label>
+          </div>
+          <div class="spawn-audit-list" data-walker-audit-list hidden></div>
+          <div class="spawn-review-actions">
+            <button class="secondary" type="button" data-walker-audit-refresh>Rescan</button>
+            <button value="cancel">Close</button>
+          </div>
+        </form>
+      </dialog>
 
       <dialog class="spawn-review-dialog" data-review-dialog>
         <form method="dialog" class="spawn-review-card">

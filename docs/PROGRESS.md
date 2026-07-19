@@ -1,5 +1,12 @@
 # Progress
 
+## 2026-07-19 Iteration 103
+
+- Added a shared patrol-ground audit that joins walker references from NPC spawn XML to each map's terrain heightmap and flags authored waypoints whose Z differs from terrain by more than the configurable tolerance (0.75m by default).
+- Added `npm run walkers:audit-ground` for terminal reports and optional complete JSON output. The real repository audit currently checks 58,938 points across 3,133 map-specific patrol paths in about five seconds.
+- Added a level-9 Patrol ground review dialog with map/text filters, mismatch counts and point deltas, terrain-unavailable reporting, and rescanning without restarting the portal.
+- Each finding can open its exact patrol in the spawn editor: the portal changes maps, selects an attached spawn, loads the walker overlay, fits the map to the route, and records the selected walker in the URL for reloadable links.
+
 ## 2026-07-19 Iteration 102
 
 - Fixed walker overlays trapping the current spawn selection: view-only waypoint labels pass pointer events through, patrol lines share the spawn-marker renderer instead of leaving a blocking canvas above it, and marker clicks no longer bubble into blank-map deselection.

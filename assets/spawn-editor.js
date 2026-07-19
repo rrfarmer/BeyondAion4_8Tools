@@ -25,6 +25,16 @@
     discardAll: root.querySelector("[data-discard-all]"),
     review: root.querySelector("[data-review]"),
     changeCount: root.querySelector("[data-change-count]"),
+    walkerAuditOpen: root.querySelector("[data-walker-audit-open]"),
+    walkerAuditCount: root.querySelector("[data-walker-audit-count]"),
+    walkerAuditDialog: root.querySelector("[data-walker-audit-dialog]"),
+    walkerAuditStatus: root.querySelector("[data-walker-audit-status]"),
+    walkerAuditSummary: root.querySelector("[data-walker-audit-summary]"),
+    walkerAuditFilters: root.querySelector("[data-walker-audit-filters]"),
+    walkerAuditSearch: root.querySelector("[data-walker-audit-search]"),
+    walkerAuditMap: root.querySelector("[data-walker-audit-map]"),
+    walkerAuditList: root.querySelector("[data-walker-audit-list]"),
+    walkerAuditRefresh: root.querySelector("[data-walker-audit-refresh]"),
     emptyState: root.querySelector("[data-empty-state]"),
     emptyDetail: root.querySelector("[data-empty-detail]"),
     detail: root.querySelector("[data-detail]"),
@@ -123,6 +133,9 @@
     walkerPickMode: undefined,
     walkerGroundBusy: false,
     walkerGroundRequestId: 0,
+    walkerGroundAudit: undefined,
+    walkerGroundAuditLoading: false,
+    walkerGroundAuditRequestId: 0,
     searchTimer: undefined,
     groundTimers: { update: undefined, create: undefined },
     groundRequestIds: { update: 0, create: 0 },
@@ -142,6 +155,11 @@
     elements.placeClose.addEventListener("click", closePlacement);
     elements.discardAll.addEventListener("click", discardAll);
     elements.review.addEventListener("click", reviewChanges);
+    elements.walkerAuditOpen.addEventListener("click", openWalkerGroundAudit);
+    elements.walkerAuditRefresh.addEventListener("click", () => loadWalkerGroundAudit(true));
+    elements.walkerAuditSearch.addEventListener("input", renderWalkerGroundAuditRows);
+    elements.walkerAuditMap.addEventListener("change", renderWalkerGroundAuditRows);
+    elements.walkerAuditList.addEventListener("click", viewWalkerGroundAuditFinding);
     elements.positionForm.addEventListener("submit", stageUpdate);
     elements.pickPosition.addEventListener("click", () => beginPick("update"));
     elements.snapGround.addEventListener("click", () => snapCurrentPosition("update"));
@@ -191,7 +209,12 @@
       if (state.pickMode || state.walkerDrawMode || state.walkerPickMode) {
         cancelPick();
         stopWalkerMapMode();
-      } else if (state.selectedKey && !elements.reviewDialog.open && !elements.walkerReviewDialog.open) {
+      } else if (
+        state.selectedKey
+        && !elements.reviewDialog.open
+        && !elements.walkerReviewDialog.open
+        && !elements.walkerAuditDialog.open
+      ) {
         deselectSpot();
       }
     });
@@ -210,7 +233,9 @@
     elements.mapSelect.innerHTML = state.maps
       .map(map => `<option value="${map.id}">${escapeHtml(map.name)} · ${map.id}</option>`)
       .join("");
-    const requestedMapId = Number(new URLSearchParams(window.location.search).get("mapId"));
+    const searchParams = new URLSearchParams(window.location.search);
+    const requestedMapId = Number(searchParams.get("mapId"));
+    const requestedWalkerId = searchParams.get("walkerId")?.trim();
     const selectedMap = state.maps.find(map => map.id === requestedMapId)
       || state.maps.find(map => map.id === initialMapId)
       || state.maps[0];
@@ -218,6 +243,7 @@
     elements.mapSelect.value = String(state.mapId);
     elements.mapSelect.disabled = false;
     await loadSnapshot();
+    if (requestedWalkerId) selectWalkerRoute(requestedWalkerId);
   }
 
   async function loadSnapshot() {
@@ -246,8 +272,168 @@
     if (elements.reviewDialog.open) elements.reviewDialog.close();
     const url = new URL(window.location.href);
     url.searchParams.set("mapId", String(nextMapId));
+    url.searchParams.delete("walkerId");
     window.history.replaceState({}, "", url);
     await loadSnapshot().catch(showFatal);
+  }
+
+  function openWalkerGroundAudit() {
+    if (!elements.walkerAuditDialog.open) elements.walkerAuditDialog.showModal();
+    if (state.walkerGroundAudit) renderWalkerGroundAudit();
+    else loadWalkerGroundAudit().catch(error => showWalkerGroundAuditError(error));
+  }
+
+  async function loadWalkerGroundAudit(force = false) {
+    if (state.walkerGroundAuditLoading) return;
+    if (state.walkerGroundAudit && !force) {
+      renderWalkerGroundAudit();
+      return;
+    }
+    const requestId = ++state.walkerGroundAuditRequestId;
+    state.walkerGroundAuditLoading = true;
+    elements.walkerAuditOpen.disabled = true;
+    elements.walkerAuditRefresh.disabled = true;
+    elements.walkerAuditStatus.hidden = false;
+    elements.walkerAuditStatus.className = "spawn-audit-status";
+    elements.walkerAuditStatus.textContent = "Scanning attached patrol paths against terrain...";
+    elements.walkerAuditSummary.hidden = true;
+    elements.walkerAuditFilters.hidden = true;
+    elements.walkerAuditList.hidden = true;
+    try {
+      const report = await fetchJson("/admin/api/spawn-editor/walker-ground-audit");
+      if (requestId !== state.walkerGroundAuditRequestId) return;
+      state.walkerGroundAudit = report;
+      renderWalkerGroundAudit();
+    } catch (error) {
+      if (requestId !== state.walkerGroundAuditRequestId) return;
+      showWalkerGroundAuditError(error);
+    } finally {
+      if (requestId === state.walkerGroundAuditRequestId) {
+        state.walkerGroundAuditLoading = false;
+        elements.walkerAuditOpen.disabled = false;
+        elements.walkerAuditRefresh.disabled = false;
+      }
+    }
+  }
+
+  function renderWalkerGroundAudit() {
+    const report = state.walkerGroundAudit;
+    if (!report) return;
+    elements.walkerAuditCount.textContent = report.offGroundPathCount.toLocaleString();
+    elements.walkerAuditCount.hidden = false;
+    elements.walkerAuditSummary.innerHTML = [
+      [report.auditedPathCount, "Paths checked"],
+      [report.offGroundPathCount, "Paths flagged"],
+      [report.offGroundPointCount, "Points flagged"],
+    ].map(([value, label]) => `<div class="spawn-review-stat"><strong>${Number(value).toLocaleString()}</strong><span>${label}</span></div>`).join("");
+    elements.walkerAuditSummary.hidden = false;
+    const warnings = [];
+    if (report.unavailablePointCount) warnings.push(`${report.unavailablePointCount.toLocaleString()} points could not be checked`);
+    if (report.missingRouteCount) warnings.push(`${report.missingRouteCount.toLocaleString()} referenced paths are missing`);
+    elements.walkerAuditStatus.className = `spawn-audit-status${warnings.length ? " warning" : " success"}`;
+    elements.walkerAuditStatus.textContent = `Terrain tolerance ${formatNumber(report.toleranceMeters)}m · ${report.checkedPointCount.toLocaleString()} points checked${warnings.length ? ` · ${warnings.join(" · ")}` : ""}`;
+    elements.walkerAuditStatus.hidden = false;
+
+    const selectedMap = elements.walkerAuditMap.value;
+    const maps = [...new Map(report.findings.map(finding => [finding.mapId, finding.mapName])).entries()]
+      .sort((left, right) => left[1].localeCompare(right[1]) || left[0] - right[0]);
+    elements.walkerAuditMap.innerHTML = `<option value="">All maps</option>${maps
+      .map(([mapId, mapName]) => `<option value="${mapId}">${escapeHtml(mapName)} · ${mapId}</option>`)
+      .join("")}`;
+    if (maps.some(([mapId]) => String(mapId) === selectedMap)) elements.walkerAuditMap.value = selectedMap;
+    elements.walkerAuditFilters.hidden = false;
+    elements.walkerAuditList.hidden = false;
+    renderWalkerGroundAuditRows();
+  }
+
+  function renderWalkerGroundAuditRows() {
+    const report = state.walkerGroundAudit;
+    if (!report) return;
+    const query = elements.walkerAuditSearch.value.trim().toLocaleLowerCase();
+    const mapId = Number(elements.walkerAuditMap.value) || undefined;
+    const findings = report.findings.filter(finding => {
+      if (mapId && finding.mapId !== mapId) return false;
+      if (!query) return true;
+      const searchable = [
+        finding.mapName,
+        finding.mapId,
+        finding.routeId,
+        finding.sourceRelativePath,
+        ...finding.usages.flatMap(usage => [usage.npcName, usage.npcId]),
+      ].join(" ").toLocaleLowerCase();
+      return searchable.includes(query);
+    });
+    if (findings.length === 0) {
+      elements.walkerAuditList.innerHTML = `<div class="spawn-audit-empty">No patrol paths match the current filters.</div>`;
+      return;
+    }
+    elements.walkerAuditList.innerHTML = findings.map(finding => {
+      const npcNames = [...new Set(finding.usages.map(usage => usage.npcName))];
+      const npcLabel = npcNames.slice(0, 2).join(", ") + (npcNames.length > 2 ? ` +${npcNames.length - 2}` : "");
+      const pointLabel = finding.points.slice(0, 5)
+        .map(point => `#${point.authoredIndex} ${signedNumber(point.delta)}m`)
+        .join(" · ");
+      const remaining = finding.points.length - 5;
+      return `<div class="spawn-audit-row">
+        <div class="spawn-audit-map"><strong>${escapeHtml(finding.mapName)}</strong><span>${finding.mapId}</span></div>
+        <div class="spawn-audit-route">
+          <strong title="${escapeHtml(finding.routeId)}">${escapeHtml(finding.routeId)}</strong>
+          <span>${escapeHtml(npcLabel)} · ${finding.usages.length.toLocaleString()} usage${finding.usages.length === 1 ? "" : "s"}</span>
+          <small>${escapeHtml(pointLabel)}${remaining > 0 ? ` · +${remaining.toLocaleString()} more` : ""}</small>
+        </div>
+        <div class="spawn-audit-metric">
+          <strong>${finding.offGroundPointCount.toLocaleString()}/${finding.authoredPointCount.toLocaleString()}</strong>
+          <span>Worst ${escapeHtml(signedNumber(finding.worstDelta))}m</span>
+        </div>
+        <button type="button" data-walker-audit-view data-walker-audit-key="${escapeHtml(finding.key)}">View path</button>
+      </div>`;
+    }).join("");
+  }
+
+  async function viewWalkerGroundAuditFinding(event) {
+    const button = event.target.closest("[data-walker-audit-view]");
+    if (!button || !state.walkerGroundAudit) return;
+    const finding = state.walkerGroundAudit.findings.find(candidate => candidate.key === button.dataset.walkerAuditKey);
+    if (!finding) return;
+    if ((state.drafts.size || walkerDraftIsDirty()) && !window.confirm("Discard draft changes and open this patrol path?")) return;
+    button.disabled = true;
+    const originalLabel = button.textContent;
+    button.textContent = "Opening...";
+    try {
+      elements.walkerAuditDialog.close();
+      const changingMap = state.mapId !== finding.mapId;
+      state.mapId = finding.mapId;
+      if (changingMap) state.layerId = undefined;
+      elements.mapSelect.value = String(finding.mapId);
+      elements.mapSearch.value = "";
+      elements.editableFilter.checked = false;
+      const url = new URL(window.location.href);
+      url.searchParams.set("mapId", String(finding.mapId));
+      url.searchParams.set("walkerId", finding.routeId);
+      window.history.replaceState({}, "", url);
+      await loadSnapshot();
+      elements.typeFilter.value = "";
+      renderMarkers();
+      const preferredSpotKey = finding.usages[0]?.spotKey;
+      if (!selectWalkerRoute(finding.routeId, preferredSpotKey)) {
+        throw new Error(`Patrol path ${finding.routeId} is no longer attached on ${finding.mapName}.`);
+      }
+    } catch (error) {
+      showStatus(error.message || "Could not open the patrol path.", "error");
+      if (!elements.walkerAuditDialog.open) elements.walkerAuditDialog.showModal();
+    } finally {
+      button.disabled = false;
+      button.textContent = originalLabel;
+    }
+  }
+
+  function showWalkerGroundAuditError(error) {
+    elements.walkerAuditStatus.hidden = false;
+    elements.walkerAuditStatus.className = "spawn-audit-status error";
+    elements.walkerAuditStatus.textContent = error.message || "Could not audit patrol paths.";
+    elements.walkerAuditSummary.hidden = true;
+    elements.walkerAuditFilters.hidden = true;
+    elements.walkerAuditList.hidden = true;
   }
 
   function changeLayer() {
@@ -442,7 +628,18 @@
     renderMarkers();
     renderInspector();
     const entry = selectedEntry();
+    updateSelectedWalkerUrl(entry?.walkerId);
     if (entry?.walkerId) loadWalkerRoute(entry);
+  }
+
+  function selectWalkerRoute(routeId, preferredSpotKey) {
+    const preferred = preferredSpotKey ? state.spots.get(preferredSpotKey) : undefined;
+    const entry = preferred?.walkerId === routeId
+      ? preferred
+      : [...state.spots.values()].find(spot => spot.walkerId === routeId);
+    if (!entry) return false;
+    selectSpot(entry.key);
+    return state.selectedKey === entry.key;
   }
 
   function deselectSpot() {
@@ -455,7 +652,16 @@
     closePlacement();
     renderMarkers();
     renderInspector();
+    updateSelectedWalkerUrl();
     return true;
+  }
+
+  function updateSelectedWalkerUrl(walkerId) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("mapId", String(state.mapId));
+    if (walkerId) url.searchParams.set("walkerId", walkerId);
+    else url.searchParams.delete("walkerId");
+    window.history.replaceState({}, "", url);
   }
 
   function confirmWalkerDraftDiscard(message) {
