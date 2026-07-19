@@ -29,6 +29,8 @@ export function layout(options: {
   user?: LayoutUser;
   body: string;
   notice?: string;
+  head?: string;
+  mainClass?: string;
 }): string {
   const adminLink = options.user?.isAdmin ? `<a class="nav-link" href="/admin">Admin</a>` : "";
   const nav = options.user
@@ -49,6 +51,7 @@ export function layout(options: {
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>${escapeHtml(options.title)} - Aion Portal</title>
+      ${options.head ?? ""}
       <style>
         :root {
           color-scheme: dark;
@@ -999,7 +1002,7 @@ export function layout(options: {
         </a>
         ${nav}
       </header>
-      <main>
+      <main${options.mainClass ? ` class="${escapeHtml(options.mainClass)}"` : ""}>
         ${options.notice ? `<div class="notice">${escapeHtml(options.notice)}</div>` : ""}
         ${options.body}
       </main>
@@ -2220,8 +2223,13 @@ export function adminDashboardPage(
   brokerReport?: AdminBrokerReport,
 ): string {
   return `
-    <h1>Admin</h1>
-    <p class="muted">Read-only snapshot from the Aion login and game databases.</p>
+    <div class="warehouse-header">
+      <div class="warehouse-copy">
+        <h1>Admin</h1>
+        <p class="muted">Account snapshots and server administration tools.</p>
+      </div>
+      <a class="button secondary" href="/admin/spawns">Spawn Editor</a>
+    </div>
     ${notice ? `<div class="notice ${notice.kind === "error" ? "error" : ""}">${escapeHtml(notice.message)}</div>` : ""}
     ${adminSearchBox()}
     <div class="stat-grid">

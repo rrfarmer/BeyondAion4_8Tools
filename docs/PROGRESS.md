@@ -1,5 +1,48 @@
 # Progress
 
+## 2026-07-19 Iteration 100
+
+- Added a recursive walker-route catalog matching the .NET server's sorted `npc_walker` load order, default loop behavior, `WALK_BACK` runtime expansion, and formation normalization.
+- Added an authenticated, map-aware walker API that enriches authored and effective waypoints with cached terrain Z and route/terrain deltas.
+- Selecting a spawn with `walker_id` now automatically fits and draws its patrol path with numbered authored waypoints, runtime closure, route metadata, source XML, and terrain-mismatch highlighting.
+- Confirmed the reported Gray Mane Scratcher route has 19 waypoints and eight airborne points between 11.6m and 14.9m above terrain.
+- Added fixture coverage for recursive sources, loop types, walk-back expansion, duplicate-id load order, formation handling, and unknown routes; verified the real 6,449-route catalog in Docker.
+
+## 2026-07-19 Iteration 99
+
+- Added lazy, cached decoding of the .NET server's prepared 16-bit terrain PNGs, including comma-shared map files and Aion-compatible two-meter triangle interpolation.
+- Added an authenticated ground-height API and automatic Z resolution after map picks or debounced X/Y edits, plus explicit Snap to ground controls and manual fallback states.
+- Kept geometry-only, missing-surface, and failed lookups non-destructive: existing/manual Z values remain untouched and the editor explains that manual input is required.
+- Mounted `BeyondAionSharp/game-server/data/geo` read-only in Docker. Verified real Ishalgen lookups against existing spawn XML and added fixture coverage for both terrain triangles, shared files, missing maps, and absent terrain.
+
+## 2026-07-18 Iteration 98
+
+- Expanded the NPC spawn editor from hard-coded Ishalgen support to all 43 distinct map ids found recursively in the .NET `Npcs` spawn tree.
+- Added a repeatable, local-only client map builder (`scripts/cache_client_maps.py`): 49 generated layers totaling about 41.5 MB, with detailed map-window artwork for 32 maps, real radar artwork for 2 maps, and coordinate-grid fallbacks for 9 maps whose artwork is absent from the installed client.
+- Corrected plotting to use the exact `zonemap.xml` calibration transform, including non-zero offsets and map extents for Ishalgen, Altgard, Poeta, Sanctum, Pandaemonium, and the academy/lobby maps.
+- Added map switching, URL-selected maps, multi-layer Abyss backgrounds, local-artwork labels, calibrated click placement, and source-file details in the dark editor UI.
+- Aggregated base and `Custom` XML sources plus repeated `<spawn_map>` blocks. Marker keys retain source ownership; creates target an existing writable group or the base map source.
+- Added composite revisions and rollback-capable multi-file applies with one pre-change backup per touched XML. Admin audit records now use the selected map and retain all touched source/backup paths.
+- Kept the malformed Belus `z="NaN"` spawn visible as a repairable warning instead of failing the entire map.
+- Verified all 43 real snapshots: 12,290 groups and 81,886 spots. Unit tests cover single-source writes, group recreation, repeated map blocks, and atomic two-source applies.
+
+## 2026-07-18 Iteration 97
+
+- Corrected Ishalgen's map projection from direct `x/y` plotting to the client projection: image pixel `[gameY, gameX]`.
+- Added the client-declared Ishalgen viewport (`740,0` at `2300x2300`) so the editor opens on the playable map area instead of the full unused texture extent.
+- Updated marker placement, random-walk overlays, heading indicators, and map-click coordinate capture to use the same reversible projection.
+- Switched the committed image to the locally installed client's newer map-window package at `Textures/ui/newmap/df1/df1.pak`; the minimap/radar tile set remains separate and is not used.
+
+## 2026-07-18 Iteration 96
+
+- Added a level-9 Ishalgen NPC/Mob Spawn Editor at `/admin/spawns`.
+- Parsed the authoritative `.NET` repository source `220010000_Ishalgen.xml` and the 63,287-template NPC catalog; no live game-server mutation is used.
+- Added map hover/search/filtering, placement inspection, staged coordinate updates, deletion, NPC search, and new placement.
+- Added review/apply with coordinate and special-spawn guards, stale-revision rejection, verified atomic XML replacement, pre-write backups, and JSONL admin audit.
+- Extracted and committed the 3072x3072 Ishalgen map from the local client's `df1.pak`; runtime map access is local-only.
+- Docker now mounts the BeyondAionSharp NPC spawn directory read/write and NPC templates read-only so portal edits remain in the host checkout for the next game-server build.
+- Fixture tests cover validation-only behavior, create/update/delete, static spawn protection, stale revisions, group removal/recreation, backups, and CRLF preservation.
+
 ## 2026-07-02
 
 - Chosen stack: Node.js + TypeScript + Fastify, separate from the `.NET` game/login/chat processes.

@@ -1,0 +1,1951 @@
+{
+  "version": 2,
+  "generator": "scripts/cache_client_maps.py",
+  "clientRoot": "C:\\Program Files (x86)\\Beyond Aion",
+  "repoRoot": "C:\\Users\\ryanf\\Documents\\GitHub\\BeyondAionSharp",
+  "mapCount": 43,
+  "maps": [
+    {
+      "mapId": 110010000,
+      "name": "Sanctum",
+      "clientName": "LC1",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 785,
+        "offsetY": 779,
+        "mapWidth": 1114,
+        "mapHeight": 1114
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/110010000_Sanctum.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Custom_Instance.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Morph_Recipe_Merchants.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Stigma_Masters.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Training_Dummies.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Warehouse_Managers.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/110010000_Sanctum.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "110010000-sanctum-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b6c4b72f0060a6a665f686bb1a09359f9feb0b8848e5b12589a29ee1f48868f4",
+          "tileLayout": [
+            "lc1_000.dds",
+            "lc1_001.dds",
+            "lc1_002.dds",
+            "lc1_003.dds",
+            "lc1_004.dds",
+            "lc1_005.dds",
+            "lc1_006.dds",
+            "lc1_007.dds",
+            "lc1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lc1/lc1.pak",
+          "clientPakSha256": "28fa3291a724e88b8ef9ebc0e90c6b9feece65e32ac9f27b113907d74dcff350"
+        }
+      ]
+    },
+    {
+      "mapId": 110020000,
+      "name": "Cloister of Kaisinel",
+      "clientName": "LC2",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/110020000_Cloister_of_Kaisinel.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/110020000_Cloister_of_Kaisinel.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "110020000-cloister-of-kaisinel-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "514e447cc3fca6f62a58b19c2e954c6091d396d2eefbea66ce8715628f63f13c",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 110070000,
+      "name": "Kaisinel Academy",
+      "clientName": "Arena_L_Lobby",
+      "worldSize": 1024,
+      "calibration": {
+        "offsetX": 167,
+        "offsetY": 364,
+        "mapWidth": 323,
+        "mapHeight": 323
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/110070000_Kaisinel_Academy.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/110070000_Kaisinel_Academy.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "110070000-kaisinel-academy-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "12b77049e4ac28158f1db96c7bf189e8d64707ee90f0568de008a1d512b21a62",
+          "tileLayout": [
+            "arena_L_lobby_000.dds",
+            "arena_L_lobby_001.dds",
+            "arena_L_lobby_002.dds",
+            "arena_L_lobby_003.dds",
+            "arena_L_lobby_004.dds",
+            "arena_L_lobby_005.dds",
+            "arena_L_lobby_006.dds",
+            "arena_L_lobby_007.dds",
+            "arena_L_lobby_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/arena_L_lobby/arena_L_lobby.pak",
+          "clientPakSha256": "c5204baa22650fad7a1cccae9044d8721cfb0ceff0c45e5c1f39241eadb38fd9"
+        }
+      ]
+    },
+    {
+      "mapId": 120010000,
+      "name": "Pandaemonium",
+      "clientName": "DC1",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 817,
+        "offsetY": 697,
+        "mapWidth": 1035,
+        "mapHeight": 1035
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/120010000_Pandaemonium.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Custom_Instance.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Morph_Recipe_Merchants.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Stigma_Masters.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Training_Dummies.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Warehouse_Managers.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/120010000_Pandaemonium.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "120010000-pandaemonium-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a4acec44ac3585fb8f69d341b5923365e89b2a839a65ca421b30bc4229b3fcb7",
+          "tileLayout": [
+            "dc1_000.dds",
+            "dc1_001.dds",
+            "dc1_002.dds",
+            "dc1_003.dds",
+            "dc1_004.dds",
+            "dc1_005.dds",
+            "dc1_006.dds",
+            "dc1_007.dds",
+            "dc1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/dc1/dc1.pak",
+          "clientPakSha256": "bbc6f18ad5476cd547c6f99f61be9df0bb1239521faf8e992f7b2989349a26e0"
+        }
+      ]
+    },
+    {
+      "mapId": 120020000,
+      "name": "Convent of Marchutan",
+      "clientName": "DC2",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/120020000_Convent_of_Marchutan.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/120020000_Convent_of_Marchutan.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "120020000-convent-of-marchutan-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "75564691bf6e3d86f091b753334d00904eb7f931555327ac34e6d9b41e9c1b48",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 120080000,
+      "name": "Marchutan Priory",
+      "clientName": "Arena_D_Lobby",
+      "worldSize": 1024,
+      "calibration": {
+        "offsetX": 120,
+        "offsetY": 322,
+        "mapWidth": 287,
+        "mapHeight": 287
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/120080000_Marchutan_Priory.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/120080000_Marchutan_Priory.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "120080000-marchutan-priory-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "0896b312cc7166a4fc6ea9af2cd8bf025dada66ac436fc94bece437738244611",
+          "tileLayout": [
+            "arena_D_lobby_000.dds",
+            "arena_D_lobby_001.dds",
+            "arena_D_lobby_002.dds",
+            "arena_D_lobby_003.dds",
+            "arena_D_lobby_004.dds",
+            "arena_D_lobby_005.dds",
+            "arena_D_lobby_006.dds",
+            "arena_D_lobby_007.dds",
+            "arena_D_lobby_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/arena_D_lobby/arena_D_lobby.pak",
+          "clientPakSha256": "449089d0de1fc3ba701f00ad361716fe2819b4dda5ad49475a21837b3a887cb2"
+        }
+      ]
+    },
+    {
+      "mapId": 130090000,
+      "name": "Wisplight Abbey",
+      "clientName": "Arena_L_CLobby",
+      "worldSize": 512,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/130090000_Wisplight_Abbey.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/130090000_Wisplight_Abbey.xml",
+      "layers": [
+        {
+          "id": "radar",
+          "name": "Map",
+          "asset": "130090000-wisplight-abbey-radar.webp",
+          "assetKind": "radar",
+          "assetSha256": "f97159ae50145b28ddc17b47c2cb7850f6fbafff705e49b3839804ca02d5bd40",
+          "tileLayout": [
+            "Radar_Arena_L_Clobby_000.dds",
+            "Radar_Arena_L_Clobby_001.dds",
+            "Radar_Arena_L_Clobby_002.dds",
+            "Radar_Arena_L_Clobby_003.dds",
+            "Radar_Arena_L_Clobby_004.dds",
+            "Radar_Arena_L_Clobby_005.dds",
+            "Radar_Arena_L_Clobby_006.dds",
+            "Radar_Arena_L_Clobby_007.dds",
+            "Radar_Arena_L_Clobby_008.dds",
+            "Radar_Arena_L_Clobby_009.dds",
+            "Radar_Arena_L_Clobby_010.dds",
+            "Radar_Arena_L_Clobby_011.dds",
+            "Radar_Arena_L_Clobby_012.dds",
+            "Radar_Arena_L_Clobby_013.dds",
+            "Radar_Arena_L_Clobby_014.dds",
+            "Radar_Arena_L_Clobby_015.dds"
+          ],
+          "clientPak": "Textures/ui/zonemap/Pak_166.pak",
+          "clientPakSha256": "a31951359d9743bd98561e30cc110dec15d74fd559245b82c4c288c132adc6c8"
+        }
+      ]
+    },
+    {
+      "mapId": 140010000,
+      "name": "Fatebound Abbey",
+      "clientName": "Arena_D_CLobby",
+      "worldSize": 512,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/140010000_Fatebound_Abbey.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/140010000_Fatebound_Abbey.xml",
+      "layers": [
+        {
+          "id": "radar",
+          "name": "Map",
+          "asset": "140010000-fatebound-abbey-radar.webp",
+          "assetKind": "radar",
+          "assetSha256": "bc7e732119e823f02c6eaf67a6307b790c3197f9420f98ae6ba958a59762fc77",
+          "tileLayout": [
+            "Radar_Arena_D_Clobby_000.dds",
+            "Radar_Arena_D_Clobby_001.dds",
+            "Radar_Arena_D_Clobby_002.dds",
+            "Radar_Arena_D_Clobby_003.dds",
+            "Radar_Arena_D_Clobby_004.dds",
+            "Radar_Arena_D_Clobby_005.dds",
+            "Radar_Arena_D_Clobby_006.dds",
+            "Radar_Arena_D_Clobby_007.dds",
+            "Radar_Arena_D_Clobby_008.dds",
+            "Radar_Arena_D_Clobby_009.dds",
+            "Radar_Arena_D_Clobby_010.dds",
+            "Radar_Arena_D_Clobby_011.dds",
+            "Radar_Arena_D_Clobby_012.dds",
+            "Radar_Arena_D_Clobby_013.dds",
+            "Radar_Arena_D_Clobby_014.dds",
+            "Radar_Arena_D_Clobby_015.dds"
+          ],
+          "clientPak": "Textures/ui/zonemap/Pak_166.pak",
+          "clientPakSha256": "a31951359d9743bd98561e30cc110dec15d74fd559245b82c4c288c132adc6c8"
+        }
+      ]
+    },
+    {
+      "mapId": 210010000,
+      "name": "Poeta",
+      "clientName": "LF1",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 697,
+        "offsetY": 0,
+        "mapWidth": 1540,
+        "mapHeight": 1540
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210010000_Poeta.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210010000_Poeta.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210010000-poeta-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "22e8822c8bf104d3becfb6e4b49319682a30f535a8bcca2c201958517c0cc03d",
+          "tileLayout": [
+            "lf1_000.dds",
+            "lf1_001.dds",
+            "lf1_002.dds",
+            "lf1_003.dds",
+            "lf1_004.dds",
+            "lf1_005.dds",
+            "lf1_006.dds",
+            "lf1_007.dds",
+            "lf1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf1/lf1.pak",
+          "clientPakSha256": "349467f8e2244eaa274b142e87de99c5e0abc0c97b51fc139406dbaf2aaedcf4"
+        }
+      ]
+    },
+    {
+      "mapId": 210020000,
+      "name": "Eltnen",
+      "clientName": "LF2",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210020000_Eltnen.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210020000_Eltnen.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210020000-eltnen-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "6211ac9247e7f76a35b5d18e4089b84a6550ac08cbacdd9550dfd4844eace7e3",
+          "tileLayout": [
+            "lf2_000.dds",
+            "lf2_001.dds",
+            "lf2_002.dds",
+            "lf2_003.dds",
+            "lf2_004.dds",
+            "lf2_005.dds",
+            "lf2_006.dds",
+            "lf2_007.dds",
+            "lf2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf2/lf2.pak",
+          "clientPakSha256": "32b4d4f1fbfb1f0ea64bf51eff727a33a214ca739d3a91e4c24094d4a2ff25b4"
+        }
+      ]
+    },
+    {
+      "mapId": 210030000,
+      "name": "Verteron",
+      "clientName": "LF1A",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210030000_Verteron.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210030000_Verteron.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210030000-verteron-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "3aafcc0ef2cd7a5cb2f405865379d68c679cc051e17e37513a3e3926714dccda",
+          "tileLayout": [
+            "lf1a_000.dds",
+            "lf1a_001.dds",
+            "lf1a_002.dds",
+            "lf1a_003.dds",
+            "lf1a_004.dds",
+            "lf1a_005.dds",
+            "lf1a_006.dds",
+            "lf1a_007.dds",
+            "lf1a_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf1a/lf1a.pak",
+          "clientPakSha256": "7eb671a41d386dc337cdc2acc9d43a9c5347f6c30312892675d73322cd1de0bd"
+        }
+      ]
+    },
+    {
+      "mapId": 210040000,
+      "name": "Heiron",
+      "clientName": "LF3",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210040000_Heiron.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210040000_Heiron.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210040000-heiron-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4413a2d05bc1dcb47516dd931700a093301bd9ce946b4ee288eb8c1f138afbf4",
+          "tileLayout": [
+            "lf3_000.dds",
+            "lf3_001.dds",
+            "lf3_002.dds",
+            "lf3_003.dds",
+            "lf3_004.dds",
+            "lf3_005.dds",
+            "lf3_006.dds",
+            "lf3_007.dds",
+            "lf3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf3/lf3.pak",
+          "clientPakSha256": "c88056a428d99cf1c7d3836cbee7c534cb02ffcd73068c6a34857e27cead4326"
+        }
+      ]
+    },
+    {
+      "mapId": 210050000,
+      "name": "Inggison",
+      "clientName": "LF4",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210050000_Inggison.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210050000_Inggison.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210050000-inggison-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "17d04520c264bb8e778dda4f75417141e9c47a5fcf2b9e8652c50446e3c3ad7b",
+          "tileLayout": [
+            "lf4_000.dds",
+            "lf4_001.dds",
+            "lf4_002.dds",
+            "lf4_003.dds",
+            "lf4_004.dds",
+            "lf4_005.dds",
+            "lf4_006.dds",
+            "lf4_007.dds",
+            "lf4_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf4/lf4.pak",
+          "clientPakSha256": "ad4896701e3ea9de742f31adaf88a05e87c2dfdf77cd45d01ddac4695c9c4c51"
+        }
+      ]
+    },
+    {
+      "mapId": 210060000,
+      "name": "Theobomos",
+      "clientName": "LF2A",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210060000_Theobomos.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210060000_Theobomos.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210060000-theobomos-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "0bb270223c8cd89785b1c26550656b57f1aec027ba1247d89e020fb9c11c7177",
+          "tileLayout": [
+            "lf2a_000.dds",
+            "lf2a_001.dds",
+            "lf2a_002.dds",
+            "lf2a_003.dds",
+            "lf2a_004.dds",
+            "lf2a_005.dds",
+            "lf2a_006.dds",
+            "lf2a_007.dds",
+            "lf2a_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf2a/lf2a.pak",
+          "clientPakSha256": "cd925bb54ea7f0feef8e0f1db15f45f24b1f974fb54f05d90eede4217e11592b"
+        }
+      ]
+    },
+    {
+      "mapId": 210070000,
+      "name": "Cygnea",
+      "clientName": "LF5",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": -5.58238,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210070000_Cygnea.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210070000_Cygnea.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210070000-cygnea-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "5aea3d3bad4f1296ab551175b483bc941b524c456f4bfc8118902cc87aafc288",
+          "tileLayout": [
+            "LF5_000.dds",
+            "LF5_001.dds",
+            "LF5_002.dds",
+            "LF5_003.dds",
+            "LF5_004.dds",
+            "LF5_005.dds",
+            "LF5_006.dds",
+            "LF5_007.dds",
+            "LF5_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf5/lf5.pak",
+          "clientPakSha256": "b85cef6ce54ebf61054443497c231d04887d3401d75f662d506bb9ee28ffa914"
+        }
+      ]
+    },
+    {
+      "mapId": 210080000,
+      "name": "Griffoen",
+      "clientName": "LF5_Ship",
+      "worldSize": 512,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210080000_Griffoen.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210080000_Griffoen.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210080000-griffoen-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "714de84b4e89dae95522fa7df0527b39092ad9e8d3cb341e78d2cb5d8d1cb82a",
+          "tileLayout": [
+            "LF5_Ship_000.dds",
+            "LF5_Ship_001.dds",
+            "LF5_Ship_002.dds",
+            "LF5_Ship_003.dds",
+            "LF5_Ship_004.dds",
+            "LF5_Ship_005.dds",
+            "LF5_Ship_006.dds",
+            "LF5_Ship_007.dds",
+            "LF5_Ship_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LF5_Ship/LF5_Ship.pak",
+          "clientPakSha256": "67161f9b1792b9b091bf751e7374c48ec8e7dccbcaca9bffa0e600930afe98a8"
+        }
+      ]
+    },
+    {
+      "mapId": 210090000,
+      "name": "Idian Depths Light",
+      "clientName": "LDF5_Under_L",
+      "worldSize": 1536,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/210090000_Idian_Depths_Light.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Mailboxes.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/210090000_Idian_Depths_Light.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210090000-idian-depths-light-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "afbc7d3365a7fc8fe6ec90cf5b1d5fb051dea3a78d18496d1b289d812e9c2c50",
+          "tileLayout": [
+            "LDF5_Under_L_000.dds",
+            "LDF5_Under_L_001.dds",
+            "LDF5_Under_L_002.dds",
+            "LDF5_Under_L_003.dds",
+            "LDF5_Under_L_004.dds",
+            "LDF5_Under_L_005.dds",
+            "LDF5_Under_L_006.dds",
+            "LDF5_Under_L_007.dds",
+            "LDF5_Under_L_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF5_Under_L/LDF5_Under_L.pak",
+          "clientPakSha256": "6963237ae0cfcd41a53cdd3396a3b83e6bc10940dbe274fae7aa6479cda25bfa"
+        }
+      ]
+    },
+    {
+      "mapId": 220010000,
+      "name": "Ishalgen",
+      "clientName": "DF1",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 740,
+        "offsetY": 0,
+        "mapWidth": 2300,
+        "mapHeight": 2300
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220010000_Ishalgen.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220010000_Ishalgen.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220010000-ishalgen-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c34b67d0da06250392efb5dd678a12c273b7a10c284e8383550e42ffea1a5795",
+          "tileLayout": [
+            "df1_000.dds",
+            "df1_001.dds",
+            "df1_002.dds",
+            "df1_003.dds",
+            "df1_004.dds",
+            "df1_005.dds",
+            "df1_006.dds",
+            "df1_007.dds",
+            "df1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df1/df1.pak",
+          "clientPakSha256": "a0b71cf2edc82da5860c53bd191f259573353e95e697f960962cfa00d155ab35"
+        }
+      ]
+    },
+    {
+      "mapId": 220020000,
+      "name": "Morheim",
+      "clientName": "DF2",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220020000_Morheim.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220020000_Morheim.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220020000-morheim-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "44b954a964c17ca2f5c3704ab9b1d5f328d6eefd565343a1f84243e7b52f5f72",
+          "tileLayout": [
+            "df2_000.dds",
+            "df2_001.dds",
+            "df2_002.dds",
+            "df2_003.dds",
+            "df2_004.dds",
+            "df2_005.dds",
+            "df2_006.dds",
+            "df2_007.dds",
+            "df2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df2/df2.pak",
+          "clientPakSha256": "8306cca20e2abf19af868cf15775310c17ecab837d0b4f1ed4002710e29ca3ab"
+        }
+      ]
+    },
+    {
+      "mapId": 220030000,
+      "name": "Altgard",
+      "clientName": "DF1A",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 63,
+        "offsetY": 541,
+        "mapWidth": 2790,
+        "mapHeight": 2790
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3331.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220030000_Altgard.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220030000_Altgard.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220030000-altgard-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "863b49f4b13cf10eec7081b37c59cb2452b57aac7f7e5ca5220d22446b26c200",
+          "tileLayout": [
+            "df1a_000.dds",
+            "df1a_001.dds",
+            "df1a_002.dds",
+            "df1a_003.dds",
+            "df1a_004.dds",
+            "df1a_005.dds",
+            "df1a_006.dds",
+            "df1a_007.dds",
+            "df1a_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df1a/df1a.pak",
+          "clientPakSha256": "96e8c80813bb6a83444bf8b931f29899a8352a846f63f1825f775392303296ff"
+        }
+      ]
+    },
+    {
+      "mapId": 220040000,
+      "name": "Beluslan",
+      "clientName": "DF3",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220040000_Beluslan.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220040000_Beluslan.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220040000-beluslan-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "857f5cf1eec2a99c4a95226380d994bd51551091946f45a086919621d5ad19bb",
+          "tileLayout": [
+            "df3_000.dds",
+            "df3_001.dds",
+            "df3_002.dds",
+            "df3_003.dds",
+            "df3_004.dds",
+            "df3_005.dds",
+            "df3_006.dds",
+            "df3_007.dds",
+            "df3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df3/df3.pak",
+          "clientPakSha256": "d29244bc214396bb04dcb4f81350ad12a45c9e82c0e14eb44a2474a272b24a94"
+        }
+      ]
+    },
+    {
+      "mapId": 220050000,
+      "name": "Brusthonin",
+      "clientName": "DF2A",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220050000_Brusthonin.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220050000_Brusthonin.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220050000-brusthonin-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "3be857d0fd0d5752efd00ad96b8b7fedb2305f0c1eac159d18ab80f5e3b5cc9d",
+          "tileLayout": [
+            "df2a_000.dds",
+            "df2a_001.dds",
+            "df2a_002.dds",
+            "df2a_003.dds",
+            "df2a_004.dds",
+            "df2a_005.dds",
+            "df2a_006.dds",
+            "df2a_007.dds",
+            "df2a_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df2a/df2a.pak",
+          "clientPakSha256": "3a241fecf9041aefad49781cc8ba66e9a7d64d8244e894f73e76f726ac3616e0"
+        }
+      ]
+    },
+    {
+      "mapId": 220070000,
+      "name": "Gelkmaros",
+      "clientName": "DF4",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220070000_Gelkmaros.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220070000_Gelkmaros.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220070000-gelkmaros-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "517a352313236170cb00de91c06b640ea6ed42712aa43ee22814fa6bc778fa59",
+          "tileLayout": [
+            "df4_000.dds",
+            "df4_001.dds",
+            "df4_002.dds",
+            "df4_003.dds",
+            "df4_004.dds",
+            "df4_005.dds",
+            "df4_006.dds",
+            "df4_007.dds",
+            "df4_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df4/df4.pak",
+          "clientPakSha256": "5772904e175ba46c46303daced26cff9c61bd916fddc64dde6036fdd642ece78"
+        }
+      ]
+    },
+    {
+      "mapId": 220080000,
+      "name": "Enshar",
+      "clientName": "DF5",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220080000_Enshar.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220080000_Enshar.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220080000-enshar-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "91ab8bd9beadc28fa81e0c3b88e9257437bcf974ad57ea0f736b9c15cd275c92",
+          "tileLayout": [
+            "df5_000.dds",
+            "df5_001.dds",
+            "df5_002.dds",
+            "df5_003.dds",
+            "df5_004.dds",
+            "df5_005.dds",
+            "df5_006.dds",
+            "df5_007.dds",
+            "df5_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df5/df5.pak",
+          "clientPakSha256": "f98f1a489abce21fd9df25d7de7e97822870435afa7c707b11c2dd3d48db89fb"
+        }
+      ]
+    },
+    {
+      "mapId": 220090000,
+      "name": "Habrok",
+      "clientName": "DF5_Ship",
+      "worldSize": 512,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220090000_Habrok.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220090000_Habrok.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220090000-habrok-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "072673b1296cdf3d1e02dc1ec8fe13af110ed1afd6ae08c17a5a522433ae24ec",
+          "tileLayout": [
+            "DF5_Ship_000.dds",
+            "DF5_Ship_001.dds",
+            "DF5_Ship_002.dds",
+            "DF5_Ship_003.dds",
+            "DF5_Ship_004.dds",
+            "DF5_Ship_005.dds",
+            "DF5_Ship_006.dds",
+            "DF5_Ship_007.dds",
+            "DF5_Ship_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/DF5_Ship/DF5_Ship.pak",
+          "clientPakSha256": "3e4a2fdbc85552e5b3324c026eff9885a6a4d0e1b7a79ffe6898fd2fc47a606f"
+        }
+      ]
+    },
+    {
+      "mapId": 220100000,
+      "name": "Idian Depths Dark",
+      "clientName": "LDF5_Under_D",
+      "worldSize": 1536,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/220100000_Idian_Depths_Dark.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Mailboxes.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/220100000_Idian_Depths_Dark.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220100000-idian-depths-dark-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "afbc7d3365a7fc8fe6ec90cf5b1d5fb051dea3a78d18496d1b289d812e9c2c50",
+          "tileLayout": [
+            "LDF5_Under_D_000.dds",
+            "LDF5_Under_D_001.dds",
+            "LDF5_Under_D_002.dds",
+            "LDF5_Under_D_003.dds",
+            "LDF5_Under_D_004.dds",
+            "LDF5_Under_D_005.dds",
+            "LDF5_Under_D_006.dds",
+            "LDF5_Under_D_007.dds",
+            "LDF5_Under_D_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF5_Under_D/LDF5_Under_D.pak",
+          "clientPakSha256": "e6abbe093ad5cc41e3bfd742edacc8a1dca41415542126995cb89efb7dafadd1"
+        }
+      ]
+    },
+    {
+      "mapId": 300430000,
+      "name": "Discipline Training Grounds",
+      "clientName": "IDArena_pvp02_T",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300430000-discipline-training-grounds-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "0febc0fab2e091e247cfac1ac6624928dc269f50d9839dbca02229c74e8d2c98",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 400010000,
+      "name": "Reshanta",
+      "clientName": "Ab1",
+      "worldSize": 4096,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 4096,
+        "mapHeight": 4096
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 4096.0,
+        "minY": 0.0,
+        "maxY": 4096.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/400010000_Reshanta.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/400010000_Reshanta.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400010000-reshanta-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "aaed76e70e0c466a053a1151e6d7129968f111b90520c80eb178f460f524da65",
+          "tileLayout": [
+            "ab1_1_000.dds",
+            "ab1_1_001.dds",
+            "ab1_1_002.dds",
+            "ab1_1_003.dds",
+            "ab1_1_004.dds",
+            "ab1_1_005.dds",
+            "ab1_1_006.dds",
+            "ab1_1_007.dds",
+            "ab1_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400010000-reshanta-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "76103ebca3b8994e3396acaba7535597221f563a48ebfeb3829ccff17730cbdb",
+          "tileLayout": [
+            "ab1_2_000.dds",
+            "ab1_2_001.dds",
+            "ab1_2_002.dds",
+            "ab1_2_003.dds",
+            "ab1_2_004.dds",
+            "ab1_2_005.dds",
+            "ab1_2_006.dds",
+            "ab1_2_007.dds",
+            "ab1_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "400010000-reshanta-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a234f34ceab575aae08af66baaeb6b798e0c746f2ce3e2e0b768f9a710a91499",
+          "tileLayout": [
+            "ab1_3_000.dds",
+            "ab1_3_001.dds",
+            "ab1_3_002.dds",
+            "ab1_3_003.dds",
+            "ab1_3_004.dds",
+            "ab1_3_005.dds",
+            "ab1_3_006.dds",
+            "ab1_3_007.dds",
+            "ab1_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        }
+      ]
+    },
+    {
+      "mapId": 400020000,
+      "name": "Belus",
+      "clientName": "Gab1_01",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/400020000_Belus.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/400020000_Belus.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400020000-belus-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "8175b10a291966fe600ec4777a365ffee1c9a505d60e087bf350d5fc83bbe9b0",
+          "tileLayout": [
+            "GAb1_01_000.dds",
+            "GAb1_01_001.dds",
+            "GAb1_01_002.dds",
+            "GAb1_01_003.dds",
+            "GAb1_01_004.dds",
+            "GAb1_01_005.dds",
+            "GAb1_01_006.dds",
+            "GAb1_01_007.dds",
+            "GAb1_01_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAb1_01/GAb1_01.pak",
+          "clientPakSha256": "2826d198d567bba7bcd32c12272ddfa6a79c32d46e0e956e3b1eeb8840f4ef57"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400020000-belus-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7b6cc52d23a1ad820f3694f93280ffcd81127666161a3153037ddbc3d1e83109",
+          "tileLayout": [
+            "GAb1_01_2_000.dds",
+            "GAb1_01_2_001.dds",
+            "GAb1_01_2_002.dds",
+            "GAb1_01_2_003.dds",
+            "GAb1_01_2_004.dds",
+            "GAb1_01_2_005.dds",
+            "GAb1_01_2_006.dds",
+            "GAb1_01_2_007.dds",
+            "GAb1_01_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAb1_01/GAb1_01.pak",
+          "clientPakSha256": "2826d198d567bba7bcd32c12272ddfa6a79c32d46e0e956e3b1eeb8840f4ef57"
+        }
+      ]
+    },
+    {
+      "mapId": 400040000,
+      "name": "Aspida",
+      "clientName": "Gab1_02",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/400040000_Aspida.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/400040000_Aspida.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400040000-aspida-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "85cf13921c865540202d4133a69a9ea90b4fc72a30b3dc29d9ae536a88f94c4d",
+          "tileLayout": [
+            "GAB1_02_000.dds",
+            "GAB1_02_001.dds",
+            "GAB1_02_002.dds",
+            "GAB1_02_003.dds",
+            "GAB1_02_004.dds",
+            "GAB1_02_005.dds",
+            "GAB1_02_006.dds",
+            "GAB1_02_007.dds",
+            "GAB1_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_02/GAB1_02.pak",
+          "clientPakSha256": "1883606a1f62a5253c4f81fe87ad27e46a29ed7fb55f84ba486282e7b9344dea"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400040000-aspida-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "0b981ac15b2641497fa4ac96e3fb89ead31332eb60d760dd6cbdd809a2a9f9be",
+          "tileLayout": [
+            "GAb1_02_2_000.dds",
+            "GAb1_02_2_001.dds",
+            "GAb1_02_2_002.dds",
+            "GAb1_02_2_003.dds",
+            "GAb1_02_2_004.dds",
+            "GAb1_02_2_005.dds",
+            "GAb1_02_2_006.dds",
+            "GAb1_02_2_007.dds",
+            "GAb1_02_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_02/GAB1_02.pak",
+          "clientPakSha256": "1883606a1f62a5253c4f81fe87ad27e46a29ed7fb55f84ba486282e7b9344dea"
+        }
+      ]
+    },
+    {
+      "mapId": 400050000,
+      "name": "Atanatos",
+      "clientName": "Gab1_03",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/400050000_Atanatos.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/400050000_Atanatos.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400050000-atanatos-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "39997aa24edf9994f82f352f553ec38a66fb6ab01eaac9232b7f2ba4aa328dd6",
+          "tileLayout": [
+            "GAB1_03_000.dds",
+            "GAB1_03_001.dds",
+            "GAB1_03_002.dds",
+            "GAB1_03_003.dds",
+            "GAB1_03_004.dds",
+            "GAB1_03_005.dds",
+            "GAB1_03_006.dds",
+            "GAB1_03_007.dds",
+            "GAB1_03_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_03/GAB1_03.pak",
+          "clientPakSha256": "cf92cf8f96dc446ce9515dfd795faef52b339034e91f2c698b0cfe8db4f9cc41"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400050000-atanatos-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "e43416fd194ba1f7a6a877dab33f73785fc5a09bdac8146fffd86b16b3087ce7",
+          "tileLayout": [
+            "GAb1_03_2_000.dds",
+            "GAb1_03_2_001.dds",
+            "GAb1_03_2_002.dds",
+            "GAb1_03_2_003.dds",
+            "GAb1_03_2_004.dds",
+            "GAb1_03_2_005.dds",
+            "GAb1_03_2_006.dds",
+            "GAb1_03_2_007.dds",
+            "GAb1_03_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_03/GAB1_03.pak",
+          "clientPakSha256": "cf92cf8f96dc446ce9515dfd795faef52b339034e91f2c698b0cfe8db4f9cc41"
+        }
+      ]
+    },
+    {
+      "mapId": 400060000,
+      "name": "Disillon",
+      "clientName": "Gab1_04",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/400060000_Disillon.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/400060000_Disillon.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400060000-disillon-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "0725adc5a101e476c2338b7d654a60641057cec553438c20bc32c9755f831f0b",
+          "tileLayout": [
+            "GAB1_04_000.dds",
+            "GAB1_04_001.dds",
+            "GAB1_04_002.dds",
+            "GAB1_04_003.dds",
+            "GAB1_04_004.dds",
+            "GAB1_04_005.dds",
+            "GAB1_04_006.dds",
+            "GAB1_04_007.dds",
+            "GAB1_04_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_04/GAB1_04.pak",
+          "clientPakSha256": "1d7967e131b88e0d511b9c44b5a7a4b8fe3b8a427d0858f7d374fda722701e17"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400060000-disillon-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "dbd97d5111b8ea35416e6da751d5459d63ecfde9be9616d2d43dd9b8c021d6ca",
+          "tileLayout": [
+            "GAb1_04_2_000.dds",
+            "GAb1_04_2_001.dds",
+            "GAb1_04_2_002.dds",
+            "GAb1_04_2_003.dds",
+            "GAb1_04_2_004.dds",
+            "GAb1_04_2_005.dds",
+            "GAb1_04_2_006.dds",
+            "GAb1_04_2_007.dds",
+            "GAb1_04_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_04/GAB1_04.pak",
+          "clientPakSha256": "1d7967e131b88e0d511b9c44b5a7a4b8fe3b8a427d0858f7d374fda722701e17"
+        }
+      ]
+    },
+    {
+      "mapId": 600010000,
+      "name": "Silentera Canyon",
+      "clientName": "Underpass",
+      "worldSize": 1536,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/600010000_Silentera_Canyon.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/600010000_Silentera_Canyon.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "600010000-silentera-canyon-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7366e0a128f2d6b39e4965070620f058e93084ad38b6aaa76fff4e6948668268",
+          "tileLayout": [
+            "underpass_000.dds",
+            "underpass_001.dds",
+            "underpass_002.dds",
+            "underpass_003.dds",
+            "underpass_004.dds",
+            "underpass_005.dds",
+            "underpass_006.dds",
+            "underpass_007.dds",
+            "underpass_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/underpass/underpass.pak",
+          "clientPakSha256": "69e0abb87f71e58e4a7f5f440f615dd9793d606af955466cc8ad75db28b19704"
+        }
+      ]
+    },
+    {
+      "mapId": 600080000,
+      "name": "Live Party Concert Hall",
+      "clientName": "IDIU",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/600080000_Live_Party_Concert_Hall.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/600080000_Live_Party_Concert_Hall.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "600080000-live-party-concert-hall-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "656826121bdde04d85b9d55a143a9f46cd6747755add3fb95fb1826d3c9de6c9",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 600090000,
+      "name": "Kaldor",
+      "clientName": "LDF5_Fortress",
+      "worldSize": 1536,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/600090000_Kaldor.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/600090000_Kaldor.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "600090000-kaldor-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b91638fdcd0972f89b050b27c725b85b9bc212dd39ca143dfd3970b5caebcea1",
+          "tileLayout": [
+            "LDF5_Fortress_000.dds",
+            "LDF5_Fortress_001.dds",
+            "LDF5_Fortress_002.dds",
+            "LDF5_Fortress_003.dds",
+            "LDF5_Fortress_004.dds",
+            "LDF5_Fortress_005.dds",
+            "LDF5_Fortress_006.dds",
+            "LDF5_Fortress_007.dds",
+            "LDF5_Fortress_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF5_Fortress/LDF5_Fortress.pak",
+          "clientPakSha256": "f3def336764c2681272a408154155b8037df2f174374afb3c274f73b9cd5062e"
+        }
+      ]
+    },
+    {
+      "mapId": 600100000,
+      "name": "Levinshor",
+      "clientName": "LDF4_Advance",
+      "worldSize": 2048,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/600100000_Levinshor.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Sandstorm_Targets.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/600100000_Levinshor.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "600100000-levinshor-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "dfd542c9d10581e6a79c94b9bf5038d5cb50186b1329cd1f43b0bccee6b0c360",
+          "tileLayout": [
+            "LDF4_Advance_000.dds",
+            "LDF4_Advance_001.dds",
+            "LDF4_Advance_002.dds",
+            "LDF4_Advance_003.dds",
+            "LDF4_Advance_004.dds",
+            "LDF4_Advance_005.dds",
+            "LDF4_Advance_006.dds",
+            "LDF4_Advance_007.dds",
+            "LDF4_Advance_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF4_Advance/LDF4_Advance.pak",
+          "clientPakSha256": "a87d12ce692dbf6266510f1b4c2d567a9dc3f5d163cc27eaa336c51aa8697e04"
+        }
+      ]
+    },
+    {
+      "mapId": 700010000,
+      "name": "Oriel",
+      "clientName": "Housing_LF_personal",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/700010000_Oriel.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Season_Agrints.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/700010000_Oriel.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "700010000-oriel-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "61b73356a3bf01820c9834689fd3bd19fdf0ff33f339dd67885097c8af8c870d",
+          "tileLayout": [
+            "housing_lf_personal_000.dds",
+            "housing_lf_personal_001.dds",
+            "housing_lf_personal_002.dds",
+            "housing_lf_personal_003.dds",
+            "housing_lf_personal_004.dds",
+            "housing_lf_personal_005.dds",
+            "housing_lf_personal_006.dds",
+            "housing_lf_personal_007.dds",
+            "housing_lf_personal_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/housing_lf_personal/housing_lf_personal.pak",
+          "clientPakSha256": "ce762bab59ae0d3a58d9ce563d25d0e44b46c0e0f10877eb86dd9e4ba9849196"
+        }
+      ]
+    },
+    {
+      "mapId": 710010000,
+      "name": "Pernon",
+      "clientName": "Housing_DF_personal",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/710010000_Pernon.xml",
+        "game-server/data/static_data/spawns/Npcs/Custom/Season_Agrints.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/710010000_Pernon.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "710010000-pernon-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c96f3ccae28bd7025169cc45bc22fdff0ffcc7a89e66b8edcf9a5973a743b859",
+          "tileLayout": [
+            "Housing_DF_Personal_000.dds",
+            "Housing_DF_Personal_001.dds",
+            "Housing_DF_Personal_002.dds",
+            "Housing_DF_Personal_003.dds",
+            "Housing_DF_Personal_004.dds",
+            "Housing_DF_Personal_005.dds",
+            "Housing_DF_Personal_006.dds",
+            "Housing_DF_Personal_007.dds",
+            "Housing_DF_Personal_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/housing_df_personal/housing_df_personal.pak",
+          "clientPakSha256": "819833fc28fb780ba127552728ae26e75e18ea3cac824f50932b48b4af90a4af"
+        }
+      ]
+    },
+    {
+      "mapId": 900020000,
+      "name": "Test Basic",
+      "clientName": "Test_Basic",
+      "worldSize": 256,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 256,
+        "mapHeight": 256
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 256.0,
+        "minY": 0.0,
+        "maxY": 256.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/900020000_TestBasic.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/900020000_TestBasic.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900020000-test-basic-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "6048a3fd643cc1e00aec832a8c292bfdbae671dfd167c1cf213d7367447e8a6f",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900110000,
+      "name": "GM Isle",
+      "clientName": "Housing_barrack",
+      "worldSize": 3072,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/Custom/GM_Isle.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/Custom/GM_Isle.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900110000-gm-isle-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "125ec6e4b1054c0c4da5ced782da5c7471a31c20527211dde5803c9a360c6e25",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900190000,
+      "name": "Tag Match Test Level",
+      "clientName": "Test_TagMatch",
+      "worldSize": 256,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 256,
+        "mapHeight": 256
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 256.0,
+        "minY": 0.0,
+        "maxY": 256.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/900190000_Tag_Match_Test_Level.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/900190000_Tag_Match_Test_Level.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900190000-tag-match-test-level-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c6ce5d69581520f98f6169d0fcea3390ac5425d7039619f1c318cbab6685574a",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900200000,
+      "name": "Test Time Attack Instanced Dungeon 02",
+      "clientName": "test_timeattack",
+      "worldSize": 256,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 256,
+        "mapHeight": 256
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 256.0,
+        "minY": 0.0,
+        "maxY": 256.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/900200000_test_timeattack.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/900200000_test_timeattack.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900200000-test-time-attack-instanced-dungeon-02-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "9a9cda0ad547ef5212cc78c80b4754bc7885313dea5ae0e99e5e2bd35bb81aa0",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900220000,
+      "name": "System Basic",
+      "clientName": "System_Basic",
+      "worldSize": 512,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Npcs/900220000_System_Basic.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/900220000_System_Basic.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900220000-system-basic-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "2b5970fd02371d535cdccd383db90b56ea59cbdd7baf32bd530f7a55be64e056",
+          "tileLayout": []
+        }
+      ]
+    }
+  ]
+}

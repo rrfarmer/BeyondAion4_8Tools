@@ -18,7 +18,9 @@ export type AppConfig = {
   dataDir: string;
   usersFile: string;
   iconDir: string;
+  spawnMapManifestPath: string;
   aionRepoRoot: string;
+  beyondAionSharpRepoRoot: string;
   loginDb: DbConfig;
   gameDb: DbConfig;
   gameServer: GameServerAdminConfig;
@@ -67,7 +69,11 @@ export const config: AppConfig = {
   dataDir,
   usersFile: path.join(dataDir, "users.json"),
   iconDir: path.join(dataDir, "icons"),
+  spawnMapManifestPath: path.resolve(env("SPAWN_MAP_MANIFEST_PATH", "./assets/maps/manifest.json")),
   aionRepoRoot: path.resolve(env("AION_REPO_ROOT", "C:\\Users\\ryanf\\Documents\\GitHub\\aion-server")),
+  beyondAionSharpRepoRoot: path.resolve(
+    env("BEYOND_AION_SHARP_REPO_ROOT", "C:\\Users\\ryanf\\Documents\\GitHub\\BeyondAionSharp"),
+  ),
   loginDb: db("LOGIN_DB", "aion_ls"),
   gameDb: db("GAME_DB", "aion_gs"),
   gameServer: {

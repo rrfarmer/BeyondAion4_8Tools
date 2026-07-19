@@ -11,13 +11,19 @@
     "icons:cache-codex": "node dist/scripts/cacheCodexIcons.js",
     "preicons:cache-codex-supervised": "npm run build",
     "icons:cache-codex-supervised": "node dist/scripts/cacheCodexIconsSupervised.js",
-    "typecheck": "tsc --noEmit"
+    "maps:cache-client": "python scripts/cache_client_maps.py",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test dist/spawnEditorService.test.js dist/terrainHeightService.test.js dist/walkerRouteService.test.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/formbody": "^8.0.2",
+    "@fastify/static": "^10.1.0",
+    "@xmldom/xmldom": "^0.9.10",
     "dotenv": "^17.2.3",
+    "fast-png": "^8.0.0",
     "fastify": "^5.6.2",
+    "leaflet": "^1.9.4",
     "mysql2": "^3.15.3",
     "sax": "^1.4.3"
   },

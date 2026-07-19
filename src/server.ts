@@ -2,6 +2,7 @@ import path from "node:path";
 import Fastify, { type FastifyReply, type FastifyRequest } from "fastify";
 import cookie from "@fastify/cookie";
 import formbody from "@fastify/formbody";
+import fastifyStatic from "@fastify/static";
 import { config } from "./config.js";
 import { closeDbPools } from "./db.js";
 import { AdminMailService } from "./adminMailService.js";
@@ -44,11 +45,17 @@ import {
 import { AdminAuditLog, readRecentAuditEntries } from "./adminAudit.js";
 import { AdminMailBundleStore, type AdminMailBundleEntry } from "./adminMailBundles.js";
 import { AdminMailTemplateStore, type AdminMailTemplateKind } from "./adminMailTemplates.js";
+import { NpcCatalog } from "./npcCatalog.js";
+import { SpawnEditorError, SpawnEditorService, type SpawnEditorChangeRequest } from "./spawnEditorService.js";
+import { spawnEditorPage } from "./spawnEditorView.js";
+import { TerrainHeightService } from "./terrainHeightService.js";
+import { WalkerRouteService, type WalkerRouteStep } from "./walkerRouteService.js";
 
 const app = Fastify({ logger: true });
 const authStore = new AuthStore(config.usersFile);
 const sessions = new SessionStore();
 const itemCatalog = new ItemCatalog(config.aionRepoRoot);
+const npcCatalog = new NpcCatalog(config.beyondAionSharpRepoRoot);
 const iconService = new IconService(config.iconDir);
 const itemTransferAuditPath = path.join(config.dataDir, "item-transfer-audit.jsonl");
 const adminMailAuditPath = path.join(config.dataDir, "admin-mail-audit.jsonl");
@@ -67,11 +74,28 @@ const adminItemFavorites = new AdminItemFavoritesStore(path.join(config.dataDir,
 const adminMailBundles = new AdminMailBundleStore(path.join(config.dataDir, "admin-mail-bundles.json"));
 const adminMailTemplates = new AdminMailTemplateStore(path.join(config.dataDir, "admin-mail-templates.json"));
 const adminAudit = new AdminAuditLog(adminActionsAuditPath);
+const spawnEditor = new SpawnEditorService(
+  config.beyondAionSharpRepoRoot,
+  config.dataDir,
+  npcCatalog,
+  config.spawnMapManifestPath,
+);
+const terrainHeights = new TerrainHeightService(config.beyondAionSharpRepoRoot);
+const walkerRoutes = new WalkerRouteService(config.beyondAionSharpRepoRoot);
 
 await app.register(cookie, {
   secret: config.sessionSecret,
 });
 await app.register(formbody);
+await app.register(fastifyStatic, {
+  root: path.resolve("assets"),
+  prefix: "/assets/",
+});
+await app.register(fastifyStatic, {
+  root: path.resolve("node_modules", "leaflet", "dist"),
+  prefix: "/vendor/leaflet/",
+  decorateReply: false,
+});
 
 const itemCatalogLoad = itemCatalog
   .load()
@@ -80,6 +104,15 @@ const itemCatalogLoad = itemCatalog
   })
   .catch(error => {
     app.log.warn({ error }, "Item catalog could not be loaded; inventory will show item IDs");
+  });
+
+const npcCatalogLoad = npcCatalog
+  .load()
+  .then(() => {
+    app.log.info({ npcCount: npcCatalog.size }, "NPC catalog loaded");
+  })
+  .catch(error => {
+    app.log.warn({ error }, "NPC catalog could not be loaded; spawn names will use XML comments or template IDs");
   });
 
 app.get("/", async (request, reply) => {
@@ -92,6 +125,11 @@ app.get("/health", async () => {
     ok: true,
     itemCatalogLoaded: itemCatalog.isLoaded,
     itemCatalogSize: itemCatalog.size,
+    npcCatalogLoaded: npcCatalog.isLoaded,
+    npcCatalogSize: npcCatalog.size,
+    spawnEditorReady: await spawnEditor.isReady(),
+    walkerRoutesReady: await walkerRoutes.isReady(),
+    walkerRouteCount: await walkerRoutes.size().catch(() => 0),
   };
 });
 
@@ -302,6 +340,188 @@ app.get("/admin", async (request, reply) => {
         body: errorPanel("Admin", `Could not load admin dashboard: ${messageFor(error)}`),
       }),
     );
+  }
+});
+
+app.get("/admin/spawns", async (request, reply) => {
+  const current = await requireAdmin(request, reply);
+  if (!current) {
+    return;
+  }
+
+  return html(
+    reply,
+    layout({
+      title: "Spawn Editor",
+      user: current.user,
+      mainClass: "spawn-editor-main",
+      head: [
+        '<link rel="stylesheet" href="/vendor/leaflet/leaflet.css">',
+        '<link rel="stylesheet" href="/assets/spawn-editor.css">',
+        '<script defer src="/vendor/leaflet/leaflet.js"></script>',
+        '<script defer src="/assets/spawn-editor.js"></script>',
+      ].join(""),
+      body: spawnEditorPage(),
+    }),
+  );
+});
+
+app.get("/admin/api/spawn-editor/maps", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+  return reply.send({ ok: true, maps: spawnEditor.listMaps() });
+});
+
+app.get("/admin/api/spawn-editor/maps/:mapId/spawns", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    await ensureNpcCatalogLoaded();
+    return reply.send(await spawnEditor.snapshot(spawnMapId(request)));
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.get("/admin/api/spawn-editor/maps/:mapId/ground-height", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    const map = spawnEditor.getMap(spawnMapId(request));
+    const { x, y } = spawnGroundCoordinates(request, map);
+    return reply.send({ ok: true, ...await terrainHeights.lookup(map.id, map.worldSize, x, y) });
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.get("/admin/api/spawn-editor/maps/:mapId/walkers/:walkerId", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    const map = spawnEditor.getMap(spawnMapId(request));
+    const route = await walkerRoutes.route(walkerRouteId(request));
+    const authoredGround = await Promise.all(route.authoredSteps.map(step =>
+      terrainHeights.lookup(map.id, map.worldSize, step.x, step.y),
+    ));
+    const groundByAuthoredIndex = new Map(authoredGround.map((ground, index) => [index + 1, ground]));
+    const enrich = (step: WalkerRouteStep) => {
+      const ground = groundByAuthoredIndex.get(step.authoredIndex);
+      return {
+        ...step,
+        terrain: ground?.available
+          ? {
+              available: true as const,
+              z: ground.z,
+              delta: step.z - ground.z,
+              sourceFile: ground.sourceFile,
+            }
+          : {
+              available: false as const,
+              reason: ground?.reason ?? "HEIGHTMAP_NOT_AVAILABLE",
+              sourceFile: ground?.sourceFile,
+            },
+      };
+    };
+    return reply.send({
+      ok: true,
+      route: {
+        ...route,
+        authoredSteps: route.authoredSteps.map(enrich),
+        effectiveSteps: route.effectiveSteps.map(enrich),
+      },
+    });
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.get("/admin/api/spawn-editor/npcs", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    await ensureNpcCatalogLoaded();
+    const query = request.query as Record<string, string | undefined>;
+    const limit = Number.parseInt(query.limit ?? "30", 10);
+    return reply.send({
+      ok: true,
+      npcs: npcCatalog.search(query.q ?? "", Number.isInteger(limit) ? limit : 30),
+    });
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.post("/admin/api/spawn-editor/maps/:mapId/validate", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    await ensureNpcCatalogLoaded();
+    const change = spawnChangeRequest(request.body);
+    return reply.send(await spawnEditor.validate(spawnMapId(request), change));
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
+  }
+});
+
+app.post("/admin/api/spawn-editor/maps/:mapId/apply", async (request, reply) => {
+  const current = await requireAdminApi(request, reply);
+  if (!current) {
+    return;
+  }
+
+  try {
+    await ensureNpcCatalogLoaded();
+    const change = spawnChangeRequest(request.body);
+    const reason = normalizeAdminText(change.reason ?? "", "Reason", 240);
+    const result = await spawnEditor.apply(spawnMapId(request), { ...change, reason });
+    await adminAudit
+      .append({
+        adminPortalUserId: current.user.id,
+        adminAccountId: current.user.aionAccountId,
+        adminUsername: current.user.aionAccountName,
+        action: "spawn_editor_apply",
+        via: "repository",
+        mapId: result.snapshot.map.id,
+        mapName: result.snapshot.map.name,
+        reason,
+        sourceRelativePath: result.sourceRelativePath,
+        sourceRelativePaths: result.sourceRelativePaths,
+        backupRelativePath: result.backupRelativePath,
+        backupRelativePaths: result.backupRelativePaths,
+        fromRevision: change.revision,
+        toRevision: result.snapshot.revision,
+        created: result.created,
+        updated: result.updated,
+        deleted: result.deleted,
+        operations: change.operations,
+      })
+      .catch(error => {
+        app.log.error(
+          { error, mapId: result.snapshot.map.id },
+          "Spawn changes were applied but the admin audit append failed",
+        );
+      });
+    return reply.send(result);
+  } catch (error) {
+    return spawnEditorFailure(reply, error);
   }
 });
 
@@ -1889,6 +2109,98 @@ async function requireAdmin(request: FastifyRequest, reply: FastifyReply): Promi
   return current;
 }
 
+async function requireAdminApi(request: FastifyRequest, reply: FastifyReply): Promise<CurrentUser | undefined> {
+  const current = await currentUser(request);
+  if (!current) {
+    reply.code(401).send({ ok: false, code: "AUTH_REQUIRED", error: "Sign in is required." });
+    return undefined;
+  }
+  if (!current.user.isAdmin) {
+    reply.code(403).send({
+      ok: false,
+      code: "ADMIN_REQUIRED",
+      error: "Admin access requires Aion account access level 9.",
+    });
+    return undefined;
+  }
+  return current;
+}
+
+function spawnMapId(request: FastifyRequest): number {
+  const { mapId } = request.params as { mapId?: string };
+  const raw = mapId ?? "";
+  const parsed = Number.parseInt(raw, 10);
+  if (!/^\d+$/.test(raw) || !Number.isSafeInteger(parsed) || parsed <= 0) {
+    throw new SpawnEditorError(400, "INVALID_MAP_ID", "Map id is not valid.");
+  }
+  return parsed;
+}
+
+function walkerRouteId(request: FastifyRequest): string {
+  const { walkerId } = request.params as { walkerId?: string };
+  const routeId = walkerId?.trim() ?? "";
+  if (!routeId || routeId.length > 256 || /[\u0000-\u001f]/.test(routeId)) {
+    throw new SpawnEditorError(400, "INVALID_WALKER_ID", "Walker route id is not valid.");
+  }
+  return routeId;
+}
+
+function spawnChangeRequest(body: unknown): SpawnEditorChangeRequest {
+  if (!body || typeof body !== "object") {
+    throw new SpawnEditorError(400, "INVALID_CHANGE_SET", "A JSON spawn change set is required.");
+  }
+  const candidate = body as Partial<SpawnEditorChangeRequest>;
+  if (typeof candidate.revision !== "string" || !Array.isArray(candidate.operations)) {
+    throw new SpawnEditorError(400, "INVALID_CHANGE_SET", "Revision and operations are required.");
+  }
+  if (candidate.reason !== undefined && typeof candidate.reason !== "string") {
+    throw new SpawnEditorError(400, "INVALID_CHANGE_SET", "Reason must be text.");
+  }
+  return candidate as SpawnEditorChangeRequest;
+}
+
+function spawnGroundCoordinates(
+  request: FastifyRequest,
+  map: ReturnType<SpawnEditorService["getMap"]>,
+): { x: number; y: number } {
+  const query = request.query as Record<string, unknown>;
+  const x = strictCoordinate(query.x, "X");
+  const y = strictCoordinate(query.y, "Y");
+  const bounds = map.coordinateBounds;
+  if (x < bounds.minX || x > bounds.maxX || y < bounds.minY || y > bounds.maxY) {
+    throw new SpawnEditorError(
+      400,
+      "INVALID_POSITION",
+      `X must be between ${bounds.minX} and ${bounds.maxX}; Y must be between ${bounds.minY} and ${bounds.maxY}.`,
+    );
+  }
+  return { x, y };
+}
+
+function strictCoordinate(raw: unknown, label: string): number {
+  if (typeof raw !== "string" || raw.trim() === "") {
+    throw new SpawnEditorError(400, "INVALID_POSITION", `${label} is required.`);
+  }
+  const value = Number(raw);
+  if (!Number.isFinite(value)) {
+    throw new SpawnEditorError(400, "INVALID_POSITION", `${label} must be a finite number.`);
+  }
+  return value;
+}
+
+function spawnEditorFailure(reply: FastifyReply, error: unknown): FastifyReply {
+  if (error instanceof SpawnEditorError) {
+    return reply.code(error.statusCode).send({
+      ok: false,
+      code: error.code,
+      error: error.message,
+      ...(error.details ?? {}),
+    });
+  }
+  app.log.error({ error }, "Spawn editor request failed");
+  return reply.code(500).send({ ok: false, code: "SPAWN_EDITOR_FAILED", error: messageFor(error) });
+}
+
 function setSession(reply: FastifyReply, user: PortalUser): void {
   const sessionId = sessions.create(user.id);
   reply.setCookie("sid", sessionId, {
@@ -2108,6 +2420,10 @@ function safeInteger(value: unknown): number | undefined {
 
 async function ensureItemCatalogLoaded(): Promise<void> {
   await itemCatalogLoad;
+}
+
+async function ensureNpcCatalogLoaded(): Promise<void> {
+  await npcCatalogLoad;
 }
 
 type AdminItemSearchOptions = {

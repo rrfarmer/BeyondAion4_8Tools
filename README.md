@@ -9,7 +9,7 @@ This first slice is intentionally narrow:
 - list characters for the linked account
 - warehouse views for character, account, and portal-only online storage
 - guarded whole-item transfers between a character's warehouses and account warehouses
-- read-only admin panel for linked Aion accounts with `account_data.access_level >= 9`
+- admin tools for linked Aion accounts with `account_data.access_level >= 9`
 
 ## Run
 
@@ -83,15 +83,32 @@ The admin panel currently supports:
 
 - account, character, and inventory storage counts
 - characters grouped by online/offline status
-- one-item express mail delivery to a character
+- item, Kinah, and bundle express mail delivery through the live `.NET` admin HTTP service
 
-Admin item mail writes:
+Express Mail is validated and delivered by the running game server so online recipients receive normal live mailbox notifications. Portal audit records are stored under `DATA_DIR`; the portal does not create mail rows directly.
 
-- `mail.express = 1`
-- an attached `inventory` row with `item_location = 127`
-- an audit line to `DATA_DIR/admin-mail-audit.jsonl`
+## NPC Spawn Editor
 
-The portal validates the recipient, item template, max stack count, and mailbox size before writing. Because this first implementation writes through MySQL instead of a live game-server API, online players may not receive the in-memory express notification until a server relay is added.
+Level-9 accounts can open `/admin/spawns` to inspect and edit NPC/mob spawn locations across every map represented in the .NET server's NPC spawn XML.
+
+The editor:
+
+- loads NPC metadata from `BeyondAionSharp/game-server/data/static_data/npcs/npc_templates.xml`
+- aggregates base and `Custom` XML sources, including repeated `<spawn_map>` blocks
+- supports map/layer switching, hover/search, coordinate updates, deletion, and new NPC placement
+- uses client `zonemap.xml` calibration and the exact reversible game-coordinate/image transform
+- resolves ground Z from the server's prepared 16-bit terrain heightmaps after map picks or X/Y edits, while retaining manual Z entry
+- resolves selected `walker_id` routes from the complete recursive `npc_walker` catalog and draws numbered runtime paths over the calibrated map
+- compares every authored patrol waypoint with terrain Z so airborne or buried segments are immediately highlighted
+- stages all browser changes until an explicit review/apply step
+- rejects stale revisions, invalid coordinates, static/special placements, and invalid pooled groups
+- writes a pre-change backup per touched source under `DATA_DIR/spawn-editor-backups/<map id>`
+- rolls back already-renamed sources if a later file in a multi-XML apply fails
+- records the applied operations and reason in `DATA_DIR/admin-actions-audit.jsonl`
+
+This is repository editing, not live server editing. Changes take effect in game only after the updated `BeyondAionSharp` checkout is used for a later game-server build/restart.
+
+Docker mounts the repository NPC spawn directory read/write, plus the NPC template, walker-route, and geodata directories read-only. All locally generated map assets and the 43-map manifest are copied into the portal image during `docker compose build`. See `docs/MAP_ASSETS.md` for the repeatable client extraction command, coordinate transform, and terrain-height behavior.
 
 ## Icon Cache
 

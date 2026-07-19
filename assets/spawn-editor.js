@@ -1,0 +1,1248 @@
+/* global L */
+(() => {
+  "use strict";
+
+  const root = document.querySelector("[data-spawn-editor]");
+  if (!root) return;
+
+  const initialMapId = Number(root.dataset.mapId);
+  const elements = {
+    map: root.querySelector("[data-map]"),
+    mapShell: root.querySelector(".spawn-map-shell"),
+    mapLoading: root.querySelector("[data-map-loading]"),
+    mapStats: root.querySelector("[data-map-stats]"),
+    mapLoadingLabel: root.querySelector("[data-map-loading-label]"),
+    artworkStatus: root.querySelector("[data-artwork-status]"),
+    sourceStatus: root.querySelector("[data-source-status]"),
+    status: root.querySelector("[data-status]"),
+    mapSelect: root.querySelector("[data-map-select]"),
+    layerControl: root.querySelector("[data-layer-control]"),
+    layerSelect: root.querySelector("[data-layer-select]"),
+    mapSearch: root.querySelector("[data-map-search]"),
+    typeFilter: root.querySelector("[data-type-filter]"),
+    editableFilter: root.querySelector("[data-editable-filter]"),
+    placeToggle: root.querySelector("[data-place-toggle]"),
+    discardAll: root.querySelector("[data-discard-all]"),
+    review: root.querySelector("[data-review]"),
+    changeCount: root.querySelector("[data-change-count]"),
+    emptyState: root.querySelector("[data-empty-state]"),
+    emptyDetail: root.querySelector("[data-empty-detail]"),
+    detail: root.querySelector("[data-detail]"),
+    detailType: root.querySelector("[data-detail-type]"),
+    detailName: root.querySelector("[data-detail-name]"),
+    detailDraft: root.querySelector("[data-detail-draft]"),
+    detailFacts: root.querySelector("[data-detail-facts]"),
+    detailWarnings: root.querySelector("[data-detail-warnings]"),
+    walkerPanel: root.querySelector("[data-walker-panel]"),
+    walkerId: root.querySelector("[data-walker-id]"),
+    walkerStatus: root.querySelector("[data-walker-status]"),
+    walkerFacts: root.querySelector("[data-walker-facts]"),
+    walkerWarnings: root.querySelector("[data-walker-warnings]"),
+    walkerFit: root.querySelector("[data-walker-fit]"),
+    positionForm: root.querySelector("[data-position-form]"),
+    stageUpdate: root.querySelector("[data-stage-update]"),
+    pickPosition: root.querySelector("[data-pick-position]"),
+    snapGround: root.querySelector("[data-snap-ground]"),
+    groundStatus: root.querySelector("[data-ground-status]"),
+    undoSelected: root.querySelector("[data-undo-selected]"),
+    deleteSelected: root.querySelector("[data-delete-selected]"),
+    placePanel: root.querySelector("[data-place-panel]"),
+    placeClose: root.querySelector("[data-place-close]"),
+    placeTitle: root.querySelector("[data-place-title]"),
+    npcSearch: root.querySelector("[data-npc-search]"),
+    npcResults: root.querySelector("[data-npc-results]"),
+    placeFields: root.querySelector("[data-place-fields]"),
+    selectedNpc: root.querySelector("[data-selected-npc]"),
+    placeX: root.querySelector("[data-place-x]"),
+    placeY: root.querySelector("[data-place-y]"),
+    placeZ: root.querySelector("[data-place-z]"),
+    placeHeading: root.querySelector("[data-place-heading]"),
+    respawnField: root.querySelector("[data-respawn-field]"),
+    placeRespawn: root.querySelector("[data-place-respawn]"),
+    placePick: root.querySelector("[data-place-pick]"),
+    placeSnapGround: root.querySelector("[data-place-snap-ground]"),
+    placeGroundStatus: root.querySelector("[data-place-ground-status]"),
+    stageCreate: root.querySelector("[data-stage-create]"),
+    reviewDialog: root.querySelector("[data-review-dialog]"),
+    reviewSummary: root.querySelector("[data-review-summary]"),
+    reviewList: root.querySelector("[data-review-list]"),
+    changeReason: root.querySelector("[data-change-reason]"),
+    applyChanges: root.querySelector("[data-apply-changes]"),
+  };
+
+  const state = {
+    maps: [],
+    mapId: initialMapId,
+    layerId: undefined,
+    snapshot: undefined,
+    groups: new Map(),
+    groupsByNpcId: new Map(),
+    spots: new Map(),
+    drafts: new Map(),
+    selectedKey: undefined,
+    selectedNpc: undefined,
+    npcResults: [],
+    nextClientKey: 1,
+    pickMode: undefined,
+    leafletMap: undefined,
+    markerLayer: undefined,
+    selectionLayer: undefined,
+    walkerLayer: undefined,
+    imageLayer: undefined,
+    renderer: undefined,
+    walkerRoute: undefined,
+    walkerSpotKey: undefined,
+    walkerError: undefined,
+    walkerRequestId: 0,
+    searchTimer: undefined,
+    groundTimers: { update: undefined, create: undefined },
+    groundRequestIds: { update: 0, create: 0 },
+    groundLoading: { update: false, create: false },
+  };
+
+  bindEvents();
+  bootstrap().catch(showFatal);
+
+  function bindEvents() {
+    elements.mapSelect.addEventListener("change", changeMap);
+    elements.layerSelect.addEventListener("change", changeLayer);
+    elements.mapSearch.addEventListener("input", renderMarkers);
+    elements.typeFilter.addEventListener("change", renderMarkers);
+    elements.editableFilter.addEventListener("change", renderMarkers);
+    elements.placeToggle.addEventListener("click", openPlacement);
+    elements.placeClose.addEventListener("click", closePlacement);
+    elements.discardAll.addEventListener("click", discardAll);
+    elements.review.addEventListener("click", reviewChanges);
+    elements.positionForm.addEventListener("submit", stageUpdate);
+    elements.pickPosition.addEventListener("click", () => beginPick("update"));
+    elements.snapGround.addEventListener("click", () => snapCurrentPosition("update"));
+    elements.undoSelected.addEventListener("click", undoSelected);
+    elements.deleteSelected.addEventListener("click", stageDelete);
+    elements.walkerFit.addEventListener("click", fitWalkerRoute);
+    elements.npcSearch.addEventListener("input", queueNpcSearch);
+    elements.npcResults.addEventListener("click", selectNpcResult);
+    elements.placePick.addEventListener("click", () => beginPick("create"));
+    elements.placeSnapGround.addEventListener("click", () => snapCurrentPosition("create"));
+    elements.stageCreate.addEventListener("click", stageCreate);
+    elements.positionForm.elements.x.addEventListener("input", () => queueGroundLookup("update"));
+    elements.positionForm.elements.y.addEventListener("input", () => queueGroundLookup("update"));
+    elements.positionForm.elements.z.addEventListener("input", () => groundValueEdited("update"));
+    elements.placeX.addEventListener("input", () => {
+      updateCreateButton();
+      queueGroundLookup("create");
+    });
+    elements.placeY.addEventListener("input", () => {
+      updateCreateButton();
+      queueGroundLookup("create");
+    });
+    elements.placeZ.addEventListener("input", () => {
+      groundValueEdited("create");
+      updateCreateButton();
+    });
+    elements.placeHeading.addEventListener("input", updateCreateButton);
+    elements.placeRespawn.addEventListener("input", updateCreateButton);
+    elements.applyChanges.addEventListener("click", applyChanges);
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && state.pickMode) cancelPick();
+    });
+    window.addEventListener("beforeunload", event => {
+      if (!state.drafts.size) return;
+      event.preventDefault();
+      event.returnValue = "";
+    });
+  }
+
+  async function bootstrap() {
+    setLoading(true);
+    const result = await fetchJson("/admin/api/spawn-editor/maps");
+    state.maps = result.maps;
+    if (!state.maps.length) throw new Error("No spawn maps are available.");
+    elements.mapSelect.innerHTML = state.maps
+      .map(map => `<option value="${map.id}">${escapeHtml(map.name)} · ${map.id}</option>`)
+      .join("");
+    const requestedMapId = Number(new URLSearchParams(window.location.search).get("mapId"));
+    const selectedMap = state.maps.find(map => map.id === requestedMapId)
+      || state.maps.find(map => map.id === initialMapId)
+      || state.maps[0];
+    state.mapId = selectedMap.id;
+    elements.mapSelect.value = String(state.mapId);
+    elements.mapSelect.disabled = false;
+    await loadSnapshot();
+  }
+
+  async function loadSnapshot() {
+    setLoading(true);
+    elements.mapLoadingLabel.textContent = `Loading ${mapName(state.mapId)}`;
+    const snapshot = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/spawns`);
+    installSnapshot(snapshot);
+    if (!state.leafletMap) initializeMap(snapshot.map);
+    else updateMapImage(snapshot.map, true);
+    populateTypeFilter();
+    renderMarkers();
+    elements.status.hidden = true;
+    setLoading(false);
+  }
+
+  async function changeMap() {
+    const nextMapId = Number(elements.mapSelect.value);
+    if (nextMapId === state.mapId) return;
+    if (state.drafts.size && !window.confirm("Discard draft spawn changes and switch maps?")) {
+      elements.mapSelect.value = String(state.mapId);
+      return;
+    }
+    state.mapId = nextMapId;
+    state.layerId = undefined;
+    cancelPick();
+    if (elements.reviewDialog.open) elements.reviewDialog.close();
+    const url = new URL(window.location.href);
+    url.searchParams.set("mapId", String(nextMapId));
+    window.history.replaceState({}, "", url);
+    await loadSnapshot().catch(showFatal);
+  }
+
+  function changeLayer() {
+    if (!state.snapshot) return;
+    state.layerId = elements.layerSelect.value;
+    updateMapImage(state.snapshot.map, false);
+  }
+
+  function installSnapshot(snapshot) {
+    cancelGroundLookup("update");
+    cancelGroundLookup("create");
+    state.snapshot = snapshot;
+    state.groups = new Map(snapshot.groups.map(group => [group.key, group]));
+    state.groupsByNpcId = new Map();
+    for (const group of snapshot.groups) {
+      const current = state.groupsByNpcId.get(group.npcId);
+      if (!current || (!current.editable && group.editable)) state.groupsByNpcId.set(group.npcId, group);
+    }
+    state.spots = new Map(snapshot.spots.map(spot => [spot.key, spot]));
+    state.drafts.clear();
+    state.selectedKey = undefined;
+    state.selectedNpc = undefined;
+    clearWalkerRoute();
+    state.nextClientKey = 1;
+    const sourceCount = snapshot.map.sourceRelativePaths.length;
+    elements.sourceStatus.textContent = `${sourceCount.toLocaleString()} XML source${sourceCount === 1 ? "" : "s"} · ${snapshot.revision.slice(0, 10)}`;
+    elements.sourceStatus.title = snapshot.map.sourceRelativePaths.join("\n");
+    elements.map.setAttribute("aria-label", `${snapshot.map.name} spawn map`);
+    elements.changeReason.value = `${snapshot.map.name} spawn placement update`;
+    populateLayerSelect(snapshot.map);
+    updateDraftControls();
+    renderInspector();
+  }
+
+  function initializeMap(mapDefinition) {
+    state.leafletMap = L.map(elements.map, {
+      crs: L.CRS.Simple,
+      minZoom: -3,
+      maxZoom: 3,
+      zoomSnap: 0.25,
+      zoomDelta: 0.5,
+      preferCanvas: true,
+      attributionControl: false,
+    });
+    state.renderer = L.canvas({ padding: 0.5, tolerance: 5 });
+    state.walkerLayer = L.layerGroup().addTo(state.leafletMap);
+    state.markerLayer = L.layerGroup().addTo(state.leafletMap);
+    state.selectionLayer = L.layerGroup().addTo(state.leafletMap);
+    state.leafletMap.on("click", onMapClick);
+    updateMapImage(mapDefinition, true);
+  }
+
+  function populateLayerSelect(mapDefinition) {
+    const preferred = mapDefinition.layers.some(layer => layer.id === state.layerId)
+      ? state.layerId
+      : mapDefinition.defaultLayerId;
+    state.layerId = preferred;
+    elements.layerSelect.innerHTML = mapDefinition.layers
+      .map(layer => `<option value="${escapeHtml(layer.id)}">${escapeHtml(layer.name)}</option>`)
+      .join("");
+    elements.layerSelect.value = preferred;
+    elements.layerControl.hidden = mapDefinition.layers.length < 2;
+  }
+
+  function updateMapImage(mapDefinition, fit) {
+    const imageBounds = L.latLngBounds([0, 0], [mapDefinition.worldSize, mapDefinition.worldSize]);
+    const layer = mapDefinition.layers.find(candidate => candidate.id === state.layerId) || mapDefinition.layers[0];
+    if (state.imageLayer) state.imageLayer.remove();
+    state.imageLayer = L.imageOverlay(layer.imageUrl, imageBounds, { interactive: false }).addTo(state.leafletMap);
+    state.imageLayer.bringToBack();
+    const contentBounds = imageBounds.pad(0.08);
+    for (const spot of state.snapshot?.spots || []) contentBounds.extend(gameToMap(spot.x, spot.y));
+    state.leafletMap.setMaxBounds(contentBounds.pad(0.05));
+    if (fit) state.leafletMap.fitBounds(imageBounds, { animate: false, padding: [8, 8] });
+    elements.artworkStatus.hidden = layer.assetKind === "map-window";
+    elements.artworkStatus.textContent = layer.assetKind === "radar" ? "Client radar map" : "Coordinate grid";
+  }
+
+  function populateTypeFilter() {
+    const current = elements.typeFilter.value;
+    const types = [...new Set(state.snapshot.groups.map(group => group.npc.type || "NONE"))].sort();
+    elements.typeFilter.innerHTML = `<option value="">All types</option>${types
+      .map(type => `<option value="${escapeHtml(type)}">${escapeHtml(formatLabel(type))}</option>`)
+      .join("")}`;
+    elements.typeFilter.value = types.includes(current) ? current : "";
+  }
+
+  function effectiveEntries() {
+    const entries = [];
+    for (const spot of state.spots.values()) {
+      const draft = state.drafts.get(spot.key);
+      if (draft?.kind === "delete") continue;
+      entries.push({
+        ...spot,
+        ...(draft?.kind === "update" ? positionFrom(draft) : {}),
+        draftKind: draft?.kind,
+        group: state.groups.get(spot.groupKey),
+      });
+    }
+    for (const draft of state.drafts.values()) {
+      if (draft.kind !== "create") continue;
+      entries.push({
+        key: draft.clientKey,
+        groupKey: state.groupsByNpcId.get(draft.npcId)?.key || `new:${draft.npcId}`,
+        npcId: draft.npcId,
+        ...positionFrom(draft),
+        randomWalk: 0,
+        walkerId: "",
+        staticId: 0,
+        aerial: false,
+        ai: "",
+        anchor: "",
+        state: 0,
+        editable: true,
+        warnings: [],
+        attributes: {},
+        draftKind: "create",
+        group: state.groupsByNpcId.get(draft.npcId) || pseudoGroup(draft),
+      });
+    }
+    return entries;
+  }
+
+  function renderMarkers() {
+    if (!state.markerLayer || !state.snapshot) return;
+    state.markerLayer.clearLayers();
+    const query = elements.mapSearch.value.trim().toLocaleLowerCase();
+    const type = elements.typeFilter.value;
+    const editableOnly = elements.editableFilter.checked;
+    const entries = effectiveEntries();
+    let shown = 0;
+
+    for (const entry of entries) {
+      const group = entry.group;
+      if (!group) continue;
+      const searchable = `${group.npc.displayName} ${entry.npcId}`.toLocaleLowerCase();
+      if (query && !searchable.includes(query)) continue;
+      if (type && (group.npc.type || "NONE") !== type) continue;
+      if (editableOnly && !entry.editable) continue;
+
+      const selected = state.selectedKey === entry.key;
+      const marker = L.circleMarker(gameToMap(entry.x, entry.y), markerStyle(entry, selected));
+      marker.bindTooltip(tooltipHtml(entry), {
+        direction: "right",
+        offset: [8, 0],
+        opacity: 1,
+        className: "spawn-tooltip",
+      });
+      marker.on("click", event => {
+        L.DomEvent.stopPropagation(event);
+        selectSpot(entry.key);
+      });
+      marker.addTo(state.markerLayer);
+      shown++;
+    }
+
+    const editable = entries.filter(entry => entry.editable).length;
+    elements.mapStats.textContent = `${shown.toLocaleString()} shown · ${entries.length.toLocaleString()} total · ${editable.toLocaleString()} editable`;
+    renderSelectionOverlay();
+  }
+
+  function markerStyle(entry, selected) {
+    const draft = Boolean(entry.draftKind);
+    return {
+      renderer: state.renderer,
+      radius: selected ? 6 : draft ? 5 : 4,
+      color: selected ? "#ffffff" : draft ? "#d9fff0" : "rgba(255,255,255,.75)",
+      weight: selected ? 3 : 1,
+      fillColor: draft ? "#57d69b" : colorForType(entry.group?.npc.type),
+      fillOpacity: entry.editable ? 0.9 : 0.48,
+      opacity: 0.96,
+    };
+  }
+
+  function tooltipHtml(entry) {
+    const group = entry.group;
+    const warnings = [...(entry.warnings || [])];
+    if (entry.draftKind) warnings.unshift(`${formatLabel(entry.draftKind)} draft`);
+    return `
+      <div class="spawn-tooltip-name">${escapeHtml(group.npc.displayName)}</div>
+      <div class="spawn-tooltip-meta">ID ${entry.npcId} · Level ${group.npc.level || "?"} · ${escapeHtml(formatLabel(group.npc.type || "NONE"))}</div>
+      <div class="spawn-tooltip-position">X ${formatNumber(entry.x)} · Y ${formatNumber(entry.y)} · Z ${formatNumber(entry.z)} · H ${entry.heading}</div>
+      ${warnings.length ? `<div class="spawn-tooltip-warning">${escapeHtml(warnings.join(" · "))}</div>` : ""}`;
+  }
+
+  function selectSpot(key) {
+    if (state.walkerSpotKey !== key) clearWalkerRoute();
+    state.selectedKey = key;
+    closePlacement();
+    renderMarkers();
+    renderInspector();
+    const entry = selectedEntry();
+    if (entry?.walkerId) loadWalkerRoute(entry);
+  }
+
+  function selectedEntry() {
+    if (!state.selectedKey) return undefined;
+    return effectiveEntries().find(entry => entry.key === state.selectedKey);
+  }
+
+  function renderInspector() {
+    const entry = selectedEntry();
+    if (!entry) {
+      elements.emptyState.hidden = false;
+      elements.detail.hidden = true;
+      elements.walkerPanel.hidden = true;
+      state.selectionLayer?.clearLayers();
+      return;
+    }
+    const group = entry.group;
+    elements.emptyState.hidden = true;
+    elements.detail.hidden = false;
+    elements.detailType.textContent = `${formatLabel(group.npc.type || "NONE")} · ${entry.npcId}`;
+    elements.detailName.textContent = group.npc.displayName;
+    elements.detailDraft.hidden = !entry.draftKind;
+    elements.detailFacts.innerHTML = factsHtml([
+      ["Level", group.npc.level || "-"],
+      ["Rank", formatLabel(group.npc.rank || "-")],
+      ["Rating", formatLabel(group.npc.rating || "-")],
+      ["Respawn", group.respawnTime ? `${group.respawnTime}s` : "New group"],
+      ["AI", entry.ai || group.npc.ai || "-"],
+      ["Group spots", countNpcSpots(entry.npcId)],
+      ["Source", sourceName(entry.sourceRelativePath || group.sourceRelativePath)],
+    ]);
+    const warnings = [...(entry.warnings || [])];
+    elements.detailWarnings.hidden = warnings.length === 0;
+    elements.detailWarnings.innerHTML = warnings.map(warning => `<span>${escapeHtml(warning)}</span>`).join("");
+    renderWalkerPanel(entry);
+    elements.positionForm.elements.x.value = formatNumber(entry.x);
+    elements.positionForm.elements.y.value = formatNumber(entry.y);
+    elements.positionForm.elements.z.value = formatNumber(entry.z);
+    elements.positionForm.elements.heading.value = String(entry.heading);
+    clearGroundStatus("update");
+    const readOnly = !entry.editable;
+    for (const input of elements.positionForm.querySelectorAll("input")) input.disabled = readOnly;
+    elements.stageUpdate.disabled = readOnly;
+    elements.pickPosition.disabled = readOnly;
+    updateGroundControl("update");
+    elements.deleteSelected.disabled = readOnly;
+    elements.undoSelected.hidden = !state.drafts.has(entry.key);
+    renderSelectionOverlay();
+  }
+
+  function renderSelectionOverlay() {
+    if (!state.selectionLayer) return;
+    state.selectionLayer.clearLayers();
+    const entry = selectedEntry();
+    if (!entry) return;
+    if (entry.randomWalk > 0) {
+      L.circle(gameToMap(entry.x, entry.y), {
+        renderer: state.renderer,
+        radius: entry.randomWalk,
+        color: "#f1c76f",
+        weight: 1,
+        fillColor: "#f1c76f",
+        fillOpacity: 0.08,
+        interactive: false,
+      }).addTo(state.selectionLayer);
+    }
+    const angle = entry.heading * 3 * Math.PI / 180;
+    const length = 24;
+    const headingEnd = gameToMap(
+      entry.x + Math.cos(angle) * length,
+      entry.y + Math.sin(angle) * length,
+    );
+    L.polyline(
+      [gameToMap(entry.x, entry.y), headingEnd],
+      { renderer: state.renderer, color: "#ffffff", weight: 2, opacity: 0.92, interactive: false },
+    ).addTo(state.selectionLayer);
+  }
+
+  async function loadWalkerRoute(entry) {
+    const requestId = ++state.walkerRequestId;
+    state.walkerSpotKey = entry.key;
+    state.walkerRoute = undefined;
+    state.walkerError = undefined;
+    renderWalkerPanel(entry);
+    try {
+      const result = await fetchJson(
+        `/admin/api/spawn-editor/maps/${state.mapId}/walkers/${encodeURIComponent(entry.walkerId)}`,
+      );
+      if (requestId !== state.walkerRequestId || state.selectedKey !== entry.key) return;
+      state.walkerRoute = result.route;
+      renderWalkerOverlay();
+      renderWalkerPanel(entry);
+      fitWalkerRoute();
+    } catch (error) {
+      if (requestId !== state.walkerRequestId || state.selectedKey !== entry.key) return;
+      state.walkerError = error.message || "Walker route could not be loaded.";
+      state.walkerLayer?.clearLayers();
+      renderWalkerPanel(entry);
+    }
+  }
+
+  function clearWalkerRoute() {
+    state.walkerRequestId++;
+    state.walkerRoute = undefined;
+    state.walkerSpotKey = undefined;
+    state.walkerError = undefined;
+    state.walkerLayer?.clearLayers();
+    if (elements.walkerPanel) elements.walkerPanel.hidden = true;
+  }
+
+  function renderWalkerPanel(entry) {
+    if (!entry.walkerId) {
+      elements.walkerPanel.hidden = true;
+      return;
+    }
+    elements.walkerPanel.hidden = false;
+    elements.walkerId.textContent = entry.walkerId;
+    elements.walkerId.title = entry.walkerId;
+    const route = state.walkerSpotKey === entry.key ? state.walkerRoute : undefined;
+    elements.walkerFit.disabled = !route;
+    if (!route) {
+      elements.walkerStatus.hidden = false;
+      elements.walkerStatus.textContent = state.walkerError || "Loading route waypoints...";
+      elements.walkerStatus.className = `spawn-walker-status${state.walkerError ? " error" : ""}`;
+      elements.walkerFacts.hidden = true;
+      elements.walkerWarnings.hidden = true;
+      return;
+    }
+
+    const mismatches = route.authoredSteps.filter(step => terrainMismatch(step) === "critical");
+    const worst = route.authoredSteps
+      .filter(step => step.terrain?.available)
+      .sort((left, right) => Math.abs(right.terrain.delta) - Math.abs(left.terrain.delta))[0];
+    elements.walkerStatus.hidden = true;
+    elements.walkerFacts.hidden = false;
+    elements.walkerFacts.innerHTML = factsHtml([
+      ["Waypoints", route.effectiveStepCount === route.authoredStepCount
+        ? route.authoredStepCount
+        : `${route.authoredStepCount} XML / ${route.effectiveStepCount} runtime`],
+      ["Loop", walkerLoopLabel(route)],
+      ["Length", `${formatNumber(route.length2d)}m 2D`],
+      ["Z range", `${formatNumber(route.bounds.minZ)} to ${formatNumber(route.bounds.maxZ)}`],
+      ["Formation", route.pool > 1 ? `${route.formation} x${route.pool}` : "Single"],
+      ["Source", sourceName(route.sourceRelativePath)],
+    ]);
+    const warnings = [...route.warnings];
+    if (mismatches.length > 0) {
+      warnings.unshift(`${mismatches.length} waypoint${mismatches.length === 1 ? "" : "s"} more than 3m from terrain`);
+    }
+    if (worst && Math.abs(worst.terrain.delta) > 0.75) {
+      warnings.push(`Largest terrain difference: ${signedNumber(worst.terrain.delta)}m at point ${worst.authoredIndex}`);
+    }
+    elements.walkerWarnings.hidden = warnings.length === 0;
+    elements.walkerWarnings.innerHTML = warnings.map(warning => `<span>${escapeHtml(warning)}</span>`).join("");
+  }
+
+  function renderWalkerOverlay() {
+    if (!state.walkerLayer) return;
+    state.walkerLayer.clearLayers();
+    const route = state.walkerRoute;
+    if (!route || route.effectiveSteps.length === 0) return;
+
+    for (let index = 0; index < route.effectiveSteps.length - 1; index++) {
+      addWalkerSegment(route.effectiveSteps[index], route.effectiveSteps[index + 1], false);
+    }
+    if (route.closesLoop && route.effectiveSteps.length > 1) {
+      addWalkerSegment(route.effectiveSteps.at(-1), route.effectiveSteps[0], true);
+    }
+
+    for (const step of route.authoredSteps) {
+      const severity = terrainMismatch(step);
+      const marker = L.marker(gameToMap(step.x, step.y), {
+        icon: L.divIcon({
+          className: "walker-step-icon",
+          html: `<span class="${severity}${step.authoredIndex === 1 ? " start" : ""}">${step.authoredIndex}</span>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12],
+        }),
+        keyboard: false,
+        riseOnHover: true,
+      });
+      marker.bindTooltip(walkerStepTooltip(step), {
+        direction: "right",
+        offset: [11, 0],
+        opacity: 1,
+        className: "spawn-tooltip walker-tooltip",
+      });
+      marker.addTo(state.walkerLayer);
+    }
+  }
+
+  function addWalkerSegment(from, to, closing) {
+    const severity = worseTerrainMismatch(from, to);
+    const colors = {
+      normal: "#55c9d8",
+      warning: "#e4b957",
+      critical: "#ff5f6d",
+      unknown: "#8c9aae",
+    };
+    L.polyline([gameToMap(from.x, from.y), gameToMap(to.x, to.y)], {
+      color: colors[severity],
+      weight: severity === "critical" ? 5 : 4,
+      opacity: 0.94,
+      dashArray: closing ? "7 7" : undefined,
+      interactive: false,
+    }).addTo(state.walkerLayer);
+  }
+
+  function walkerStepTooltip(step) {
+    const terrain = step.terrain?.available
+      ? `Ground ${formatNumber(step.terrain.z)} · Delta ${signedNumber(step.terrain.delta)}m`
+      : "Ground unavailable";
+    const pause = step.restTime > 0 ? `<div class="spawn-tooltip-warning">Pause ${formatDuration(step.restTime)}</div>` : "";
+    return `
+      <div class="spawn-tooltip-name">Patrol point ${step.authoredIndex}</div>
+      <div class="spawn-tooltip-position">X ${formatNumber(step.x)} · Y ${formatNumber(step.y)} · Z ${formatNumber(step.z)}</div>
+      <div class="spawn-tooltip-meta">${escapeHtml(terrain)}</div>
+      ${pause}`;
+  }
+
+  function fitWalkerRoute() {
+    const steps = state.walkerRoute?.authoredSteps || [];
+    if (!state.leafletMap || steps.length === 0) return;
+    const bounds = L.latLngBounds(steps.map(step => gameToMap(step.x, step.y)));
+    if (steps.length === 1) state.leafletMap.setView(bounds.getCenter(), 2, { animate: false });
+    else state.leafletMap.fitBounds(bounds, { animate: false, padding: [48, 48], maxZoom: 2 });
+  }
+
+  function terrainMismatch(step) {
+    if (!step?.terrain?.available) return "unknown";
+    const difference = Math.abs(step.terrain.delta);
+    if (difference > 3) return "critical";
+    if (difference > 0.75) return "warning";
+    return "normal";
+  }
+
+  function worseTerrainMismatch(left, right) {
+    const severity = { unknown: 0, normal: 1, warning: 2, critical: 3 };
+    const leftMismatch = terrainMismatch(left);
+    const rightMismatch = terrainMismatch(right);
+    if (leftMismatch === "unknown" && rightMismatch !== "unknown") return rightMismatch;
+    if (rightMismatch === "unknown" && leftMismatch !== "unknown") return leftMismatch;
+    return severity[leftMismatch] >= severity[rightMismatch] ? leftMismatch : rightMismatch;
+  }
+
+  function walkerLoopLabel(route) {
+    if (route.loopType === "NONE") return "One way";
+    if (route.loopType === "WALK_BACK") return "Walk back";
+    return "Continuous";
+  }
+
+  function signedNumber(value) {
+    const formatted = formatNumber(value);
+    return Number(value) > 0 ? `+${formatted}` : formatted;
+  }
+
+  function formatDuration(milliseconds) {
+    if (milliseconds % 1000 === 0) return `${milliseconds / 1000}s`;
+    return `${formatNumber(milliseconds / 1000)}s`;
+  }
+
+  function stageUpdate(event) {
+    event.preventDefault();
+    const entry = selectedEntry();
+    if (!entry || !entry.editable) return;
+    const position = positionFromForm(elements.positionForm);
+    if (!validatePosition(position)) return;
+    if (entry.draftKind === "create") {
+      const draft = state.drafts.get(entry.key);
+      if (!draft) return;
+      state.drafts.set(entry.key, { ...draft, ...position });
+      updateAfterDraft("New spawn placement updated.");
+      return;
+    }
+    const original = state.spots.get(entry.key);
+    if (samePosition(original, position)) state.drafts.delete(entry.key);
+    else state.drafts.set(entry.key, { kind: "update", spotKey: entry.key, ...position });
+    updateAfterDraft("Spawn update staged.");
+  }
+
+  function stageDelete() {
+    const entry = selectedEntry();
+    if (!entry || !entry.editable) return;
+    if (entry.draftKind === "create") {
+      state.drafts.delete(entry.key);
+      state.selectedKey = undefined;
+    } else {
+      state.drafts.set(entry.key, { kind: "delete", spotKey: entry.key });
+      state.selectedKey = undefined;
+    }
+    updateAfterDraft("Spawn deletion staged.");
+  }
+
+  function undoSelected() {
+    if (!state.selectedKey) return;
+    const wasCreate = state.drafts.get(state.selectedKey)?.kind === "create";
+    state.drafts.delete(state.selectedKey);
+    if (wasCreate) state.selectedKey = undefined;
+    updateAfterDraft("Draft change removed.");
+  }
+
+  function discardAll() {
+    if (!state.drafts.size) return;
+    state.drafts.clear();
+    if (state.selectedKey?.startsWith("new:")) state.selectedKey = undefined;
+    updateAfterDraft("All draft changes discarded.");
+  }
+
+  function updateAfterDraft(message) {
+    updateDraftControls();
+    renderMarkers();
+    renderInspector();
+    showStatus(message, "");
+  }
+
+  function updateDraftControls() {
+    const count = state.drafts.size;
+    elements.changeCount.textContent = String(count);
+    elements.review.disabled = count === 0;
+    elements.discardAll.disabled = count === 0;
+  }
+
+  function openPlacement() {
+    cancelGroundLookup("create");
+    clearWalkerRoute();
+    state.selectedKey = undefined;
+    state.selectedNpc = undefined;
+    elements.placeTitle.textContent = "Place NPC";
+    elements.npcSearch.value = "";
+    elements.npcResults.innerHTML = "";
+    elements.selectedNpc.innerHTML = "";
+    elements.placeFields.hidden = true;
+    elements.placeX.value = "";
+    elements.placeY.value = "";
+    elements.placeZ.value = "";
+    elements.placeHeading.value = "0";
+    elements.placeRespawn.value = "295";
+    clearGroundStatus("create");
+    elements.stageCreate.disabled = true;
+    elements.emptyState.hidden = true;
+    elements.detail.hidden = true;
+    elements.placePanel.hidden = false;
+    elements.npcSearch.focus();
+    renderMarkers();
+  }
+
+  function closePlacement() {
+    cancelGroundLookup("create");
+    cancelPick();
+    elements.placePanel.hidden = true;
+    if (!state.selectedKey) elements.emptyState.hidden = false;
+  }
+
+  function queueNpcSearch() {
+    clearTimeout(state.searchTimer);
+    const query = elements.npcSearch.value.trim();
+    if (query.length < 2) {
+      elements.npcResults.innerHTML = "";
+      return;
+    }
+    state.searchTimer = setTimeout(() => searchNpcs(query), 180);
+  }
+
+  async function searchNpcs(query) {
+    try {
+      const result = await fetchJson(`/admin/api/spawn-editor/npcs?q=${encodeURIComponent(query)}&limit=30`);
+      if (elements.npcSearch.value.trim() !== query) return;
+      state.npcResults = result.npcs;
+      elements.npcResults.innerHTML = result.npcs.length
+        ? result.npcs.map(npc => `
+            <button class="spawn-npc-result" type="button" data-npc-id="${npc.id}">
+              <span><strong>${escapeHtml(npc.displayName)}</strong><br><small>${escapeHtml(formatLabel(npc.type))} · Level ${npc.level || "?"}</small></span>
+              <small>${npc.id}</small>
+            </button>`).join("")
+        : `<div class="spawn-empty-state"><span>No matching NPC templates.</span></div>`;
+    } catch (error) {
+      showStatus(error.message, "error");
+    }
+  }
+
+  function selectNpcResult(event) {
+    const button = event.target.closest("[data-npc-id]");
+    if (!button) return;
+    const npcId = Number(button.dataset.npcId);
+    const npc = state.npcResults.find(candidate => candidate.id === npcId);
+    if (!npc) return;
+    state.selectedNpc = npc;
+    elements.placeTitle.textContent = npc.displayName;
+    elements.selectedNpc.innerHTML = `<strong>${escapeHtml(npc.displayName)}</strong><br><span class="muted">ID ${npc.id} · ${escapeHtml(formatLabel(npc.type))} · Level ${npc.level || "?"}</span>`;
+    elements.npcResults.innerHTML = "";
+    elements.placeFields.hidden = false;
+    const existingGroup = state.groupsByNpcId.get(npc.id);
+    elements.respawnField.hidden = Boolean(existingGroup);
+    if (existingGroup) {
+      elements.selectedNpc.innerHTML += `<br><span class="muted">Existing group · ${existingGroup.respawnTime}s respawn${existingGroup.editable ? "" : " · Read-only"}</span>`;
+    }
+    updateCreateButton();
+  }
+
+  function beginPick(mode) {
+    if (mode === "create" && !state.selectedNpc) return;
+    const entry = mode === "update" ? selectedEntry() : undefined;
+    if (mode === "update" && (!entry || !entry.editable)) return;
+    state.pickMode = mode;
+    elements.mapShell.classList.add("pick-mode");
+    const name = state.snapshot.map.name;
+    showStatus(mode === "create" ? `Select the placement position on ${name}.` : `Select the new spawn position on ${name}.`, "");
+  }
+
+  function cancelPick() {
+    state.pickMode = undefined;
+    elements.mapShell.classList.remove("pick-mode");
+  }
+
+  async function onMapClick(event) {
+    if (!state.pickMode) return;
+    const size = state.snapshot.map.worldSize;
+    if (event.latlng.lat < 0 || event.latlng.lat > size || event.latlng.lng < 0 || event.latlng.lng > size) {
+      showStatus("Select a position inside the mapped artwork.", "error");
+      return;
+    }
+    const position = mapToGame(event.latlng);
+    const x = roundCoordinate(position.x);
+    const y = roundCoordinate(position.y);
+    const mode = state.pickMode;
+    if (mode === "update") {
+      elements.positionForm.elements.x.value = formatNumber(x);
+      elements.positionForm.elements.y.value = formatNumber(y);
+    } else {
+      elements.placeX.value = formatNumber(x);
+      elements.placeY.value = formatNumber(y);
+      updateCreateButton();
+    }
+    cancelPick();
+    showStatus(`Map position captured at X ${formatNumber(x)}, Y ${formatNumber(y)}. Resolving ground Z.`, "");
+    await resolveGroundHeight(mode, x, y, true);
+  }
+
+  function queueGroundLookup(mode) {
+    cancelGroundLookup(mode);
+    clearGroundStatus(mode);
+    updateGroundControl(mode);
+    const position = currentGroundPosition(mode);
+    if (!position) return;
+    state.groundTimers[mode] = window.setTimeout(() => {
+      state.groundTimers[mode] = undefined;
+      resolveGroundHeight(mode, position.x, position.y, false);
+    }, 260);
+  }
+
+  function groundValueEdited(mode) {
+    cancelGroundLookup(mode);
+    clearGroundStatus(mode);
+    updateGroundControl(mode);
+  }
+
+  function snapCurrentPosition(mode) {
+    const position = currentGroundPosition(mode);
+    if (!position) {
+      setGroundStatus(mode, "Enter valid X and Y coordinates before resolving ground Z.", "warning");
+      return;
+    }
+    resolveGroundHeight(mode, position.x, position.y, false);
+  }
+
+  async function resolveGroundHeight(mode, x, y, announce) {
+    cancelGroundLookup(mode);
+    const requestId = ++state.groundRequestIds[mode];
+    const mapId = state.mapId;
+    state.groundLoading[mode] = true;
+    setGroundStatus(mode, "Resolving terrain height...", "");
+    updateGroundControl(mode);
+    try {
+      const result = await fetchJson(
+        `/admin/api/spawn-editor/maps/${mapId}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
+      );
+      if (!groundRequestIsCurrent(mode, requestId, mapId, x, y)) return;
+
+      if (result.available) {
+        groundFields(mode).z.value = formatNumber(result.z);
+        setGroundStatus(mode, `Ground Z ${formatNumber(result.z)} · ${result.sourceFile}`, "success");
+        if (mode === "create") updateCreateButton();
+        if (announce) {
+          showStatus(
+            `Map position captured at X ${formatNumber(x)}, Y ${formatNumber(y)}, ground Z ${formatNumber(result.z)}.`,
+            "success",
+          );
+        }
+        return;
+      }
+
+      const message = result.reason === "HEIGHTMAP_NOT_AVAILABLE"
+        ? "This map has no terrain heightmap. Enter Z manually."
+        : "No terrain surface exists at this position. Enter Z manually.";
+      setGroundStatus(mode, message, "warning");
+      if (announce) showStatus(`Map position captured at X ${formatNumber(x)}, Y ${formatNumber(y)}. ${message}`, "");
+    } catch (error) {
+      if (state.groundRequestIds[mode] !== requestId) return;
+      setGroundStatus(mode, error.message || "Ground height lookup failed. Enter Z manually.", "error");
+      if (announce) showStatus(error.message || "Ground height lookup failed.", "error");
+    } finally {
+      if (state.groundRequestIds[mode] === requestId) {
+        state.groundLoading[mode] = false;
+        updateGroundControl(mode);
+        if (mode === "create") updateCreateButton();
+      }
+    }
+  }
+
+  function groundRequestIsCurrent(mode, requestId, mapId, x, y) {
+    if (state.groundRequestIds[mode] !== requestId || state.mapId !== mapId) return false;
+    const current = currentGroundPosition(mode);
+    return current?.x === x && current?.y === y;
+  }
+
+  function cancelGroundLookup(mode) {
+    if (state.groundTimers[mode] !== undefined) window.clearTimeout(state.groundTimers[mode]);
+    state.groundTimers[mode] = undefined;
+    state.groundRequestIds[mode]++;
+    state.groundLoading[mode] = false;
+  }
+
+  function currentGroundPosition(mode) {
+    if (!state.snapshot) return undefined;
+    const fields = groundFields(mode);
+    if (fields.x.value.trim() === "" || fields.y.value.trim() === "") return undefined;
+    const x = Number(fields.x.value);
+    const y = Number(fields.y.value);
+    const bounds = state.snapshot.map.coordinateBounds;
+    if (!Number.isFinite(x) || !Number.isFinite(y)
+      || x < bounds.minX || x > bounds.maxX || y < bounds.minY || y > bounds.maxY) return undefined;
+    return { x, y };
+  }
+
+  function updateGroundControl(mode) {
+    const fields = groundFields(mode);
+    const readOnly = mode === "update" && !selectedEntry()?.editable;
+    const blockedGroup = mode === "create" && state.groupsByNpcId.get(state.selectedNpc?.id)?.editable === false;
+    const missingNpc = mode === "create" && !state.selectedNpc;
+    fields.button.disabled = state.groundLoading[mode]
+      || !currentGroundPosition(mode)
+      || readOnly
+      || missingNpc
+      || blockedGroup;
+  }
+
+  function groundFields(mode) {
+    if (mode === "create") {
+      return {
+        x: elements.placeX,
+        y: elements.placeY,
+        z: elements.placeZ,
+        button: elements.placeSnapGround,
+        status: elements.placeGroundStatus,
+      };
+    }
+    return {
+      x: elements.positionForm.elements.x,
+      y: elements.positionForm.elements.y,
+      z: elements.positionForm.elements.z,
+      button: elements.snapGround,
+      status: elements.groundStatus,
+    };
+  }
+
+  function setGroundStatus(mode, message, kind) {
+    const status = groundFields(mode).status;
+    status.textContent = message;
+    status.className = `spawn-ground-status${kind ? ` ${kind}` : ""}`;
+    status.hidden = false;
+  }
+
+  function clearGroundStatus(mode) {
+    const status = groundFields(mode).status;
+    status.textContent = "";
+    status.className = "spawn-ground-status";
+    status.hidden = true;
+  }
+
+  function updateCreateButton() {
+    const existingGroup = state.selectedNpc ? state.groupsByNpcId.get(state.selectedNpc.id) : undefined;
+    const positionReady = [elements.placeX, elements.placeY, elements.placeZ, elements.placeHeading]
+      .every(input => input.value !== "" && Number.isFinite(Number(input.value)));
+    const respawn = Number(elements.placeRespawn.value);
+    const respawnReady = Boolean(existingGroup) || (Number.isInteger(respawn) && respawn >= 1 && respawn <= 604800);
+    const groupReadOnly = existingGroup?.editable === false;
+    elements.placePick.disabled = !state.selectedNpc || groupReadOnly;
+    elements.stageCreate.disabled = !state.selectedNpc || !positionReady || !respawnReady || groupReadOnly;
+    updateGroundControl("create");
+  }
+
+  function stageCreate() {
+    if (!state.selectedNpc) return;
+    const position = {
+      x: Number(elements.placeX.value),
+      y: Number(elements.placeY.value),
+      z: Number(elements.placeZ.value),
+      heading: Number(elements.placeHeading.value),
+    };
+    if (!validatePosition(position)) return;
+    const existingGroup = state.groupsByNpcId.get(state.selectedNpc.id);
+    const clientKey = `new:${state.nextClientKey++}`;
+    state.drafts.set(clientKey, {
+      kind: "create",
+      clientKey,
+      npcId: state.selectedNpc.id,
+      npc: state.selectedNpc,
+      ...position,
+      respawnTime: existingGroup ? undefined : Number(elements.placeRespawn.value),
+    });
+    state.selectedKey = clientKey;
+    closePlacement();
+    updateAfterDraft("New spawn placement staged.");
+  }
+
+  async function reviewChanges() {
+    if (!state.drafts.size) return;
+    elements.review.disabled = true;
+    try {
+      const validation = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/validate`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(changeRequest()),
+      });
+      renderReview(validation);
+      elements.reviewDialog.showModal();
+    } catch (error) {
+      showStatus(error.message, "error");
+      if (error.code === "STALE_REVISION") await loadSnapshot();
+    } finally {
+      elements.review.disabled = state.drafts.size === 0;
+    }
+  }
+
+  function renderReview(validation) {
+    elements.reviewSummary.innerHTML = [
+      [validation.created, "Created"],
+      [validation.updated, "Updated"],
+      [validation.deleted, "Deleted"],
+    ].map(([value, label]) => `<div class="spawn-review-stat"><strong>${value}</strong><span>${label}</span></div>`).join("");
+    elements.reviewList.innerHTML = [...state.drafts.values()].map(draft => {
+      const entry = draft.kind === "create" ? effectiveEntries().find(item => item.key === draft.clientKey) : state.spots.get(draft.spotKey);
+      const group = draft.kind === "create" ? pseudoGroup(draft) : state.groups.get(entry.groupKey);
+      const position = draft.kind === "delete" ? entry : draft;
+      return `<div class="spawn-review-row">
+        <span class="spawn-review-kind">${escapeHtml(draft.kind)}</span>
+        <span>${escapeHtml(group.npc.displayName)}</span>
+        <span class="spawn-review-coordinates">${draft.kind === "delete" ? `X ${formatNumber(position.x)} · Y ${formatNumber(position.y)}` : `X ${formatNumber(position.x)} · Y ${formatNumber(position.y)} · Z ${formatNumber(position.z)}`}</span>
+      </div>`;
+    }).join("");
+  }
+
+  async function applyChanges() {
+    const reason = elements.changeReason.value.trim();
+    if (!reason) {
+      elements.changeReason.focus();
+      return;
+    }
+    elements.applyChanges.disabled = true;
+    elements.applyChanges.textContent = "Applying...";
+    try {
+      const result = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/apply`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...changeRequest(), reason }),
+      });
+      elements.reviewDialog.close();
+      installSnapshot(result.snapshot);
+      renderMarkers();
+      populateTypeFilter();
+      const sourceCount = result.sourceRelativePaths.length;
+      showStatus(`Saved ${result.operationCount} change${result.operationCount === 1 ? "" : "s"} to ${sourceCount} XML source${sourceCount === 1 ? "" : "s"}.`, "success");
+    } catch (error) {
+      showStatus(error.message, "error");
+      if (error.code === "STALE_REVISION") {
+        elements.reviewDialog.close();
+        await loadSnapshot();
+      }
+    } finally {
+      elements.applyChanges.disabled = false;
+      elements.applyChanges.textContent = "Apply to repository";
+    }
+  }
+
+  function changeRequest() {
+    return {
+      revision: state.snapshot.revision,
+      operations: [...state.drafts.values()].map(draft => {
+        if (draft.kind === "create") {
+          return {
+            kind: "create",
+            clientKey: draft.clientKey,
+            npcId: draft.npcId,
+            x: draft.x,
+            y: draft.y,
+            z: draft.z,
+            heading: draft.heading,
+            respawnTime: draft.respawnTime,
+          };
+        }
+        return draft;
+      }),
+    };
+  }
+
+  function pseudoGroup(draft) {
+    const existing = state.groupsByNpcId.get(draft.npcId);
+    if (existing) return existing;
+    return {
+      key: `new:${draft.npcId}`,
+      npcId: draft.npcId,
+      npc: draft.npc,
+      respawnTime: draft.respawnTime || 0,
+      pool: 0,
+      handler: "",
+      temporary: false,
+      editable: true,
+      spotCount: countNpcSpots(draft.npcId),
+      attributes: {},
+    };
+  }
+
+  function countNpcSpots(npcId) {
+    let count = 0;
+    for (const spot of state.spots.values()) {
+      if (spot.npcId === npcId && state.drafts.get(spot.key)?.kind !== "delete") count++;
+    }
+    for (const draft of state.drafts.values()) {
+      if (draft.kind === "create" && draft.npcId === npcId) count++;
+    }
+    return count;
+  }
+
+  function positionFrom(value) {
+    return { x: value.x, y: value.y, z: value.z, heading: value.heading };
+  }
+
+  function positionFromForm(form) {
+    return {
+      x: Number(form.elements.x.value),
+      y: Number(form.elements.y.value),
+      z: Number(form.elements.z.value),
+      heading: Number(form.elements.heading.value),
+    };
+  }
+
+  function validatePosition(position) {
+    const bounds = state.snapshot.map.coordinateBounds;
+    if (!Number.isFinite(position.x) || position.x < bounds.minX || position.x > bounds.maxX
+      || !Number.isFinite(position.y) || position.y < bounds.minY || position.y > bounds.maxY
+      || !Number.isFinite(position.z) || position.z < -10000 || position.z > 10000
+      || !Number.isInteger(position.heading) || position.heading < 0 || position.heading > 120) {
+      showStatus(`X must be ${formatRange(bounds.minX, bounds.maxX)} and Y must be ${formatRange(bounds.minY, bounds.maxY)}; heading must be 0-120.`, "error");
+      return false;
+    }
+    return true;
+  }
+
+  function samePosition(left, right) {
+    return left.x === right.x && left.y === right.y && left.z === right.z && left.heading === right.heading;
+  }
+
+  function factsHtml(facts) {
+    return facts.map(([label, value]) => `<div><dt>${escapeHtml(String(label))}</dt><dd title="${escapeHtml(String(value))}">${escapeHtml(String(value))}</dd></div>`).join("");
+  }
+
+  function colorForType(type) {
+    if (type === "MONSTER" || type === "RAID_MONSTER") return "#f05f62";
+    if (type === "GUARD" || type === "ABYSS_GUARD") return "#e0aa4e";
+    if (type === "GENERAL") return "#4eb8d1";
+    return "#91a1b5";
+  }
+
+  function formatLabel(value) {
+    return String(value || "").replaceAll("_", " ").toLocaleLowerCase().replace(/\b\w/g, letter => letter.toLocaleUpperCase());
+  }
+
+  function formatNumber(value) {
+    return String(Math.round(Number(value) * 1000) / 1000);
+  }
+
+  function roundCoordinate(value) {
+    return Math.round(value * 1000) / 1000;
+  }
+
+  function gameToMap(x, y) {
+    const map = state.snapshot.map;
+    if (map.projection !== "calibrated-game-y-x") throw new Error(`Unsupported map projection: ${map.projection}`);
+    const calibration = map.calibration;
+    const imageU = (y - calibration.offsetX) * map.worldSize / calibration.mapWidth;
+    const imageV = (x - calibration.offsetY) * map.worldSize / calibration.mapHeight;
+    return L.latLng(map.worldSize - imageV, imageU);
+  }
+
+  function mapToGame(latlng) {
+    const map = state.snapshot.map;
+    if (map.projection !== "calibrated-game-y-x") throw new Error(`Unsupported map projection: ${map.projection}`);
+    const calibration = map.calibration;
+    return {
+      x: calibration.offsetY + (map.worldSize - latlng.lat) * calibration.mapHeight / map.worldSize,
+      y: calibration.offsetX + latlng.lng * calibration.mapWidth / map.worldSize,
+    };
+  }
+
+  function setLoading(loading) {
+    elements.mapLoading.hidden = !loading;
+    elements.mapSelect.disabled = loading || state.maps.length === 0;
+  }
+
+  function mapName(mapId) {
+    return state.maps.find(map => map.id === mapId)?.name || `map ${mapId}`;
+  }
+
+  function sourceName(value) {
+    return String(value || "-").split("/").pop();
+  }
+
+  function formatRange(minimum, maximum) {
+    return `${formatNumber(minimum)}-${formatNumber(maximum)}`;
+  }
+
+  function showStatus(message, kind) {
+    elements.status.textContent = message;
+    elements.status.className = `spawn-editor-status${kind ? ` ${kind}` : ""}`;
+    elements.status.hidden = false;
+  }
+
+  function showFatal(error) {
+    setLoading(false);
+    showStatus(error.message || String(error), "error");
+    elements.sourceStatus.textContent = "Repository unavailable";
+  }
+
+  async function fetchJson(url, options) {
+    const response = await fetch(url, options);
+    const contentType = response.headers.get("content-type") || "";
+    const payload = contentType.includes("application/json") ? await response.json() : undefined;
+    if (!response.ok || !payload?.ok) {
+      const error = new Error(payload?.error || `Request failed (HTTP ${response.status}).`);
+      error.code = payload?.code;
+      error.status = response.status;
+      throw error;
+    }
+    return payload;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+})();

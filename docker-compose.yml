@@ -12,6 +12,7 @@ services:
       PORTAL_REGISTRATION_CODE: ${PORTAL_REGISTRATION_CODE:-}
       DATA_DIR: /app/data
       AION_REPO_ROOT: /aion-server
+      BEYOND_AION_SHARP_REPO_ROOT: /beyond-aion-sharp
       LOGIN_DB_HOST: mysql
       LOGIN_DB_PORT: 3306
       LOGIN_DB_USER: ${DB_USER:-root}
@@ -32,6 +33,14 @@ services:
     volumes:
       - ./data:/app/data
       - ../aion-server:/aion-server:ro
+      # The spawn directory is writable so repository XML changes survive for the next game-server build.
+      - ../BeyondAionSharp/game-server/data/static_data/spawns/Npcs:/beyond-aion-sharp/game-server/data/static_data/spawns/Npcs
+      # NPC templates are needed for names/search but are never changed by the spawn editor.
+      - ../BeyondAionSharp/game-server/data/static_data/npcs:/beyond-aion-sharp/game-server/data/static_data/npcs:ro
+      # Walker routes are indexed recursively for the selected-mob patrol overlay.
+      - ../BeyondAionSharp/game-server/data/static_data/npc_walker:/beyond-aion-sharp/game-server/data/static_data/npc_walker:ro
+      # Prepared 16-bit terrain heightmaps provide ground Z defaults and are never modified by the portal.
+      - ../BeyondAionSharp/game-server/data/geo:/beyond-aion-sharp/game-server/data/geo:ro
     networks:
       - aion_default
 

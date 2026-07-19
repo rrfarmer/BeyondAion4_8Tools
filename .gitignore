@@ -8,3 +8,6 @@ data/icons/
 data/item-transfer-audit.jsonl
 *.log
 data/admin-mail-audit.jsonl
+data/admin-actions-audit.jsonl
+data/spawn-editor-backups/
+scripts/__pycache__/
