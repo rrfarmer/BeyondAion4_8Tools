@@ -400,7 +400,7 @@ app.get("/admin/api/spawn-editor/maps/:mapId/spawns", async (request, reply) => 
 
   try {
     await ensureNpcCatalogLoaded();
-    return reply.send(await spawnEditor.snapshot(spawnMapId(request)));
+    return reply.send(await spawnEditor.snapshot(spawnMapKey(request)));
   } catch (error) {
     return spawnEditorFailure(reply, error);
   }
@@ -413,7 +413,7 @@ app.get("/admin/api/spawn-editor/maps/:mapId/ground-height", async (request, rep
   }
 
   try {
-    const map = spawnEditor.getMap(spawnMapId(request));
+    const map = spawnEditor.getMap(spawnMapKey(request));
     const { x, y } = spawnGroundCoordinates(request, map);
     return reply.send({ ok: true, ...await terrainHeights.lookup(map.id, map.worldSize, x, y) });
   } catch (error) {
@@ -428,7 +428,7 @@ app.get("/admin/api/spawn-editor/maps/:mapId/walkers/:walkerId", async (request,
   }
 
   try {
-    const map = spawnEditor.getMap(spawnMapId(request));
+    const map = spawnEditor.getMap(spawnMapKey(request));
     const route = await walkerRoutes.route(walkerRouteId(request));
     return reply.send({ ok: true, route: await enrichWalkerRoute(map, route) });
   } catch (error) {
@@ -440,12 +440,12 @@ app.post("/admin/api/spawn-editor/maps/:mapId/walkers/validate", async (request,
   const current = await requireAdminApi(request, reply);
   if (!current) return;
   try {
-    const map = spawnEditor.getMap(spawnMapId(request));
+    const map = spawnEditor.getMap(spawnMapKey(request));
     const change = walkerChangeRequest(request.body, map);
     const validation = await walkerRoutes.validate(change);
     let attachment;
     if (change.mode === "create" && change.attachSpotKey) {
-      attachment = await spawnEditor.validate(map.id, walkerAttachmentChange(change));
+      attachment = await spawnEditor.validate(map.key, walkerAttachmentChange(change));
     }
     return reply.send({ ...validation, attachment });
   } catch (error) {
@@ -457,13 +457,13 @@ app.post("/admin/api/spawn-editor/maps/:mapId/walkers/apply", async (request, re
   const current = await requireAdminApi(request, reply);
   if (!current) return;
   try {
-    const map = spawnEditor.getMap(spawnMapId(request));
+    const map = spawnEditor.getMap(spawnMapKey(request));
     const change = walkerChangeRequest(request.body, map);
     const reason = normalizeAdminText(change.reason ?? "", "Reason", 240);
     const attachmentChange = change.mode === "create" && change.attachSpotKey
       ? walkerAttachmentChange({ ...change, reason })
       : undefined;
-    if (attachmentChange) await spawnEditor.validate(map.id, attachmentChange);
+    if (attachmentChange) await spawnEditor.validate(map.key, attachmentChange);
     const applied = await walkerRoutes.apply({ ...change, reason });
     const auditBase = {
       adminPortalUserId: current.user.id,
@@ -487,7 +487,7 @@ app.post("/admin/api/spawn-editor/maps/:mapId/walkers/apply", async (request, re
     let attachment;
     if (attachmentChange) {
       try {
-        attachment = await spawnEditor.apply(map.id, attachmentChange);
+        attachment = await spawnEditor.apply(map.key, attachmentChange);
       } catch (error) {
         app.log.error({ error, routeId: change.routeId }, "Walker route saved but spawn attachment failed");
         await adminAudit.append({
@@ -556,7 +556,7 @@ app.post("/admin/api/spawn-editor/maps/:mapId/validate", async (request, reply) 
   try {
     await ensureNpcCatalogLoaded();
     const change = spawnChangeRequest(request.body);
-    return reply.send(await spawnEditor.validate(spawnMapId(request), change));
+    return reply.send(await spawnEditor.validate(spawnMapKey(request), change));
   } catch (error) {
     return spawnEditorFailure(reply, error);
   }
@@ -572,7 +572,7 @@ app.post("/admin/api/spawn-editor/maps/:mapId/apply", async (request, reply) => 
     await ensureNpcCatalogLoaded();
     const change = spawnChangeRequest(request.body);
     const reason = normalizeAdminText(change.reason ?? "", "Reason", 240);
-    const result = await spawnEditor.apply(spawnMapId(request), { ...change, reason });
+    const result = await spawnEditor.apply(spawnMapKey(request), { ...change, reason });
     await adminAudit
       .append({
         adminPortalUserId: current.user.id,
@@ -2207,14 +2207,13 @@ async function requireAdminApi(request: FastifyRequest, reply: FastifyReply): Pr
   return current;
 }
 
-function spawnMapId(request: FastifyRequest): number {
+function spawnMapKey(request: FastifyRequest): string {
   const { mapId } = request.params as { mapId?: string };
-  const raw = mapId ?? "";
-  const parsed = Number.parseInt(raw, 10);
-  if (!/^\d+$/.test(raw) || !Number.isSafeInteger(parsed) || parsed <= 0) {
-    throw new SpawnEditorError(400, "INVALID_MAP_ID", "Map id is not valid.");
+  const raw = mapId?.trim() ?? "";
+  if (!/^(?:\d+|siege-\d+)$/.test(raw)) {
+    throw new SpawnEditorError(400, "INVALID_MAP_ID", "Map key is not valid.");
   }
-  return parsed;
+  return raw;
 }
 
 function walkerRouteId(request: FastifyRequest): string {

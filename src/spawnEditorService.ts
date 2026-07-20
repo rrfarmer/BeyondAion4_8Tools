@@ -21,10 +21,13 @@ export type SpawnEditorMapLayer = {
 };
 
 export type SpawnEditorMap = {
+  key: string;
   id: number;
   name: string;
   clientName: string;
   kind: "world" | "instance";
+  category: "world" | "instance" | "other";
+  spawnKind: "regular" | "siege";
   supportsSpawnEditing: boolean;
   worldSize: number;
   projection: "calibrated-game-y-x";
@@ -47,6 +50,15 @@ export type SpawnEditorMap = {
   sourceRelativePaths: string[];
 };
 
+export type SpawnEditorPlacementContext = {
+  key: string;
+  label: string;
+  siegeId: number;
+  race: string;
+  mode: string;
+  sourceRelativePath: string;
+};
+
 export type SpawnEditorGroup = {
   key: string;
   npcId: number;
@@ -58,6 +70,8 @@ export type SpawnEditorGroup = {
   editable: boolean;
   spotCount: number;
   sourceRelativePath: string;
+  contextKey?: string;
+  contextLabel?: string;
   attributes: Record<string, string>;
 };
 
@@ -91,6 +105,7 @@ export type SpawnEditorSnapshot = {
   groupCount: number;
   spotCount: number;
   editableSpotCount: number;
+  placementContexts: SpawnEditorPlacementContext[];
   groups: SpawnEditorGroup[];
   spots: SpawnEditorSpot[];
 };
@@ -122,6 +137,7 @@ export type SpawnEditorOperation =
       z: number;
       heading: number;
       respawnTime?: number;
+      contextKey?: string;
     };
 
 export type SpawnEditorChangeRequest = {
@@ -182,7 +198,13 @@ type ParsedSource = {
   newline: "\r\n" | "\n";
   document: XmlDocument;
   mapElements: XmlElement[];
+  contexts: ParsedPlacementContext[];
   groups: ParsedGroup[];
+};
+
+type ParsedPlacementContext = SpawnEditorPlacementContext & {
+  element: XmlElement;
+  source: ParsedSource;
 };
 
 type ParsedGroup = {
@@ -192,6 +214,7 @@ type ParsedGroup = {
   element: XmlElement;
   mapElement: XmlElement;
   source: ParsedSource;
+  context?: ParsedPlacementContext;
   npcId: number;
   respawnTime: number;
   pool: number;
@@ -215,6 +238,7 @@ type ParsedMap = {
   sources: ParsedSource[];
   revision: string;
   groups: ParsedGroup[];
+  contextsByKey: Map<string, ParsedPlacementContext>;
   spotsByKey: Map<string, ParsedSpot>;
 };
 
@@ -237,10 +261,13 @@ type ManifestLayer = {
 };
 
 type ManifestMap = {
+  key: string;
   mapId: number;
   name: string;
   clientName: string;
   kind: SpawnEditorMap["kind"];
+  category: SpawnEditorMap["category"];
+  spawnKind: SpawnEditorMap["spawnKind"];
   supportsSpawnEditing: boolean;
   worldSize: number;
   calibration: SpawnEditorMap["calibration"];
@@ -257,7 +284,7 @@ type SpawnMapManifest = {
 
 export class SpawnEditorService {
   private applyQueue: Promise<void> = Promise.resolve();
-  private readonly definitions: Map<number, MapDefinition>;
+  private readonly definitions: Map<string, MapDefinition>;
 
   constructor(
     private readonly beyondAionSharpRepoRoot: string,
@@ -270,12 +297,12 @@ export class SpawnEditorService {
 
   listMaps(): SpawnEditorMap[] {
     return [...this.definitions.values()]
-      .sort((left, right) => left.name.localeCompare(right.name, "en-US") || left.id - right.id)
+      .sort((left, right) => left.name.localeCompare(right.name, "en-US") || left.key.localeCompare(right.key, "en-US"))
       .map(definition => this.publicMap(definition));
   }
 
-  getMap(mapId: number): SpawnEditorMap {
-    return this.publicMap(this.mapDefinition(mapId));
+  getMap(mapKey: string | number): SpawnEditorMap {
+    return this.publicMap(this.mapDefinition(mapKey));
   }
 
   async isReady(): Promise<boolean> {
@@ -291,15 +318,15 @@ export class SpawnEditorService {
     }
   }
 
-  async snapshot(mapId: number): Promise<SpawnEditorSnapshot> {
-    return this.snapshotFromParsed(await this.readMap(mapId));
+  async snapshot(mapKey: string | number): Promise<SpawnEditorSnapshot> {
+    return this.snapshotFromParsed(await this.readMap(mapKey));
   }
 
-  async validate(mapId: number, request: SpawnEditorChangeRequest): Promise<SpawnEditorValidation> {
-    return (await this.prepareChange(mapId, request)).validation;
+  async validate(mapKey: string | number, request: SpawnEditorChangeRequest): Promise<SpawnEditorValidation> {
+    return (await this.prepareChange(mapKey, request)).validation;
   }
 
-  async apply(mapId: number, request: SpawnEditorChangeRequest): Promise<SpawnEditorApplyResult> {
+  async apply(mapKey: string | number, request: SpawnEditorChangeRequest): Promise<SpawnEditorApplyResult> {
     let releaseQueue!: () => void;
     const previous = this.applyQueue;
     this.applyQueue = new Promise<void>(resolve => {
@@ -307,17 +334,17 @@ export class SpawnEditorService {
     });
     await previous;
     try {
-      return await this.applyExclusive(mapId, request);
+      return await this.applyExclusive(mapKey, request);
     } finally {
       releaseQueue();
     }
   }
 
-  private async applyExclusive(mapId: number, request: SpawnEditorChangeRequest): Promise<SpawnEditorApplyResult> {
-    const prepared = await this.prepareChange(mapId, request);
+  private async applyExclusive(mapKey: string | number, request: SpawnEditorChangeRequest): Promise<SpawnEditorApplyResult> {
+    const prepared = await this.prepareChange(mapKey, request);
     await this.requireSourceRevisions(prepared.parsed);
 
-    const backupDir = path.join(this.dataDir, "spawn-editor-backups", String(mapId));
+    const backupDir = path.join(this.dataDir, "spawn-editor-backups", prepared.parsed.definition.key);
     await mkdir(backupDir, { recursive: true });
     const stamp = timestampForFile();
     const pending: Array<{
@@ -393,7 +420,7 @@ export class SpawnEditorService {
       throw error;
     }
 
-    const snapshot = await this.snapshot(mapId);
+    const snapshot = await this.snapshot(mapKey);
     const backupRelativePaths = pending.map(item =>
       path.relative(this.dataDir, item.backupPath).replaceAll("\\", "/"),
     );
@@ -409,8 +436,8 @@ export class SpawnEditorService {
     };
   }
 
-  private async prepareChange(mapId: number, request: SpawnEditorChangeRequest): Promise<AppliedDocuments> {
-    const parsed = await this.readMap(mapId);
+  private async prepareChange(mapKey: string | number, request: SpawnEditorChangeRequest): Promise<AppliedDocuments> {
+    const parsed = await this.readMap(mapKey);
     if (!parsed.definition.supportsSpawnEditing) {
       throw new SpawnEditorError(
         400,
@@ -480,18 +507,24 @@ export class SpawnEditorService {
           throw new SpawnEditorError(400, "NPC_NOT_FOUND", `NPC template ${npcId} does not exist.`);
         }
         this.validatePosition(parsed.definition, operation);
+        const targetContext = parsed.definition.spawnKind === "siege"
+          ? this.requirePlacementContext(parsed, operation.contextKey)
+          : undefined;
         const originalGroups = parsed.groups.filter(group => group.npcId === npcId);
-        const connectedGroups = originalGroups.filter(group => group.element.parentNode === group.mapElement);
+        const connectedGroups = originalGroups.filter(group => targetContext
+          ? group.context?.key === targetContext.key && group.element.parentNode === targetContext.element
+          : group.element.parentNode === group.mapElement);
         const writableGroups = connectedGroups.filter(
           group => group.editable && group.spots.some(spot => spot.editable),
         );
         const connectedGroup = writableGroups.find(
           group => group.source.definition.sourceRelativePath === parsed.definition.sourceRelativePath,
         ) ?? writableGroups[0];
-        const newlyCreatedGroup = parsed.sources.flatMap(source =>
-          source.mapElements.flatMap(mapElement =>
-            directChildElements(mapElement, "spawn").map(element => ({ source, element })),
-          ),
+        const candidateParents = targetContext
+          ? [{ source: targetContext.source, element: targetContext.element }]
+          : parsed.sources.flatMap(source => source.mapElements.map(element => ({ source, element })));
+        const newlyCreatedGroup = candidateParents.flatMap(parent =>
+          directChildElements(parent.element, "spawn").map(element => ({ source: parent.source, element })),
         ).find(candidate =>
           intAttribute(candidate.element, "npc_id", 0) === npcId
           && !originalGroups.some(group => group.element === candidate.element),
@@ -511,14 +544,14 @@ export class SpawnEditorService {
             throw new SpawnEditorError(
               400,
               "GROUP_READ_ONLY",
-              `${npc.displayName} uses only special/static spawn groups and cannot receive a regular map placement.`,
+              `${npc.displayName} uses only special/static spawn groups in the selected context and cannot receive another placement.`,
             );
           }
-          const targetSource = parsed.sources.find(
+          const targetSource = targetContext?.source ?? parsed.sources.find(
             source => source.definition.sourceRelativePath === parsed.definition.sourceRelativePath,
           ) ?? parsed.sources[0];
-          const targetMapElement = targetSource?.mapElements[0];
-          if (!targetSource || !targetMapElement) {
+          const targetElement = targetContext?.element ?? targetSource?.mapElements[0];
+          if (!targetSource || !targetElement) {
             throw new SpawnEditorError(500, "PRIMARY_SOURCE_MISSING", "The map has no writable primary spawn block.");
           }
           const respawnTime = requireIntInRange(
@@ -527,7 +560,7 @@ export class SpawnEditorService {
             604800,
             "Respawn time",
           );
-          appendSpawnGroup(targetSource.document, targetMapElement, npc, respawnTime, operation);
+          appendSpawnGroup(targetSource.document, targetElement, npc, respawnTime, operation);
           touchedSources.add(targetSource);
         }
         created++;
@@ -597,6 +630,19 @@ export class SpawnEditorService {
     return spot;
   }
 
+  private requirePlacementContext(parsed: ParsedMap, contextKey: string | undefined): ParsedPlacementContext {
+    const normalizedKey = contextKey?.trim() ?? "";
+    const context = parsed.contextsByKey.get(normalizedKey);
+    if (!context) {
+      throw new SpawnEditorError(
+        400,
+        "SIEGE_CONTEXT_REQUIRED",
+        "Select a siege location, faction, and state before placing an NPC.",
+      );
+    }
+    return context;
+  }
+
   private validatePosition(
     map: SpawnEditorMap,
     position: { x: number; y: number; z: number; heading: number },
@@ -607,8 +653,8 @@ export class SpawnEditorService {
     requireIntInRange(position.heading, 0, 120, "Heading");
   }
 
-  private async readMap(mapId: number): Promise<ParsedMap> {
-    const definition = this.mapDefinition(mapId);
+  private async readMap(mapKey: string | number): Promise<ParsedMap> {
+    const definition = this.mapDefinition(mapKey);
     const records = await Promise.all(definition.sources.map(async sourceDefinition => {
       try {
         return {
@@ -637,6 +683,8 @@ export class SpawnEditorService {
       this.parseSource(definition, record.definition, record.source, sourceIndex),
     );
     const groups = sources.flatMap(source => source.groups);
+    const contextsByKey = new Map<string, ParsedPlacementContext>();
+    for (const context of sources.flatMap(source => source.contexts)) contextsByKey.set(context.key, context);
     const spotsByKey = new Map<string, ParsedSpot>();
     for (const group of groups) {
       for (const spot of group.spots) spotsByKey.set(spot.key, spot);
@@ -646,6 +694,7 @@ export class SpawnEditorService {
       sources,
       revision: compositeRevision(sources),
       groups,
+      contextsByKey,
       spotsByKey,
     };
   }
@@ -679,45 +728,78 @@ export class SpawnEditorService {
       newline: source.includes("\r\n") ? "\r\n" : "\n",
       document,
       mapElements,
+      contexts: [],
       groups: [],
     };
+    let groupIndex = 0;
     for (const [mapIndex, mapElement] of mapElements.entries()) {
-      for (const [groupIndex, element] of directChildElements(mapElement, "spawn").entries()) {
-        const npcId = intAttribute(element, "npc_id", 0);
-        const comment = previousComment(element);
-        const template = this.npcCatalog.templateFor(npcId);
-        const npc = template
-          ? { ...template, displayName: comment || template.displayName }
-          : fallbackNpc(npcId, comment);
-        const group: ParsedGroup = {
-          key: `g:${sourceIndex}:${mapIndex}:${groupIndex}:${npcId}`,
-          index: groupIndex,
-          mapIndex,
-          element,
-          mapElement,
-          source: parsedSource,
-          npcId,
-          respawnTime: intAttribute(element, "respawn_time", 0),
-          pool: intAttribute(element, "pool", 0),
-          handler: element.getAttribute("handler") || "",
-          temporary: directChildElements(element, "temporary_spawn").length > 0,
-          editable: true,
-          npc,
-          spots: [],
-        };
-        group.editable = !group.handler && !group.temporary;
-        parsedSource.groups.push(group);
+      const parents: Array<{ element: XmlElement; context?: ParsedPlacementContext }> = [];
+      if (definition.spawnKind === "siege") {
+        for (const [siegeIndex, siegeElement] of directChildElements(mapElement, "siege_spawn").entries()) {
+          const siegeId = intAttribute(siegeElement, "siege_id", 0);
+          for (const [raceIndex, raceElement] of directChildElements(siegeElement, "siege_race").entries()) {
+            const race = raceElement.getAttribute("race") || "UNKNOWN";
+            for (const [modeIndex, modeElement] of directChildElements(raceElement, "siege_mod").entries()) {
+              const mode = modeElement.getAttribute("mod") || "UNKNOWN";
+              const context: ParsedPlacementContext = {
+                key: `c:${sourceIndex}:${mapIndex}:${siegeIndex}:${raceIndex}:${modeIndex}`,
+                label: `Siege ${siegeId} · ${formatSiegeValue(race)} · ${formatSiegeValue(mode)}`,
+                siegeId,
+                race,
+                mode,
+                sourceRelativePath: sourceDefinition.sourceRelativePath,
+                element: modeElement,
+                source: parsedSource,
+              };
+              parsedSource.contexts.push(context);
+              parents.push({ element: modeElement, context });
+            }
+          }
+        }
+      } else {
+        parents.push({ element: mapElement });
+      }
 
-        for (const [spotIndex, spotElement] of directChildElements(element, "spot").entries()) {
-          const key = `s:${sourceIndex}:${mapIndex}:${groupIndex}:${spotIndex}:${npcId}`;
-          const staticId = intAttribute(spotElement, "static_id", 0);
-          group.spots.push({
-            key,
-            index: spotIndex,
-            element: spotElement,
-            group,
-            editable: group.editable && staticId === 0,
-          });
+      for (const parent of parents) {
+        for (const element of directChildElements(parent.element, "spawn")) {
+          const npcId = intAttribute(element, "npc_id", 0);
+          const comment = previousComment(element);
+          const template = this.npcCatalog.templateFor(npcId);
+          const npc = template
+            ? { ...template, displayName: comment || template.displayName }
+            : fallbackNpc(npcId, comment);
+          const group: ParsedGroup = {
+            key: `g:${sourceIndex}:${mapIndex}:${groupIndex}:${npcId}`,
+            index: groupIndex,
+            mapIndex,
+            element,
+            mapElement,
+            source: parsedSource,
+            context: parent.context,
+            npcId,
+            respawnTime: intAttribute(element, "respawn_time", 0),
+            pool: intAttribute(element, "pool", 0),
+            handler: element.getAttribute("handler") || "",
+            temporary: directChildElements(element, "temporary_spawn").length > 0,
+            editable: true,
+            npc,
+            spots: [],
+          };
+          group.editable = !group.handler && !group.temporary;
+          parsedSource.groups.push(group);
+
+          for (const [spotIndex, spotElement] of directChildElements(element, "spot").entries()) {
+            const key = `s:${sourceIndex}:${mapIndex}:${groupIndex}:${spotIndex}:${npcId}`;
+            const staticId = intAttribute(spotElement, "static_id", 0);
+            group.spots.push({
+              key,
+              index: spotIndex,
+              element: spotElement,
+              group,
+              editable: group.editable && staticId === 0,
+            });
+          }
+          groupIndex++;
         }
       }
     }
@@ -750,6 +832,8 @@ export class SpawnEditorService {
       editable: group.editable && group.spots.some(spot => spot.editable),
       spotCount: group.spots.length,
       sourceRelativePath: group.source.definition.sourceRelativePath,
+      contextKey: group.context?.key,
+      contextLabel: group.context?.label,
       attributes: attributesOf(group.element),
     }));
     const spots = parsed.groups.flatMap(group => group.spots.map(spot => toSnapshotSpot(spot)));
@@ -761,15 +845,24 @@ export class SpawnEditorService {
       groupCount: groups.length,
       spotCount: spots.length,
       editableSpotCount: spots.filter(spot => spot.editable).length,
+      placementContexts: [...parsed.contextsByKey.values()].map(context => ({
+        key: context.key,
+        label: context.label,
+        siegeId: context.siegeId,
+        race: context.race,
+        mode: context.mode,
+        sourceRelativePath: context.sourceRelativePath,
+      })),
       groups,
       spots,
     };
   }
 
-  private mapDefinition(mapId: number): MapDefinition {
-    const definition = this.definitions.get(mapId);
+  private mapDefinition(mapKey: string | number): MapDefinition {
+    const normalizedKey = String(mapKey);
+    const definition = this.definitions.get(normalizedKey);
     if (!definition) {
-      throw new SpawnEditorError(404, "MAP_NOT_SUPPORTED", `Map ${mapId} is not available in the spawn editor.`);
+      throw new SpawnEditorError(404, "MAP_NOT_SUPPORTED", `Map ${normalizedKey} is not available in the spawn editor.`);
     }
     return definition;
   }
@@ -780,7 +873,7 @@ export class SpawnEditorService {
   }
 }
 
-function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number, MapDefinition> {
+function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<string, MapDefinition> {
   let manifest: SpawnMapManifest;
   try {
     manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as SpawnMapManifest;
@@ -792,16 +885,36 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
   }
 
   const normalizedRoot = path.resolve(repoRoot);
-  const definitions = new Map<number, MapDefinition>();
+  const definitions = new Map<string, MapDefinition>();
   for (const entry of manifest.maps) {
-    if (!Number.isSafeInteger(entry.mapId) || entry.mapId <= 0 || definitions.has(entry.mapId)) {
-      throw new Error(`Spawn map manifest contains an invalid or duplicate map id: ${String(entry.mapId)}.`);
+    if (!Number.isSafeInteger(entry.mapId) || entry.mapId <= 0) {
+      throw new Error(`Spawn map manifest contains an invalid map id: ${String(entry.mapId)}.`);
+    }
+    if (
+      typeof entry.key !== "string"
+      || !/^(?:\d+|siege-\d+)$/.test(entry.key)
+      || definitions.has(entry.key)
+    ) {
+      throw new Error(`Spawn map manifest contains an invalid or duplicate editor key: ${String(entry.key)}.`);
+    }
+    const expectedKey = entry.spawnKind === "siege" ? `siege-${entry.mapId}` : String(entry.mapId);
+    if (entry.key !== expectedKey) {
+      throw new Error(`Spawn map ${entry.key} does not match map id ${entry.mapId} and spawn kind ${entry.spawnKind}.`);
     }
     if (!Number.isFinite(entry.worldSize) || entry.worldSize <= 0) {
       throw new Error(`Spawn map ${entry.mapId} has an invalid world size.`);
     }
     if (entry.kind !== "world" && entry.kind !== "instance") {
       throw new Error(`Spawn map ${entry.mapId} has an invalid map kind.`);
+    }
+    if (entry.category !== "world" && entry.category !== "instance" && entry.category !== "other") {
+      throw new Error(`Spawn map ${entry.key} has an invalid map category.`);
+    }
+    if (entry.spawnKind !== "regular" && entry.spawnKind !== "siege") {
+      throw new Error(`Spawn map ${entry.key} has an invalid spawn kind.`);
+    }
+    if (entry.spawnKind === "siege" && entry.category !== "other") {
+      throw new Error(`Siege map ${entry.key} must use the other map category.`);
     }
     const calibration = entry.calibration;
     if (
@@ -829,6 +942,12 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
       }
       return { sourceRelativePath: normalizedRelativePath, absolutePath };
     });
+    if (
+      entry.spawnKind === "siege"
+      && sources.some(source => !source.sourceRelativePath.includes("/spawns/Sieges/"))
+    ) {
+      throw new Error(`Siege map ${entry.key} contains a non-siege XML source.`);
+    }
     const primarySource = sources.find(source => source.sourceRelativePath === entry.primarySourceRelativePath)
       ?? sources[0];
     const layers = entry.layers?.map(layer => ({
@@ -850,11 +969,14 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
       throw new Error(`Spawn map ${entry.mapId} has invalid coordinate bounds.`);
     }
 
-    definitions.set(entry.mapId, {
+    definitions.set(entry.key, {
+      key: entry.key,
       id: entry.mapId,
       name: entry.name,
       clientName: entry.clientName,
       kind: entry.kind,
+      category: entry.category,
+      spawnKind: entry.spawnKind,
       supportsSpawnEditing: entry.supportsSpawnEditing,
       worldSize: entry.worldSize,
       projection: "calibrated-game-y-x",
@@ -968,20 +1090,20 @@ function updatePositionAttributes(
 
 function appendSpot(group: XmlElement, spot: XmlElement): void {
   const closingIndent = lastWhitespaceText(group);
-  const indentation = group.ownerDocument!.createTextNode("\n\t\t\t");
+  const indentation = group.ownerDocument!.createTextNode(childIndentation(closingIndent));
   if (closingIndent) {
     group.insertBefore(indentation, closingIndent);
     group.insertBefore(spot, closingIndent);
   } else {
     group.appendChild(indentation);
     group.appendChild(spot);
-    group.appendChild(group.ownerDocument!.createTextNode("\n\t\t"));
+    group.appendChild(group.ownerDocument!.createTextNode("\n\t"));
   }
 }
 
 function appendSpawnGroup(
   document: XmlDocument,
-  map: XmlElement,
+  parent: XmlElement,
   npc: NpcTemplateInfo,
   respawnTime: number,
   position: { x: number; y: number; z: number; heading: number },
@@ -989,27 +1111,38 @@ function appendSpawnGroup(
   const spawn = document.createElement("spawn");
   spawn.setAttribute("npc_id", String(npc.id));
   spawn.setAttribute("respawn_time", String(respawnTime));
-  spawn.appendChild(document.createTextNode("\n\t\t\t"));
+  const closingIndent = lastWhitespaceText(parent);
+  const spawnIndent = childIndentation(closingIndent);
+  const spotIndent = `${spawnIndent}\t`;
+  spawn.appendChild(document.createTextNode(spotIndent));
   spawn.appendChild(createSpotElement(document, position));
-  spawn.appendChild(document.createTextNode("\n\t\t"));
+  spawn.appendChild(document.createTextNode(spawnIndent));
 
-  const closingIndent = lastWhitespaceText(map);
   const nodes: XmlNode[] = [
-    document.createTextNode("\n\t\t"),
+    document.createTextNode(spawnIndent),
     document.createComment(` ${xmlCommentText(npc.displayName)} `),
-    document.createTextNode("\n\t\t"),
+    document.createTextNode(spawnIndent),
     spawn,
   ];
   for (const node of nodes) {
-    if (closingIndent) map.insertBefore(node, closingIndent);
-    else map.appendChild(node);
+    if (closingIndent) parent.insertBefore(node, closingIndent);
+    else parent.appendChild(node);
   }
-  if (!closingIndent) map.appendChild(document.createTextNode("\n\t"));
+  if (!closingIndent) parent.appendChild(document.createTextNode("\n"));
+}
+
+function childIndentation(closingIndent: XmlNode | undefined): string {
+  const value = closingIndent?.nodeValue;
+  return value && /^\r?\n[\t ]*$/.test(value) ? `${value}\t` : "\n\t";
 }
 
 function xmlCommentText(value: string): string {
   const sanitized = value.replace(/-{2,}/g, run => run.split("").join(" "));
   return sanitized.endsWith("-") ? `${sanitized} ` : sanitized;
+}
+
+function formatSiegeValue(value: string): string {
+  return value.toLocaleLowerCase().replace(/\b\w/g, character => character.toLocaleUpperCase());
 }
 
 function removeNodeWithLeadingWhitespace(parent: XmlElement, node: XmlNode): void {

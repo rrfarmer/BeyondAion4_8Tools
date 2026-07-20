@@ -94,7 +94,7 @@ export class WalkerGroundAuditService {
       throw new Error("Walker ground tolerance must be between 0 and 100 meters.");
     }
 
-    const maps = this.spawns.listMaps();
+    const maps = this.spawns.listMaps().filter(map => map.spawnKind === "regular");
     const findings: WalkerGroundAuditFinding[] = [];
     const terrainGaps: WalkerGroundAuditGap[] = [];
     const missingRoutes: WalkerGroundAuditMissingRoute[] = [];
@@ -107,7 +107,7 @@ export class WalkerGroundAuditService {
     let unavailablePointCount = 0;
 
     for (const map of maps) {
-      const snapshot = await this.spawns.snapshot(map.id);
+      const snapshot = await this.spawns.snapshot(map.key);
       const usagesByRoute = routeUsages(snapshot);
       if (usagesByRoute.size > 0) mapsWithPatrols += 1;
       attachedSpawnCount += [...usagesByRoute.values()].reduce((total, usages) => total + usages.length, 0);

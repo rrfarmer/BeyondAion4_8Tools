@@ -19,10 +19,11 @@ from typing import Iterable
 from PIL import Image, ImageDraw, ImageFont
 
 
-SPAWN_SOURCE_ROOTS = (
+REGULAR_SPAWN_SOURCE_ROOTS = (
     Path("game-server/data/static_data/spawns/Npcs"),
     Path("game-server/data/static_data/spawns/Instances"),
 )
+SIEGE_SPAWN_SOURCE_ROOTS = (Path("game-server/data/static_data/spawns/Sieges"),)
 WORLD_MAPS_PATH = Path("game-server/data/static_data/world_maps.xml")
 RADAR_FALLBACKS = {
     130090000: ("Arena_L_Clobby", "Radar_Arena_L_Clobby_"),
@@ -89,9 +90,13 @@ def main() -> None:
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     args.work_dir.mkdir(parents=True, exist_ok=True)
-    source_inventory, coordinate_inventory = scan_spawn_sources(args.repo_root)
+    source_inventory, coordinate_inventory = scan_spawn_sources(args.repo_root, REGULAR_SPAWN_SOURCE_ROOTS)
+    siege_source_inventory, siege_coordinate_inventory = scan_spawn_sources(
+        args.repo_root,
+        SIEGE_SPAWN_SOURCE_ROOTS,
+    )
     world_maps = read_world_maps(args.repo_root / WORLD_MAPS_PATH)
-    missing_worlds = sorted(set(source_inventory) - set(world_maps))
+    missing_worlds = sorted((set(source_inventory) | set(siege_source_inventory)) - set(world_maps))
     if missing_worlds:
         raise RuntimeError(f"world_maps.xml is missing spawn maps: {missing_worlds}")
 
@@ -189,22 +194,47 @@ def main() -> None:
             calibration,
             coordinate_inventory.get(map_id, []),
         )
-        manifest_maps.append(
-            {
+        manifest_maps.append({
+            "key": str(map_id),
+            "mapId": map_id,
+            "name": display_name,
+            "clientName": world["clientName"],
+            "kind": world["kind"],
+            "category": world["kind"],
+            "spawnKind": "regular",
+            "worldSize": logical_world_size,
+            "declaredWorldSize": declared_world_size,
+            "supportsSpawnEditing": bool(sources),
+            "calibration": calibration,
+            "coordinateBounds": bounds,
+            "sourceRelativePaths": sources,
+            "primarySourceRelativePath": primary_source,
+            "layers": layers,
+        })
+        siege_sources = siege_source_inventory.get(map_id, [])
+        if siege_sources:
+            siege_primary_source = siege_sources[0]
+            manifest_maps.append({
+                "key": f"siege-{map_id}",
                 "mapId": map_id,
-                "name": display_name,
+                "name": f"{display_name} (Siege)",
                 "clientName": world["clientName"],
                 "kind": world["kind"],
+                "category": "other",
+                "spawnKind": "siege",
                 "worldSize": logical_world_size,
                 "declaredWorldSize": declared_world_size,
-                "supportsSpawnEditing": bool(sources),
+                "supportsSpawnEditing": True,
                 "calibration": calibration,
-                "coordinateBounds": bounds,
-                "sourceRelativePaths": sources,
-                "primarySourceRelativePath": primary_source,
+                "coordinateBounds": coordinate_bounds(
+                    logical_world_size,
+                    calibration,
+                    siege_coordinate_inventory.get(map_id, []),
+                ),
+                "sourceRelativePaths": siege_sources,
+                "primarySourceRelativePath": siege_primary_source,
                 "layers": layers,
-            }
-        )
+            })
         kinds = ", ".join(str(layer["assetKind"]) for layer in layers)
         print(f"[{index:02}/{len(map_ids)}] {map_id} {display_name}: {len(layers)} layer(s), {kinds}")
 
@@ -229,7 +259,10 @@ def main() -> None:
     temporary_manifest = manifest_path.with_suffix(".json.tmp")
     temporary_manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     os.replace(temporary_manifest, manifest_path)
-    print(f"Wrote {manifest_path} with {len(manifest_maps)} maps.")
+    print(
+        f"Wrote {manifest_path} with {len(manifest_maps)} editor entries "
+        f"({len(world_maps)} game maps and {len(siege_source_inventory)} siege variants)."
+    )
 
 
 def require_file(path: Path, label: str) -> Path:
@@ -283,10 +316,13 @@ def decode_zonemap(args: argparse.Namespace, tools: dict[str, Path]) -> Path:
     return decoded
 
 
-def scan_spawn_sources(repo_root: Path) -> tuple[dict[int, list[str]], dict[int, list[tuple[float, float]]]]:
+def scan_spawn_sources(
+    repo_root: Path,
+    source_roots: Iterable[Path],
+) -> tuple[dict[int, list[str]], dict[int, list[tuple[float, float]]]]:
     sources: dict[int, set[str]] = defaultdict(set)
     coordinates: dict[int, list[tuple[float, float]]] = defaultdict(list)
-    for source_root in SPAWN_SOURCE_ROOTS:
+    for source_root in source_roots:
         root = repo_root / source_root
         for source_path in sorted(root.rglob("*.xml"), key=lambda item: str(item).lower()):
             tree = ET.parse(source_path)

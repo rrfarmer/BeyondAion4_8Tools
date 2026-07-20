@@ -9,6 +9,14 @@ export function spawnEditorPage(): string {
             <div class="spawn-source" data-source-status>Loading repository data...</div>
           </div>
         </div>
+        <label class="spawn-control spawn-category-control">
+          <span>Map set</span>
+          <select data-map-category aria-label="Map set" disabled>
+            <option value="world">World Maps</option>
+            <option value="instance">Instance Maps</option>
+            <option value="other">Others</option>
+          </select>
+        </label>
         <label class="spawn-control spawn-map-control">
           <span>Map</span>
           <select data-map-select aria-label="Map" disabled>
@@ -168,6 +176,10 @@ export function spawnEditorPage(): string {
             <div class="spawn-npc-results" data-npc-results></div>
             <div data-place-fields hidden>
               <div class="spawn-selected-npc" data-selected-npc></div>
+              <label class="spawn-field" data-siege-context-field hidden>
+                <span>Siege context</span>
+                <select data-siege-context aria-label="Siege context"></select>
+              </label>
               <div class="spawn-coordinate-grid">
                 <label><span>X</span><input data-place-x type="number" step="0.001" required></label>
                 <label><span>Y</span><input data-place-y type="number" step="0.001" required></label>

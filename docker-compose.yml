@@ -36,6 +36,7 @@ services:
       # The spawn directory is writable so repository XML changes survive for the next game-server build.
       - ../BeyondAionSharp/game-server/data/static_data/spawns/Npcs:/beyond-aion-sharp/game-server/data/static_data/spawns/Npcs
       - ../BeyondAionSharp/game-server/data/static_data/spawns/Instances:/beyond-aion-sharp/game-server/data/static_data/spawns/Instances
+      - ../BeyondAionSharp/game-server/data/static_data/spawns/Sieges:/beyond-aion-sharp/game-server/data/static_data/spawns/Sieges
       # NPC templates are needed for names/search but are never changed by the spawn editor.
       - ../BeyondAionSharp/game-server/data/static_data/npcs:/beyond-aion-sharp/game-server/data/static_data/npcs:ro
       # Walker routes are writable so reviewed patrol edits persist for the next game-server build.

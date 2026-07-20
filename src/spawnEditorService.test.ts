@@ -19,6 +19,16 @@ const SPAWN_RELATIVE_PATH = path.join(
   "Npcs",
   "220010000_Ishalgen.xml",
 );
+const SIEGE_MAP_ID = 600090000;
+const SIEGE_MAP_KEY = `siege-${SIEGE_MAP_ID}`;
+const SIEGE_RELATIVE_PATH = path.join(
+  "game-server",
+  "data",
+  "static_data",
+  "spawns",
+  "Sieges",
+  "600090000_Kaldor.xml",
+);
 
 test("applies validated Ishalgen changes atomically to repository XML", async t => {
   const fixture = await createFixture();
@@ -181,6 +191,56 @@ test("assigns a walker route to an editable spawn", async t => {
   );
 });
 
+test("parses and applies placements inside the selected siege context", async t => {
+  const fixture = await createFixture();
+  t.after(() => rm(fixture.root, { recursive: true, force: true }));
+
+  const initial = await fixture.service.snapshot(SIEGE_MAP_KEY);
+  assert.equal(initial.map.id, SIEGE_MAP_ID);
+  assert.equal(initial.map.category, "other");
+  assert.equal(initial.map.spawnKind, "siege");
+  assert.equal(initial.placementContexts.length, 2);
+  assert.equal(initial.groupCount, 2);
+  assert.equal(initial.spotCount, 3);
+  assert.ok(initial.groups.every(group => group.contextLabel?.startsWith("Siege 7011")));
+  const peace = initial.placementContexts.find(context => context.mode === "PEACE")!;
+  const activeSiege = initial.placementContexts.find(context => context.mode === "SIEGE")!;
+
+  await assert.rejects(
+    fixture.service.validate(SIEGE_MAP_KEY, {
+      revision: initial.revision,
+      operations: [{ kind: "create", npcId: 210002, x: 300, y: 400, z: 20, heading: 60, respawnTime: 420 }],
+    }),
+    (error: unknown) => error instanceof SpawnEditorError && error.code === "SIEGE_CONTEXT_REQUIRED",
+  );
+
+  const existing = initial.spots.find(spot => spot.editable)!;
+  const recreatedSpot = initial.spots.find(spot => spot.npcId === 210001)!;
+  const change = {
+    revision: initial.revision,
+    operations: [
+      { kind: "update" as const, spotKey: existing.key, x: 111, y: 211, z: 12, heading: 22 },
+      { kind: "create" as const, npcId: 210000, contextKey: peace.key, x: 130, y: 230, z: 13, heading: 50 },
+      { kind: "create" as const, npcId: 210002, contextKey: activeSiege.key, x: 300, y: 400, z: 20, heading: 60, respawnTime: 420 },
+      { kind: "delete" as const, spotKey: recreatedSpot.key },
+      { kind: "create" as const, npcId: 210001, contextKey: activeSiege.key, x: 500, y: 600, z: 25, heading: 30 },
+    ],
+  };
+  const validation = await fixture.service.validate(SIEGE_MAP_KEY, change);
+  assert.deepEqual(
+    { created: validation.created, updated: validation.updated, groups: validation.resultingGroupCount, spots: validation.resultingSpotCount },
+    { created: 3, updated: 1, groups: 3, spots: 5 },
+  );
+
+  const applied = await fixture.service.apply(SIEGE_MAP_KEY, change);
+  assert.equal(applied.snapshot.groups.find(group => group.npcId === 210002)?.contextKey, activeSiege.key);
+  assert.deepEqual(applied.sourceRelativePaths, [SIEGE_RELATIVE_PATH.replaceAll("\\", "/")]);
+  const written = await readFile(fixture.siegePath, "utf8");
+  assert.match(written, /<siege_mod mod="PEACE">[\s\S]*x="130" y="230" z="13" h="50"/);
+  assert.match(written, /<siege_mod mod="SIEGE">[\s\S]*npc_id="210002" respawn_time="420"/);
+  assert.doesNotMatch(written, /<spawn_map map_id="600090000">\s*<spawn npc_id=/);
+});
+
 test("keeps catalog maps without regular spawn XML available as view-only maps", async t => {
   const fixture = await createFixture();
   t.after(() => rm(fixture.root, { recursive: true, force: true }));
@@ -209,6 +269,7 @@ async function createFixture(includeOverlay = false): Promise<{
   repoRoot: string;
   dataDir: string;
   spawnPath: string;
+  siegePath: string;
   overlayPath?: string;
   service: SpawnEditorService;
 }> {
@@ -227,8 +288,10 @@ async function createFixture(includeOverlay = false): Promise<{
   );
   const overlayPath = path.join(repoRoot, overlayRelativePath);
   const spawnPath = path.join(repoRoot, SPAWN_RELATIVE_PATH);
+  const siegePath = path.join(repoRoot, SIEGE_RELATIVE_PATH);
   const npcPath = path.join(repoRoot, "game-server", "data", "static_data", "npcs", "npc_templates.xml");
   await mkdir(path.dirname(spawnPath), { recursive: true });
+  await mkdir(path.dirname(siegePath), { recursive: true });
   await mkdir(path.dirname(npcPath), { recursive: true });
   await mkdir(dataDir, { recursive: true });
 
@@ -258,6 +321,29 @@ async function createFixture(includeOverlay = false): Promise<{
     "",
   ].join("\r\n");
   await writeFile(spawnPath, spawnXml, "utf8");
+  await writeFile(siegePath, `<?xml version="1.0" encoding="UTF-8"?>
+<spawns>
+  <spawn_map map_id="600090000">
+    <siege_spawn siege_id="7011">
+      <siege_race race="ASMODIANS">
+        <siege_mod mod="PEACE">
+          <!-- Test Mob -->
+          <spawn npc_id="210000" respawn_time="295">
+            <spot x="100" y="200" z="10" h="20" />
+            <spot x="101" y="201" z="11" h="21" static_id="77" />
+          </spawn>
+        </siege_mod>
+        <siege_mod mod="SIEGE">
+          <!-- Second Mob -->
+          <spawn npc_id="210001" respawn_time="600">
+            <spot x="450" y="550" z="24" h="29" />
+          </spawn>
+        </siege_mod>
+      </siege_race>
+    </siege_spawn>
+  </spawn_map>
+</spawns>
+`, "utf8");
   if (includeOverlay) {
     await mkdir(path.dirname(overlayPath), { recursive: true });
     await writeFile(overlayPath, `<?xml version="1.0" encoding="UTF-8"?>
@@ -282,10 +368,13 @@ async function createFixture(includeOverlay = false): Promise<{
   await writeFile(manifestPath, JSON.stringify({
     version: 2,
     maps: [{
+      key: String(ISHALGEN_MAP_ID),
       mapId: ISHALGEN_MAP_ID,
       name: "Ishalgen",
       clientName: "DF1",
       kind: "world",
+      category: "world",
+      spawnKind: "regular",
       supportsSpawnEditing: true,
       worldSize: 3072,
       calibration: { offsetX: 740, offsetY: 0, mapWidth: 2300, mapHeight: 2300 },
@@ -294,10 +383,13 @@ async function createFixture(includeOverlay = false): Promise<{
       primarySourceRelativePath: SPAWN_RELATIVE_PATH.replaceAll("\\", "/"),
       layers: [{ id: "map", name: "Map", asset: "ishalgen.webp", assetKind: "map-window" }],
     }, {
+      key: "300300000",
       mapId: 300300000,
       name: "Empyrean Crucible",
       clientName: "IDArena",
       kind: "instance",
+      category: "instance",
+      spawnKind: "regular",
       supportsSpawnEditing: false,
       worldSize: 2048,
       calibration: { offsetX: 0, offsetY: 0, mapWidth: 2048, mapHeight: 2048 },
@@ -305,6 +397,21 @@ async function createFixture(includeOverlay = false): Promise<{
       sourceRelativePaths: [],
       primarySourceRelativePath: "",
       layers: [{ id: "grid", name: "Coordinate grid", asset: "empyrean-grid.webp", assetKind: "grid-fallback" }],
+    }, {
+      key: SIEGE_MAP_KEY,
+      mapId: SIEGE_MAP_ID,
+      name: "Kaldor (Siege)",
+      clientName: "Kaldor",
+      kind: "world",
+      category: "other",
+      spawnKind: "siege",
+      supportsSpawnEditing: true,
+      worldSize: 2048,
+      calibration: { offsetX: 0, offsetY: 0, mapWidth: 2048, mapHeight: 2048 },
+      coordinateBounds: { minX: 0, maxX: 2048, minY: 0, maxY: 2048 },
+      sourceRelativePaths: [SIEGE_RELATIVE_PATH.replaceAll("\\", "/")],
+      primarySourceRelativePath: SIEGE_RELATIVE_PATH.replaceAll("\\", "/"),
+      layers: [{ id: "map", name: "Map", asset: "kaldor.webp", assetKind: "map-window" }],
     }],
   }), "utf8");
 
@@ -315,6 +422,7 @@ async function createFixture(includeOverlay = false): Promise<{
     repoRoot,
     dataDir,
     spawnPath,
+    siegePath,
     overlayPath: includeOverlay ? overlayPath : undefined,
     service: new SpawnEditorService(repoRoot, dataDir, catalog, manifestPath),
   };

@@ -8,20 +8,24 @@ import {
 } from "./walkerGroundAuditService.js";
 
 test("audits each map-specific route once and reports off-ground authored points", async () => {
-  const maps = [map(1, "Alpha"), map(2, "Beta")];
+  const maps = [
+    map(1, "Alpha"),
+    map(2, "Beta"),
+    { ...map(1, "Alpha (Siege)"), key: "siege-1", category: "other" as const, spawnKind: "siege" as const },
+  ];
   const snapshots = new Map([
-    [1, snapshot(maps[0], [
+    [maps[0].key, snapshot(maps[0], [
       spot("alpha-1", "route-a", 101, "group-a"),
       spot("alpha-2", "route-a", 101, "group-a"),
       spot("missing", "missing-route", 102, "group-b"),
     ])],
-    [2, snapshot(maps[1], [spot("beta-1", "route-a", 201, "group-c")])],
+    [maps[1].key, snapshot(maps[1], [spot("beta-1", "route-a", 201, "group-c")])],
   ]);
   const routes = new Map([["route-a", route("route-a")]]);
   const service = new WalkerGroundAuditService(
     {
       listMaps: () => maps,
-      snapshot: async mapId => snapshots.get(mapId)!,
+      snapshot: async mapKey => snapshots.get(String(mapKey))!,
     },
     {
       route: async routeId => {
@@ -116,10 +120,13 @@ async function singleRouteReport(
 
 function map(id: number, name: string): SpawnEditorMap {
   return {
+    key: String(id),
     id,
     name,
     clientName: name,
     kind: "world",
+    category: "world",
+    spawnKind: "regular",
     supportsSpawnEditing: true,
     worldSize: 100,
     projection: "calibrated-game-y-x",
@@ -143,6 +150,7 @@ function snapshot(fixtureMap: SpawnEditorMap, spots: SpawnEditorSnapshot["spots"
     groupCount: groupIds.length,
     spotCount: spots.length,
     editableSpotCount: spots.length,
+    placementContexts: [],
     groups: groupIds.map((groupKey, index) => ({
       key: groupKey,
       npcId: spots.find(entry => entry.groupKey === groupKey)!.npcId,

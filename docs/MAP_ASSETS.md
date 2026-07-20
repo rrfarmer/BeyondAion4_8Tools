@@ -4,11 +4,13 @@ The spawn editor serves project-local map images from `assets/maps`. Runtime req
 
 ## Coverage
 
-`assets/maps/manifest.json` catalogs every entry in the .NET server's `world_maps.xml`:
+`assets/maps/manifest.json` catalogs every entry in the .NET server's `world_maps.xml` plus alternate editor datasets that share the same physical map:
 
-- 161 maps: 51 world maps and 110 instances
+- 168 editor entries: 51 world maps, 110 instances, and 7 siege variants under Others
+- 161 physical maps from `world_maps.xml`; siege variants reuse their corresponding physical map artwork and calibration
 - 139 maps with regular NPC/Mob XML under `spawns/Npcs` or `spawns/Instances`; these are editable
 - 22 maps without regular spawn XML; these remain visible and are explicitly marked view-only
+- 7 editable siege datasets under `spawns/Sieges`: Inggison, Gelkmaros, Reshanta, Belus, Atanatos, Kaldor, and Levinshor
 - 179 artwork layers
 - 100 maps backed by the client's detailed map-window packages
 - 2 maps backed by the client's radar package (`Wisplight Abbey` and `Fatebound Abbey`)
@@ -16,6 +18,8 @@ The spawn editor serves project-local map images from `assets/maps`. Runtime req
 - Multi-layer artwork for Steel Rake, Steel Rake Cabin, Tiamat Stronghold, Dragon Lords Refuge, Raksang Ruins, Anguished Lords Refuge, Linkgate Foundry, Reshanta, Belus, Aspida, Atanatos, and Disillon
 
 The view-only set includes runtime-driven instances such as Empyrean Crucible and Shugo Imperial Tomb, special spawn structures such as Transidium Annex, and server test/catalog maps with no ordinary spawn file. The editor does not invent XML write targets for those maps.
+
+Siege XML is not a second kind of artwork. The seven siege entries expose alternate spawn data on an existing world map and appear under the Others map set. Existing placements retain their fortress id, faction, and siege mode; new placements require selecting that exact context before they can be staged.
 
 The manifest records each map's type, edit capability, source XML files, primary write target, client package/hash, tile layout, calibration, declared/logical coordinate bounds, output asset/hash, and asset kind. Six incomplete catalog entries declare `world_size="0"`; they receive a 1024-unit display canvas but remain view-only.
 

@@ -1,5 +1,12 @@
 # Progress
 
+## 2026-07-19 Iteration 107
+
+- Added seven siege spawn-map variants for Inggison, Gelkmaros, Reshanta, Belus, Atanatos, Kaldor, and Levinshor. They reuse the calibrated local client artwork while reading and writing only the authoritative `spawns/Sieges` XML.
+- Parsed the full siege hierarchy (`siege_spawn`, faction, and mode), labeled every placement with its context, and required an explicit context before adding a new siege placement so edits cannot land in the wrong fortress state.
+- Replaced the single 168-entry map list with a map-set selector for 51 World Maps, 110 Instance Maps, and 7 Others, while preserving URL-selected regular and siege variants.
+- Added the writable siege XML Docker mount and fixture coverage for nested siege parsing, context validation, update/create persistence, backup creation, and protection against writing a regular `<spawn>` directly under the siege map block.
+
 ## 2026-07-19 Iteration 106
 
 - Expanded the spawn-map selector from the 139 regular-XML maps to all 161 entries in the server's `world_maps.xml` catalog: 51 world maps and 110 instances.

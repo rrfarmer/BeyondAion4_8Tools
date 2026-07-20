@@ -3,13 +3,16 @@
   "generator": "scripts/cache_client_maps.py",
   "clientRoot": "C:\\Program Files (x86)\\Beyond Aion",
   "repoRoot": "C:\\Users\\ryanf\\Documents\\GitHub\\BeyondAionSharp",
-  "mapCount": 161,
+  "mapCount": 168,
   "maps": [
     {
+      "key": "110010000",
       "mapId": 110010000,
       "name": "Sanctum",
       "clientName": "LC1",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -59,10 +62,13 @@
       ]
     },
     {
+      "key": "110020000",
       "mapId": 110020000,
       "name": "Cloister of Kaisinel",
       "clientName": "LC2",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -94,10 +100,13 @@
       ]
     },
     {
+      "key": "110070000",
       "mapId": 110070000,
       "name": "Kaisinel Academy",
       "clientName": "Arena_L_Lobby",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -141,10 +150,13 @@
       ]
     },
     {
+      "key": "120010000",
       "mapId": 120010000,
       "name": "Pandaemonium",
       "clientName": "DC1",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -194,10 +206,13 @@
       ]
     },
     {
+      "key": "120020000",
       "mapId": 120020000,
       "name": "Convent of Marchutan",
       "clientName": "DC2",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -229,10 +244,13 @@
       ]
     },
     {
+      "key": "120080000",
       "mapId": 120080000,
       "name": "Marchutan Priory",
       "clientName": "Arena_D_Lobby",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -276,10 +294,13 @@
       ]
     },
     {
+      "key": "130090000",
       "mapId": 130090000,
       "name": "Wisplight Abbey",
       "clientName": "Arena_L_CLobby",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -330,10 +351,13 @@
       ]
     },
     {
+      "key": "140010000",
       "mapId": 140010000,
       "name": "Fatebound Abbey",
       "clientName": "Arena_D_CLobby",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -384,10 +408,13 @@
       ]
     },
     {
+      "key": "210010000",
       "mapId": 210010000,
       "name": "Poeta",
       "clientName": "LF1",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -431,10 +458,13 @@
       ]
     },
     {
+      "key": "210020000",
       "mapId": 210020000,
       "name": "Eltnen",
       "clientName": "LF2",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -478,10 +508,13 @@
       ]
     },
     {
+      "key": "210030000",
       "mapId": 210030000,
       "name": "Verteron",
       "clientName": "LF1A",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -525,10 +558,13 @@
       ]
     },
     {
+      "key": "210040000",
       "mapId": 210040000,
       "name": "Heiron",
       "clientName": "LF3",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -572,10 +608,13 @@
       ]
     },
     {
+      "key": "210050000",
       "mapId": 210050000,
       "name": "Inggison",
       "clientName": "LF4",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -620,10 +659,63 @@
       ]
     },
     {
+      "key": "siege-210050000",
+      "mapId": 210050000,
+      "name": "Inggison (Siege)",
+      "clientName": "LF4",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/210050000_Inggison.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/210050000_Inggison.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "210050000-inggison-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "17d04520c264bb8e778dda4f75417141e9c47a5fcf2b9e8652c50446e3c3ad7b",
+          "tileLayout": [
+            "lf4_000.dds",
+            "lf4_001.dds",
+            "lf4_002.dds",
+            "lf4_003.dds",
+            "lf4_004.dds",
+            "lf4_005.dds",
+            "lf4_006.dds",
+            "lf4_007.dds",
+            "lf4_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/lf4/lf4.pak",
+          "clientPakSha256": "ad4896701e3ea9de742f31adaf88a05e87c2dfdf77cd45d01ddac4695c9c4c51"
+        }
+      ]
+    },
+    {
+      "key": "210060000",
       "mapId": 210060000,
       "name": "Theobomos",
       "clientName": "LF2A",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -667,10 +759,13 @@
       ]
     },
     {
+      "key": "210070000",
       "mapId": 210070000,
       "name": "Cygnea",
       "clientName": "LF5",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -715,10 +810,13 @@
       ]
     },
     {
+      "key": "210080000",
       "mapId": 210080000,
       "name": "Griffoen",
       "clientName": "LF5_Ship",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -762,10 +860,13 @@
       ]
     },
     {
+      "key": "210090000",
       "mapId": 210090000,
       "name": "Idian Depths Light",
       "clientName": "LDF5_Under_L",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -811,10 +912,13 @@
       ]
     },
     {
+      "key": "220010000",
       "mapId": 220010000,
       "name": "Ishalgen",
       "clientName": "DF1",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -858,10 +962,13 @@
       ]
     },
     {
+      "key": "220020000",
       "mapId": 220020000,
       "name": "Morheim",
       "clientName": "DF2",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -905,10 +1012,13 @@
       ]
     },
     {
+      "key": "220030000",
       "mapId": 220030000,
       "name": "Altgard",
       "clientName": "DF1A",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -952,10 +1062,13 @@
       ]
     },
     {
+      "key": "220040000",
       "mapId": 220040000,
       "name": "Beluslan",
       "clientName": "DF3",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -999,10 +1112,13 @@
       ]
     },
     {
+      "key": "220050000",
       "mapId": 220050000,
       "name": "Brusthonin",
       "clientName": "DF2A",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -1046,10 +1162,13 @@
       ]
     },
     {
+      "key": "220070000",
       "mapId": 220070000,
       "name": "Gelkmaros",
       "clientName": "DF4",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -1094,10 +1213,63 @@
       ]
     },
     {
+      "key": "siege-220070000",
+      "mapId": 220070000,
+      "name": "Gelkmaros (Siege)",
+      "clientName": "DF4",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/220070000_Gelkmaros.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/220070000_Gelkmaros.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "220070000-gelkmaros-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "517a352313236170cb00de91c06b640ea6ed42712aa43ee22814fa6bc778fa59",
+          "tileLayout": [
+            "df4_000.dds",
+            "df4_001.dds",
+            "df4_002.dds",
+            "df4_003.dds",
+            "df4_004.dds",
+            "df4_005.dds",
+            "df4_006.dds",
+            "df4_007.dds",
+            "df4_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/df4/df4.pak",
+          "clientPakSha256": "5772904e175ba46c46303daced26cff9c61bd916fddc64dde6036fdd642ece78"
+        }
+      ]
+    },
+    {
+      "key": "220080000",
       "mapId": 220080000,
       "name": "Enshar",
       "clientName": "DF5",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -1142,10 +1314,13 @@
       ]
     },
     {
+      "key": "220090000",
       "mapId": 220090000,
       "name": "Habrok",
       "clientName": "DF5_Ship",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -1189,10 +1364,13 @@
       ]
     },
     {
+      "key": "220100000",
       "mapId": 220100000,
       "name": "Idian Depths Dark",
       "clientName": "LDF5_Under_D",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -1238,10 +1416,13 @@
       ]
     },
     {
+      "key": "300010000",
       "mapId": 300010000,
       "name": "IDAb Pro",
       "clientName": "IDAbPro",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": false,
@@ -1271,10 +1452,13 @@
       ]
     },
     {
+      "key": "300020000",
       "mapId": 300020000,
       "name": "IDTest Dungeon",
       "clientName": "IDTest_Dungeon",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 256,
       "declaredWorldSize": 256,
       "supportsSpawnEditing": false,
@@ -1304,10 +1488,13 @@
       ]
     },
     {
+      "key": "300030000",
       "mapId": 300030000,
       "name": "Nochsana Training Camp",
       "clientName": "IDAb1_MiniCastle",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1351,10 +1538,13 @@
       ]
     },
     {
+      "key": "300040000",
       "mapId": 300040000,
       "name": "Dark Poeta",
       "clientName": "IDLF1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -1398,10 +1588,13 @@
       ]
     },
     {
+      "key": "300050000",
       "mapId": 300050000,
       "name": "Asteria Chamber",
       "clientName": "IDAbRe_Up_Asteria",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1445,10 +1638,13 @@
       ]
     },
     {
+      "key": "300060000",
       "mapId": 300060000,
       "name": "Sulfur Tree Nest",
       "clientName": "IDAbRe_Low_Divine",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1492,10 +1688,13 @@
       ]
     },
     {
+      "key": "300070000",
       "mapId": 300070000,
       "name": "Chamber of Roah",
       "clientName": "IDAbRe_Up_Rhoo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1539,10 +1738,13 @@
       ]
     },
     {
+      "key": "300080000",
       "mapId": 300080000,
       "name": "Left Wing Chamber",
       "clientName": "IDAbRe_Low_Wciel",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1586,10 +1788,13 @@
       ]
     },
     {
+      "key": "300090000",
       "mapId": 300090000,
       "name": "Right Wing Chamber",
       "clientName": "IDAbRe_Low_Eciel",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -1633,10 +1838,13 @@
       ]
     },
     {
+      "key": "300100000",
       "mapId": 300100000,
       "name": "Steel Rake",
       "clientName": "IDshulackShip",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1720,10 +1928,13 @@
       ]
     },
     {
+      "key": "300110000",
       "mapId": 300110000,
       "name": "Dredgion",
       "clientName": "IDAb1_Dreadgion",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1767,10 +1978,13 @@
       ]
     },
     {
+      "key": "300120000",
       "mapId": 300120000,
       "name": "Kysis Chamber",
       "clientName": "IDAbRe_Up3_Dkisas",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1814,10 +2028,13 @@
       ]
     },
     {
+      "key": "300130000",
       "mapId": 300130000,
       "name": "Miren Chamber",
       "clientName": "IDAbRe_Up3_Lamiren",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1861,10 +2078,13 @@
       ]
     },
     {
+      "key": "300140000",
       "mapId": 300140000,
       "name": "Krotan Chamber",
       "clientName": "IDAbRe_Up3_Crotan",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1908,10 +2128,13 @@
       ]
     },
     {
+      "key": "300150000",
       "mapId": 300150000,
       "name": "Udas Temple",
       "clientName": "IDTemple_Up",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -1955,10 +2178,13 @@
       ]
     },
     {
+      "key": "300160000",
       "mapId": 300160000,
       "name": "Lower Udas Temple",
       "clientName": "IDTemple_Low",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2002,10 +2228,13 @@
       ]
     },
     {
+      "key": "300170000",
       "mapId": 300170000,
       "name": "Beshmundir Temple",
       "clientName": "IDCatacombs",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2049,10 +2278,13 @@
       ]
     },
     {
+      "key": "300190000",
       "mapId": 300190000,
       "name": "Taloc's Hollow",
       "clientName": "IDElim",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2096,10 +2328,13 @@
       ]
     },
     {
+      "key": "300200000",
       "mapId": 300200000,
       "name": "Haramel",
       "clientName": "IDNovice",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -2143,10 +2378,13 @@
       ]
     },
     {
+      "key": "300210000",
       "mapId": 300210000,
       "name": "Chantra Dredgion",
       "clientName": "IDDreadgion_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2190,10 +2428,13 @@
       ]
     },
     {
+      "key": "300220000",
       "mapId": 300220000,
       "name": "Abyssal Splinter",
       "clientName": "IDAbRe_Core",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2237,10 +2478,13 @@
       ]
     },
     {
+      "key": "300230000",
       "mapId": 300230000,
       "name": "Kromede's Trial",
       "clientName": "IDCromede",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2284,10 +2528,13 @@
       ]
     },
     {
+      "key": "300240000",
       "mapId": 300240000,
       "name": "Aturam Sky Fortress",
       "clientName": "IDStation",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2331,10 +2578,13 @@
       ]
     },
     {
+      "key": "300250000",
       "mapId": 300250000,
       "name": "Esoterrace",
       "clientName": "IDF4Re_Drana",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -2378,10 +2628,13 @@
       ]
     },
     {
+      "key": "300280000",
       "mapId": 300280000,
       "name": "Rentus Base",
       "clientName": "IDYun",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2425,10 +2678,13 @@
       ]
     },
     {
+      "key": "300290000",
       "mapId": 300290000,
       "name": "Test MRT IDZone",
       "clientName": "Test_MRT_IDZone",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -2460,10 +2716,13 @@
       ]
     },
     {
+      "key": "300300000",
       "mapId": 300300000,
       "name": "Empyrean Crucible",
       "clientName": "IDArena",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": false,
@@ -2493,10 +2752,13 @@
       ]
     },
     {
+      "key": "300320000",
       "mapId": 300320000,
       "name": "Crucible Challenge",
       "clientName": "IDArena_Solo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": false,
@@ -2526,10 +2788,13 @@
       ]
     },
     {
+      "key": "300350000",
       "mapId": 300350000,
       "name": "Arena of Chaos",
       "clientName": "IDArena_pvp01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2561,10 +2826,13 @@
       ]
     },
     {
+      "key": "300360000",
       "mapId": 300360000,
       "name": "Arena of Discipline",
       "clientName": "IDArena_pvp02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2596,10 +2864,13 @@
       ]
     },
     {
+      "key": "300420000",
       "mapId": 300420000,
       "name": "Chaos Training Grounds",
       "clientName": "IDArena_pvp01_T",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2631,10 +2902,13 @@
       ]
     },
     {
+      "key": "300430000",
       "mapId": 300430000,
       "name": "Discipline Training Grounds",
       "clientName": "IDArena_pvp02_T",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2667,10 +2941,13 @@
       ]
     },
     {
+      "key": "300440000",
       "mapId": 300440000,
       "name": "Terath Dredgion",
       "clientName": "IDDreadgion_03",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2714,10 +2991,13 @@
       ]
     },
     {
+      "key": "300450000",
       "mapId": 300450000,
       "name": "Arena of Harmony",
       "clientName": "IDArena_Team01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2749,10 +3029,13 @@
       ]
     },
     {
+      "key": "300460000",
       "mapId": 300460000,
       "name": "Steel Rake Cabin",
       "clientName": "IDshulackShip_Solo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -2836,10 +3119,13 @@
       ]
     },
     {
+      "key": "300480000",
       "mapId": 300480000,
       "name": "Sealed Danuar Mysticarium",
       "clientName": "IDLDF5RE_Solo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 768,
       "declaredWorldSize": 768,
       "supportsSpawnEditing": true,
@@ -2883,10 +3169,13 @@
       ]
     },
     {
+      "key": "300510000",
       "mapId": 300510000,
       "name": "Tiamat Stronghold",
       "clientName": "IDTiamat_1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -2970,10 +3259,13 @@
       ]
     },
     {
+      "key": "300520000",
       "mapId": 300520000,
       "name": "Dragon Lords Refuge",
       "clientName": "IDTiamat_2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3037,10 +3329,13 @@
       ]
     },
     {
+      "key": "300540000",
       "mapId": 300540000,
       "name": "Eternal Bastion",
       "clientName": "IDLDF5b_TD",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3084,10 +3379,13 @@
       ]
     },
     {
+      "key": "300550000",
       "mapId": 300550000,
       "name": "Arena Of Glory",
       "clientName": "IDArena_Glory",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -3119,10 +3417,13 @@
       ]
     },
     {
+      "key": "300560000",
       "mapId": 300560000,
       "name": "Shugo Imperial Tomb",
       "clientName": "IDDF2Flying_Event01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": false,
@@ -3152,10 +3453,13 @@
       ]
     },
     {
+      "key": "300570000",
       "mapId": 300570000,
       "name": "Arena Team",
       "clientName": "IDArena_Team01_T",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -3187,10 +3491,13 @@
       ]
     },
     {
+      "key": "300590000",
       "mapId": 300590000,
       "name": "Ophidan Bridge",
       "clientName": "IDLDF5_Under_01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3234,10 +3541,13 @@
       ]
     },
     {
+      "key": "300600000",
       "mapId": 300600000,
       "name": "Unstable Abyssal Splinter",
       "clientName": "IDAbRe_Core_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3281,10 +3591,13 @@
       ]
     },
     {
+      "key": "300610000",
       "mapId": 300610000,
       "name": "Raksang Ruins",
       "clientName": "IDRaksha_solo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -3368,10 +3681,13 @@
       ]
     },
     {
+      "key": "300620000",
       "mapId": 300620000,
       "name": "Occupied Rentus Base",
       "clientName": "IDYun_Hard",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3415,10 +3731,13 @@
       ]
     },
     {
+      "key": "300630000",
       "mapId": 300630000,
       "name": "Anguished Lords Refuge",
       "clientName": "IDTiamat_2_Hard",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3482,10 +3801,13 @@
       ]
     },
     {
+      "key": "300700000",
       "mapId": 300700000,
       "name": "The Hexway",
       "clientName": "IDUnderpassRe",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3529,10 +3851,13 @@
       ]
     },
     {
+      "key": "300800000",
       "mapId": 300800000,
       "name": "Infinity Shard",
       "clientName": "IDRuneweapon",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 256,
       "declaredWorldSize": 256,
       "supportsSpawnEditing": true,
@@ -3576,10 +3901,13 @@
       ]
     },
     {
+      "key": "301100000",
       "mapId": 301100000,
       "name": "Unity Training Grounds",
       "clientName": "IDArena_Team01_T2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -3611,10 +3939,13 @@
       ]
     },
     {
+      "key": "301110000",
       "mapId": 301110000,
       "name": "Danuar Reliquary",
       "clientName": "IDLDF5_Under_Rune",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -3658,10 +3989,13 @@
       ]
     },
     {
+      "key": "301120000",
       "mapId": 301120000,
       "name": "Kamar Battlefield",
       "clientName": "IDKamar",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -3705,10 +4039,13 @@
       ]
     },
     {
+      "key": "301130000",
       "mapId": 301130000,
       "name": "Sauro Supply Base",
       "clientName": "IDVritra_Base",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3752,10 +4089,13 @@
       ]
     },
     {
+      "key": "301140000",
       "mapId": 301140000,
       "name": "Seized Danuar Sanctuary",
       "clientName": "IDLDF5_Under_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -3799,10 +4139,13 @@
       ]
     },
     {
+      "key": "301150000",
       "mapId": 301150000,
       "name": "Rumakikis Conspiracy Solo",
       "clientName": "IDAsteria_IU_Solo",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -3832,10 +4175,13 @@
       ]
     },
     {
+      "key": "301160000",
       "mapId": 301160000,
       "name": "Nightmare Circus",
       "clientName": "IDAsteria_IU_Party",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -3865,10 +4211,13 @@
       ]
     },
     {
+      "key": "301200000",
       "mapId": 301200000,
       "name": "Nightmare Circus",
       "clientName": "IDAsteria_IU_World",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3900,10 +4249,13 @@
       ]
     },
     {
+      "key": "301210000",
       "mapId": 301210000,
       "name": "Engulfed Ophidan Bridge",
       "clientName": "IDLDF5_Under_01_War",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3947,10 +4299,13 @@
       ]
     },
     {
+      "key": "301220000",
       "mapId": 301220000,
       "name": "Iron Wall Warfront",
       "clientName": "IDF5_TD_War",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -3994,10 +4349,13 @@
       ]
     },
     {
+      "key": "301230000",
       "mapId": 301230000,
       "name": "The Illuminary Obelisk",
       "clientName": "IDLDF5_Under_03",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4041,10 +4399,13 @@
       ]
     },
     {
+      "key": "301240000",
       "mapId": 301240000,
       "name": "Legion's Kysis Barracks",
       "clientName": "IDAbRe_Up3_Dkisas_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4088,10 +4449,13 @@
       ]
     },
     {
+      "key": "301250000",
       "mapId": 301250000,
       "name": "Legion's Miren Barracks",
       "clientName": "IDAbRe_Up3_Lamiren_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4135,10 +4499,13 @@
       ]
     },
     {
+      "key": "301260000",
       "mapId": 301260000,
       "name": "Legion's Krotan Barracks",
       "clientName": "IDAbRe_Up3_Crotan_02",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4182,10 +4549,13 @@
       ]
     },
     {
+      "key": "301270000",
       "mapId": 301270000,
       "name": "Linkgate Foundry",
       "clientName": "IDLDF4Re_01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4269,10 +4639,13 @@
       ]
     },
     {
+      "key": "301280000",
       "mapId": 301280000,
       "name": "Kysis Barracks",
       "clientName": "IDAbRe_Up3_Dkisas_02_N",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4316,10 +4689,13 @@
       ]
     },
     {
+      "key": "301290000",
       "mapId": 301290000,
       "name": "Miren Barracks",
       "clientName": "IDAbRe_Up3_Lamiren_02_N",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4363,10 +4739,13 @@
       ]
     },
     {
+      "key": "301300000",
       "mapId": 301300000,
       "name": "Krotan Barracks",
       "clientName": "IDAbRe_Up3_Crotan_02_N",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4410,10 +4789,13 @@
       ]
     },
     {
+      "key": "301310000",
       "mapId": 301310000,
       "name": "Idgel Dome",
       "clientName": "IDLDF5_Fortress_Re",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4457,10 +4839,13 @@
       ]
     },
     {
+      "key": "301320000",
       "mapId": 301320000,
       "name": "Lucky Ophidan Bridge",
       "clientName": "IDLDF5_Under_01_PC",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4504,10 +4889,13 @@
       ]
     },
     {
+      "key": "301330000",
       "mapId": 301330000,
       "name": "Lucky Danaur Reliquary",
       "clientName": "IDLDF5_Under_Rune_PC",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4551,10 +4939,13 @@
       ]
     },
     {
+      "key": "301340000",
       "mapId": 301340000,
       "name": "Linkgate Foundry",
       "clientName": "IDLDF4Re_01_Q",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4586,10 +4977,13 @@
       ]
     },
     {
+      "key": "301360000",
       "mapId": 301360000,
       "name": "Infernal Danuar Reliquary",
       "clientName": "IDLDF5_Under_Rune_H",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4633,10 +5027,13 @@
       ]
     },
     {
+      "key": "301370000",
       "mapId": 301370000,
       "name": "Infernal Illuminary Obelisk",
       "clientName": "IDLDF5_Under_03_H",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4680,10 +5077,13 @@
       ]
     },
     {
+      "key": "301380000",
       "mapId": 301380000,
       "name": "Danuar Sanctuary",
       "clientName": "IDLDF5_Under_02_E",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -4727,10 +5127,13 @@
       ]
     },
     {
+      "key": "301390000",
       "mapId": 301390000,
       "name": "Drakenspire Depths",
       "clientName": "IDSeal",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4774,10 +5177,13 @@
       ]
     },
     {
+      "key": "301400000",
       "mapId": 301400000,
       "name": "The Shugo Emperors Vault",
       "clientName": "IDSweep",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -4807,10 +5213,13 @@
       ]
     },
     {
+      "key": "301500000",
       "mapId": 301500000,
       "name": "Stonespear Reach",
       "clientName": "IDLegion",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -4854,10 +5263,13 @@
       ]
     },
     {
+      "key": "310010000",
       "mapId": 310010000,
       "name": "Karamatis",
       "clientName": "IDAbProL1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4889,10 +5301,13 @@
       ]
     },
     {
+      "key": "310020000",
       "mapId": 310020000,
       "name": "Karamatis",
       "clientName": "IDAbProL2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4924,10 +5339,13 @@
       ]
     },
     {
+      "key": "310030000",
       "mapId": 310030000,
       "name": "Aerdina",
       "clientName": "IDAbGateL1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4959,10 +5377,13 @@
       ]
     },
     {
+      "key": "310040000",
       "mapId": 310040000,
       "name": "Geranaia",
       "clientName": "IDAbGateL2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -4994,10 +5415,13 @@
       ]
     },
     {
+      "key": "310050000",
       "mapId": 310050000,
       "name": "Aetherogenetics Lab",
       "clientName": "IDLF3Lp",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5041,10 +5465,13 @@
       ]
     },
     {
+      "key": "310060000",
       "mapId": 310060000,
       "name": "Sliver of Darkness",
       "clientName": "IDLF1B",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -5076,10 +5503,13 @@
       ]
     },
     {
+      "key": "310070000",
       "mapId": 310070000,
       "name": "Sliver of Darkness",
       "clientName": "IDLF1B_Stigma",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5111,10 +5541,13 @@
       ]
     },
     {
+      "key": "310080000",
       "mapId": 310080000,
       "name": "Sanctum Underground Arena",
       "clientName": "IDLC1_arena",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5146,10 +5579,13 @@
       ]
     },
     {
+      "key": "310090000",
       "mapId": 310090000,
       "name": "Indratu Fortress",
       "clientName": "IDLF3_Castle_indratoo",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5193,10 +5629,13 @@
       ]
     },
     {
+      "key": "310100000",
       "mapId": 310100000,
       "name": "Azoturan Fortress",
       "clientName": "IDLF3_Castle_Lehpar",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5240,10 +5679,13 @@
       ]
     },
     {
+      "key": "310110000",
       "mapId": 310110000,
       "name": "Theobomos Lab",
       "clientName": "IDLF2a_Lab",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5287,10 +5729,13 @@
       ]
     },
     {
+      "key": "310120000",
       "mapId": 310120000,
       "name": "Karamatis",
       "clientName": "IDAbProL3",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5322,10 +5767,13 @@
       ]
     },
     {
+      "key": "320010000",
       "mapId": 320010000,
       "name": "Ataxiar",
       "clientName": "IDAbProD1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5357,10 +5805,13 @@
       ]
     },
     {
+      "key": "320020000",
       "mapId": 320020000,
       "name": "Ataxiar",
       "clientName": "IDAbProD2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5392,10 +5843,13 @@
       ]
     },
     {
+      "key": "320030000",
       "mapId": 320030000,
       "name": "Bregirun",
       "clientName": "IDAbGateD1",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5427,10 +5881,13 @@
       ]
     },
     {
+      "key": "320040000",
       "mapId": 320040000,
       "name": "Nidalber",
       "clientName": "IDAbGateD2",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5462,10 +5919,13 @@
       ]
     },
     {
+      "key": "320050000",
       "mapId": 320050000,
       "name": "Sky Temple Interior",
       "clientName": "IDDF2Flying",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5509,10 +5969,13 @@
       ]
     },
     {
+      "key": "320060000",
       "mapId": 320060000,
       "name": "Space of Oblivion",
       "clientName": "IDDF1B",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": false,
@@ -5542,10 +6005,13 @@
       ]
     },
     {
+      "key": "320070000",
       "mapId": 320070000,
       "name": "Space of Destiny",
       "clientName": "IDSpace",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5577,10 +6043,13 @@
       ]
     },
     {
+      "key": "320080000",
       "mapId": 320080000,
       "name": "Draupnir Cave",
       "clientName": "IDDF3_Dragon",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5624,10 +6093,13 @@
       ]
     },
     {
+      "key": "320090000",
       "mapId": 320090000,
       "name": "Triniel Underground Arena",
       "clientName": "IDDC1_arena",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5659,10 +6131,13 @@
       ]
     },
     {
+      "key": "320100000",
       "mapId": 320100000,
       "name": "Fire Temple",
       "clientName": "IDDF2_Dflame",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -5706,10 +6181,13 @@
       ]
     },
     {
+      "key": "320110000",
       "mapId": 320110000,
       "name": "Alquimia Research Center",
       "clientName": "IDDF3_LP",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5753,10 +6231,13 @@
       ]
     },
     {
+      "key": "320120000",
       "mapId": 320120000,
       "name": "Shadow Court Dungeon",
       "clientName": "IDDC1_Arena_3F",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5788,10 +6269,13 @@
       ]
     },
     {
+      "key": "320130000",
       "mapId": 320130000,
       "name": "Adma Stronghold",
       "clientName": "IDDf2a_Adma",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5835,10 +6319,13 @@
       ]
     },
     {
+      "key": "320140000",
       "mapId": 320140000,
       "name": "Ataxiar",
       "clientName": "IDAbProD3",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5870,10 +6357,13 @@
       ]
     },
     {
+      "key": "320150000",
       "mapId": 320150000,
       "name": "Padmarashka's Cave",
       "clientName": "IDDramata_01",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": true,
@@ -5905,10 +6395,13 @@
       ]
     },
     {
+      "key": "400010000",
       "mapId": 400010000,
       "name": "Reshanta",
       "clientName": "Ab1",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 4096,
       "declaredWorldSize": 4096,
       "supportsSpawnEditing": true,
@@ -5992,10 +6485,103 @@
       ]
     },
     {
+      "key": "siege-400010000",
+      "mapId": 400010000,
+      "name": "Reshanta (Siege)",
+      "clientName": "Ab1",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 4096,
+      "declaredWorldSize": 4096,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 4096,
+        "mapHeight": 4096
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 4096.0,
+        "minY": 0.0,
+        "maxY": 4096.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/400010000_Reshanta.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/400010000_Reshanta.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400010000-reshanta-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "aaed76e70e0c466a053a1151e6d7129968f111b90520c80eb178f460f524da65",
+          "tileLayout": [
+            "ab1_1_000.dds",
+            "ab1_1_001.dds",
+            "ab1_1_002.dds",
+            "ab1_1_003.dds",
+            "ab1_1_004.dds",
+            "ab1_1_005.dds",
+            "ab1_1_006.dds",
+            "ab1_1_007.dds",
+            "ab1_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400010000-reshanta-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "76103ebca3b8994e3396acaba7535597221f563a48ebfeb3829ccff17730cbdb",
+          "tileLayout": [
+            "ab1_2_000.dds",
+            "ab1_2_001.dds",
+            "ab1_2_002.dds",
+            "ab1_2_003.dds",
+            "ab1_2_004.dds",
+            "ab1_2_005.dds",
+            "ab1_2_006.dds",
+            "ab1_2_007.dds",
+            "ab1_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "400010000-reshanta-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a234f34ceab575aae08af66baaeb6b798e0c746f2ce3e2e0b768f9a710a91499",
+          "tileLayout": [
+            "ab1_3_000.dds",
+            "ab1_3_001.dds",
+            "ab1_3_002.dds",
+            "ab1_3_003.dds",
+            "ab1_3_004.dds",
+            "ab1_3_005.dds",
+            "ab1_3_006.dds",
+            "ab1_3_007.dds",
+            "ab1_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/ab1/ab1.pak",
+          "clientPakSha256": "baf9e9fbff67be61d6d56dabd303f2646d41e5aa887dfaf127d738b1aefea2e1"
+        }
+      ]
+    },
+    {
+      "key": "400020000",
       "mapId": 400020000,
       "name": "Belus",
       "clientName": "Gab1_01",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -6059,10 +6645,83 @@
       ]
     },
     {
+      "key": "siege-400020000",
+      "mapId": 400020000,
+      "name": "Belus (Siege)",
+      "clientName": "Gab1_01",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/400020000_Belus.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/400020000_Belus.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400020000-belus-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "8175b10a291966fe600ec4777a365ffee1c9a505d60e087bf350d5fc83bbe9b0",
+          "tileLayout": [
+            "GAb1_01_000.dds",
+            "GAb1_01_001.dds",
+            "GAb1_01_002.dds",
+            "GAb1_01_003.dds",
+            "GAb1_01_004.dds",
+            "GAb1_01_005.dds",
+            "GAb1_01_006.dds",
+            "GAb1_01_007.dds",
+            "GAb1_01_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAb1_01/GAb1_01.pak",
+          "clientPakSha256": "2826d198d567bba7bcd32c12272ddfa6a79c32d46e0e956e3b1eeb8840f4ef57"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400020000-belus-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7b6cc52d23a1ad820f3694f93280ffcd81127666161a3153037ddbc3d1e83109",
+          "tileLayout": [
+            "GAb1_01_2_000.dds",
+            "GAb1_01_2_001.dds",
+            "GAb1_01_2_002.dds",
+            "GAb1_01_2_003.dds",
+            "GAb1_01_2_004.dds",
+            "GAb1_01_2_005.dds",
+            "GAb1_01_2_006.dds",
+            "GAb1_01_2_007.dds",
+            "GAb1_01_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAb1_01/GAb1_01.pak",
+          "clientPakSha256": "2826d198d567bba7bcd32c12272ddfa6a79c32d46e0e956e3b1eeb8840f4ef57"
+        }
+      ]
+    },
+    {
+      "key": "400030000",
       "mapId": 400030000,
       "name": "Transidium Annex",
       "clientName": "GAb1_Sub",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -6104,10 +6763,13 @@
       ]
     },
     {
+      "key": "400040000",
       "mapId": 400040000,
       "name": "Aspida",
       "clientName": "Gab1_02",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -6171,10 +6833,13 @@
       ]
     },
     {
+      "key": "400050000",
       "mapId": 400050000,
       "name": "Atanatos",
       "clientName": "Gab1_03",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -6238,10 +6903,83 @@
       ]
     },
     {
+      "key": "siege-400050000",
+      "mapId": 400050000,
+      "name": "Atanatos (Siege)",
+      "clientName": "Gab1_03",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/400050000_Atanatos.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/400050000_Atanatos.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "400050000-atanatos-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "39997aa24edf9994f82f352f553ec38a66fb6ab01eaac9232b7f2ba4aa328dd6",
+          "tileLayout": [
+            "GAB1_03_000.dds",
+            "GAB1_03_001.dds",
+            "GAB1_03_002.dds",
+            "GAB1_03_003.dds",
+            "GAB1_03_004.dds",
+            "GAB1_03_005.dds",
+            "GAB1_03_006.dds",
+            "GAB1_03_007.dds",
+            "GAB1_03_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_03/GAB1_03.pak",
+          "clientPakSha256": "cf92cf8f96dc446ce9515dfd795faef52b339034e91f2c698b0cfe8db4f9cc41"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "400050000-atanatos-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "e43416fd194ba1f7a6a877dab33f73785fc5a09bdac8146fffd86b16b3087ce7",
+          "tileLayout": [
+            "GAb1_03_2_000.dds",
+            "GAb1_03_2_001.dds",
+            "GAb1_03_2_002.dds",
+            "GAb1_03_2_003.dds",
+            "GAb1_03_2_004.dds",
+            "GAb1_03_2_005.dds",
+            "GAb1_03_2_006.dds",
+            "GAb1_03_2_007.dds",
+            "GAb1_03_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAB1_03/GAB1_03.pak",
+          "clientPakSha256": "cf92cf8f96dc446ce9515dfd795faef52b339034e91f2c698b0cfe8db4f9cc41"
+        }
+      ]
+    },
+    {
+      "key": "400060000",
       "mapId": 400060000,
       "name": "Disillon",
       "clientName": "Gab1_04",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -6305,10 +7043,13 @@
       ]
     },
     {
+      "key": "510010000",
       "mapId": 510010000,
       "name": "LF Prison",
       "clientName": "LF_Prison",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": false,
@@ -6338,10 +7079,13 @@
       ]
     },
     {
+      "key": "520010000",
       "mapId": 520010000,
       "name": "DF Prison",
       "clientName": "DF_Prison",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": false,
@@ -6371,10 +7115,13 @@
       ]
     },
     {
+      "key": "600010000",
       "mapId": 600010000,
       "name": "Silentera Canyon",
       "clientName": "Underpass",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -6418,10 +7165,13 @@
       ]
     },
     {
+      "key": "600080000",
       "mapId": 600080000,
       "name": "Live Party Concert Hall",
       "clientName": "IDIU",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -6453,10 +7203,13 @@
       ]
     },
     {
+      "key": "600090000",
       "mapId": 600090000,
       "name": "Kaldor",
       "clientName": "LDF5_Fortress",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1536,
       "declaredWorldSize": 1536,
       "supportsSpawnEditing": true,
@@ -6501,10 +7254,63 @@
       ]
     },
     {
+      "key": "siege-600090000",
+      "mapId": 600090000,
+      "name": "Kaldor (Siege)",
+      "clientName": "LDF5_Fortress",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/600090000_Kaldor.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/600090000_Kaldor.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "600090000-kaldor-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b91638fdcd0972f89b050b27c725b85b9bc212dd39ca143dfd3970b5caebcea1",
+          "tileLayout": [
+            "LDF5_Fortress_000.dds",
+            "LDF5_Fortress_001.dds",
+            "LDF5_Fortress_002.dds",
+            "LDF5_Fortress_003.dds",
+            "LDF5_Fortress_004.dds",
+            "LDF5_Fortress_005.dds",
+            "LDF5_Fortress_006.dds",
+            "LDF5_Fortress_007.dds",
+            "LDF5_Fortress_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF5_Fortress/LDF5_Fortress.pak",
+          "clientPakSha256": "f3def336764c2681272a408154155b8037df2f174374afb3c274f73b9cd5062e"
+        }
+      ]
+    },
+    {
+      "key": "600100000",
       "mapId": 600100000,
       "name": "Levinshor",
       "clientName": "LDF4_Advance",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": true,
@@ -6549,10 +7355,63 @@
       ]
     },
     {
+      "key": "siege-600100000",
+      "mapId": 600100000,
+      "name": "Levinshor (Siege)",
+      "clientName": "LDF4_Advance",
+      "kind": "world",
+      "category": "other",
+      "spawnKind": "siege",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Sieges/600100000_Levinshor.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Sieges/600100000_Levinshor.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "600100000-levinshor-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "dfd542c9d10581e6a79c94b9bf5038d5cb50186b1329cd1f43b0bccee6b0c360",
+          "tileLayout": [
+            "LDF4_Advance_000.dds",
+            "LDF4_Advance_001.dds",
+            "LDF4_Advance_002.dds",
+            "LDF4_Advance_003.dds",
+            "LDF4_Advance_004.dds",
+            "LDF4_Advance_005.dds",
+            "LDF4_Advance_006.dds",
+            "LDF4_Advance_007.dds",
+            "LDF4_Advance_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/LDF4_Advance/LDF4_Advance.pak",
+          "clientPakSha256": "a87d12ce692dbf6266510f1b4c2d567a9dc3f5d163cc27eaa336c51aa8697e04"
+        }
+      ]
+    },
+    {
+      "key": "700010000",
       "mapId": 700010000,
       "name": "Oriel",
       "clientName": "Housing_LF_personal",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -6597,10 +7456,13 @@
       ]
     },
     {
+      "key": "700020000",
       "mapId": 700020000,
       "name": "Elyos Legion Housing",
       "clientName": "Housing_LC_legion",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": false,
@@ -6630,10 +7492,13 @@
       ]
     },
     {
+      "key": "710010000",
       "mapId": 710010000,
       "name": "Pernon",
       "clientName": "Housing_DF_personal",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -6678,10 +7543,13 @@
       ]
     },
     {
+      "key": "710020000",
       "mapId": 710020000,
       "name": "Asmodian Legion Housing",
       "clientName": "Housing_DC_legion",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -6711,10 +7579,13 @@
       ]
     },
     {
+      "key": "720010000",
       "mapId": 720010000,
       "name": "Studio",
       "clientName": "housing_idlf_personal",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -6746,10 +7617,13 @@
       ]
     },
     {
+      "key": "730010000",
       "mapId": 730010000,
       "name": "Studio",
       "clientName": "housing_iddf_personal",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,
@@ -6781,10 +7655,13 @@
       ]
     },
     {
+      "key": "900020000",
       "mapId": 900020000,
       "name": "Test Basic",
       "clientName": "Test_Basic",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 256,
       "declaredWorldSize": 256,
       "supportsSpawnEditing": true,
@@ -6816,10 +7693,13 @@
       ]
     },
     {
+      "key": "900030000",
       "mapId": 900030000,
       "name": "Test Server",
       "clientName": "Test_Server",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -6849,10 +7729,13 @@
       ]
     },
     {
+      "key": "900100000",
       "mapId": 900100000,
       "name": "Test Giant Monster",
       "clientName": "Test_GiantMonster",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -6882,10 +7765,13 @@
       ]
     },
     {
+      "key": "900110000",
       "mapId": 900110000,
       "name": "GM Isle",
       "clientName": "Housing_barrack",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 3072,
       "declaredWorldSize": 3072,
       "supportsSpawnEditing": true,
@@ -6917,10 +7803,13 @@
       ]
     },
     {
+      "key": "900120000",
       "mapId": 900120000,
       "name": "Test IDArena",
       "clientName": "Test_IDArena",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -6950,10 +7839,13 @@
       ]
     },
     {
+      "key": "900130000",
       "mapId": 900130000,
       "name": "IDLDF5RE test",
       "clientName": "IDLDF5RE_test",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -6983,10 +7875,13 @@
       ]
     },
     {
+      "key": "900140000",
       "mapId": 900140000,
       "name": "Instanced Dungeon Test",
       "clientName": "Test_Kgw",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -7016,10 +7911,13 @@
       ]
     },
     {
+      "key": "900150000",
       "mapId": 900150000,
       "name": "Instanced Dungeon Test2",
       "clientName": "Test_Basic_Mj",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 0,
       "supportsSpawnEditing": false,
@@ -7049,10 +7947,13 @@
       ]
     },
     {
+      "key": "900170000",
       "mapId": 900170000,
       "name": "test intro",
       "clientName": "test_intro",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 2048,
       "declaredWorldSize": 2048,
       "supportsSpawnEditing": false,
@@ -7082,10 +7983,13 @@
       ]
     },
     {
+      "key": "900180000",
       "mapId": 900180000,
       "name": "Test server art",
       "clientName": "Test_server_art",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 1024,
       "declaredWorldSize": 1024,
       "supportsSpawnEditing": false,
@@ -7115,10 +8019,13 @@
       ]
     },
     {
+      "key": "900190000",
       "mapId": 900190000,
       "name": "Tag Match Test Level",
       "clientName": "Test_TagMatch",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 256,
       "declaredWorldSize": 256,
       "supportsSpawnEditing": true,
@@ -7150,10 +8057,13 @@
       ]
     },
     {
+      "key": "900200000",
       "mapId": 900200000,
       "name": "Test Time Attack Instanced Dungeon 02",
       "clientName": "test_timeattack",
       "kind": "instance",
+      "category": "instance",
+      "spawnKind": "regular",
       "worldSize": 256,
       "declaredWorldSize": 256,
       "supportsSpawnEditing": true,
@@ -7185,10 +8095,13 @@
       ]
     },
     {
+      "key": "900220000",
       "mapId": 900220000,
       "name": "System Basic",
       "clientName": "System_Basic",
       "kind": "world",
+      "category": "world",
+      "spawnKind": "regular",
       "worldSize": 512,
       "declaredWorldSize": 512,
       "supportsSpawnEditing": true,

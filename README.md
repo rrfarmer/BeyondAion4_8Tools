@@ -95,7 +95,8 @@ The editor:
 
 - loads NPC metadata from `BeyondAionSharp/game-server/data/static_data/npcs/npc_templates.xml`
 - aggregates base and `Custom` XML sources, including repeated `<spawn_map>` blocks
-- supports map/layer switching, hover/search, coordinate updates, deletion, and new NPC placement
+- filters the complete catalog into World Maps, Instance Maps, and Others, with map/layer switching, hover/search, coordinate updates, deletion, and new NPC placement
+- edits alternate siege spawn datasets on their physical world maps while preserving fortress, faction, and siege-mode context
 - uses client `zonemap.xml` calibration and the exact reversible game-coordinate/image transform
 - resolves ground Z from the server's prepared 16-bit terrain heightmaps after map picks or X/Y edits, while retaining manual Z entry
 - resolves selected `walker_id` routes from the complete recursive `npc_walker` catalog and draws numbered runtime paths over the calibrated map
@@ -111,7 +112,7 @@ The editor:
 
 This is repository editing, not live server editing. Changes take effect in game only after the updated `BeyondAionSharp` checkout is used for a later game-server build/restart.
 
-Docker mounts the repository NPC spawn and walker-route directories read/write, plus the NPC template and geodata directories read-only. All locally generated map assets and the 43-map manifest are copied into the portal image during `docker compose build`. See `docs/MAP_ASSETS.md` for the repeatable client extraction command, coordinate transform, and terrain-height behavior.
+Docker mounts the repository regular, instance, and siege spawn directories plus walker routes read/write, with NPC templates and geodata read-only. All locally generated map assets and the 168-entry manifest are copied into the portal image during `docker compose build`. See `docs/MAP_ASSETS.md` for the repeatable client extraction command, coordinate transform, and terrain-height behavior.
 
 ## Icon Cache
 

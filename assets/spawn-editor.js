@@ -5,7 +5,7 @@
   const root = document.querySelector("[data-spawn-editor]");
   if (!root) return;
 
-  const initialMapId = Number(root.dataset.mapId);
+  const initialMapKey = String(root.dataset.mapId);
   const elements = {
     map: root.querySelector("[data-map]"),
     mapShell: root.querySelector(".spawn-map-shell"),
@@ -15,6 +15,7 @@
     artworkStatus: root.querySelector("[data-artwork-status]"),
     sourceStatus: root.querySelector("[data-source-status]"),
     status: root.querySelector("[data-status]"),
+    mapCategory: root.querySelector("[data-map-category]"),
     mapSelect: root.querySelector("[data-map-select]"),
     layerControl: root.querySelector("[data-layer-control]"),
     layerSelect: root.querySelector("[data-layer-select]"),
@@ -86,6 +87,8 @@
     npcResults: root.querySelector("[data-npc-results]"),
     placeFields: root.querySelector("[data-place-fields]"),
     selectedNpc: root.querySelector("[data-selected-npc]"),
+    siegeContextField: root.querySelector("[data-siege-context-field]"),
+    siegeContext: root.querySelector("[data-siege-context]"),
     placeX: root.querySelector("[data-place-x]"),
     placeY: root.querySelector("[data-place-y]"),
     placeZ: root.querySelector("[data-place-z]"),
@@ -105,11 +108,12 @@
 
   const state = {
     maps: [],
-    mapId: initialMapId,
+    mapKey: initialMapKey,
     layerId: undefined,
     snapshot: undefined,
     groups: new Map(),
     groupsByNpcId: new Map(),
+    placementContexts: new Map(),
     spots: new Map(),
     drafts: new Map(),
     selectedKey: undefined,
@@ -146,6 +150,7 @@
   bootstrap().catch(showFatal);
 
   function bindEvents() {
+    elements.mapCategory.addEventListener("change", changeMapCategory);
     elements.mapSelect.addEventListener("change", changeMap);
     elements.layerSelect.addEventListener("change", changeLayer);
     elements.mapSearch.addEventListener("input", renderMarkers);
@@ -203,6 +208,7 @@
     });
     elements.placeHeading.addEventListener("input", updateCreateButton);
     elements.placeRespawn.addEventListener("input", updateCreateButton);
+    elements.siegeContext.addEventListener("change", siegeContextChanged);
     elements.applyChanges.addEventListener("click", applyChanges);
     document.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
@@ -230,22 +236,19 @@
     const result = await fetchJson("/admin/api/spawn-editor/maps");
     state.maps = result.maps;
     if (!state.maps.length) throw new Error("No spawn maps are available.");
-    elements.mapSelect.innerHTML = [
-      ["World maps", state.maps.filter(map => map.kind === "world")],
-      ["Instances", state.maps.filter(map => map.kind === "instance")],
-    ].filter(([, maps]) => maps.length > 0)
-      .map(([label, maps]) => `<optgroup label="${label}">${maps
-        .map(map => `<option value="${map.id}">${escapeHtml(map.name)} · ${map.id}${map.supportsSpawnEditing ? "" : " · view only"}</option>`)
-        .join("")}</optgroup>`)
-      .join("");
     const searchParams = new URLSearchParams(window.location.search);
     const requestedMapId = Number(searchParams.get("mapId"));
+    const requestedMapKey = searchParams.get("variant") === "siege"
+      ? `siege-${requestedMapId}`
+      : String(requestedMapId);
     const requestedWalkerId = searchParams.get("walkerId")?.trim();
-    const selectedMap = state.maps.find(map => map.id === requestedMapId)
-      || state.maps.find(map => map.id === initialMapId)
+    const selectedMap = state.maps.find(map => map.key === requestedMapKey)
+      || state.maps.find(map => map.key === initialMapKey)
       || state.maps[0];
-    state.mapId = selectedMap.id;
-    elements.mapSelect.value = String(state.mapId);
+    state.mapKey = selectedMap.key;
+    elements.mapCategory.value = selectedMap.category;
+    populateMapSelect(selectedMap.category, selectedMap.key);
+    elements.mapCategory.disabled = false;
     elements.mapSelect.disabled = false;
     await loadSnapshot();
     if (requestedWalkerId) selectWalkerRoute(requestedWalkerId);
@@ -253,8 +256,8 @@
 
   async function loadSnapshot() {
     setLoading(true);
-    elements.mapLoadingLabel.textContent = `Loading ${mapName(state.mapId)}`;
-    const snapshot = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/spawns`);
+    elements.mapLoadingLabel.textContent = `Loading ${mapName(state.mapKey)}`;
+    const snapshot = await fetchJson(`${mapApiUrl()}/spawns`);
     installSnapshot(snapshot);
     if (!state.leafletMap) initializeMap(snapshot.map);
     else updateMapImage(snapshot.map, true);
@@ -264,19 +267,45 @@
     setLoading(false);
   }
 
-  async function changeMap() {
-    const nextMapId = Number(elements.mapSelect.value);
-    if (nextMapId === state.mapId) return;
-    if ((state.drafts.size || walkerDraftIsDirty()) && !window.confirm("Discard draft changes and switch maps?")) {
-      elements.mapSelect.value = String(state.mapId);
+  function populateMapSelect(category, selectedKey) {
+    const maps = state.maps.filter(map => map.category === category);
+    elements.mapSelect.innerHTML = maps.map(map =>
+      `<option value="${escapeHtml(map.key)}">${escapeHtml(map.name)} · ${map.id}${map.supportsSpawnEditing ? "" : " · view only"}</option>`,
+    ).join("");
+    if (maps.some(map => map.key === selectedKey)) elements.mapSelect.value = selectedKey;
+    return maps;
+  }
+
+  async function changeMapCategory() {
+    const currentMap = state.maps.find(map => map.key === state.mapKey);
+    if ((state.drafts.size || walkerDraftIsDirty()) && !window.confirm("Discard draft changes and switch map sets?")) {
+      elements.mapCategory.value = currentMap?.category || "world";
       return;
     }
-    state.mapId = nextMapId;
+    const maps = populateMapSelect(elements.mapCategory.value, "");
+    const nextMap = maps[0];
+    if (!nextMap) return;
+    elements.mapSelect.value = nextMap.key;
+    await switchMap(nextMap.key);
+  }
+
+  async function changeMap() {
+    const nextMapKey = elements.mapSelect.value;
+    if (nextMapKey === state.mapKey) return;
+    if ((state.drafts.size || walkerDraftIsDirty()) && !window.confirm("Discard draft changes and switch maps?")) {
+      elements.mapSelect.value = state.mapKey;
+      return;
+    }
+    await switchMap(nextMapKey);
+  }
+
+  async function switchMap(nextMapKey) {
+    state.mapKey = nextMapKey;
     state.layerId = undefined;
     cancelPick();
     if (elements.reviewDialog.open) elements.reviewDialog.close();
     const url = new URL(window.location.href);
-    url.searchParams.set("mapId", String(nextMapId));
+    setMapUrl(url, state.maps.find(map => map.key === nextMapKey));
     url.searchParams.delete("walkerId");
     window.history.replaceState({}, "", url);
     await loadSnapshot().catch(showFatal);
@@ -406,14 +435,17 @@
     button.textContent = "Opening...";
     try {
       elements.walkerAuditDialog.close();
-      const changingMap = state.mapId !== finding.mapId;
-      state.mapId = finding.mapId;
+      const nextMap = state.maps.find(map => map.key === String(finding.mapId));
+      if (!nextMap) throw new Error(`Map ${finding.mapId} is no longer available.`);
+      const changingMap = state.mapKey !== nextMap.key;
+      state.mapKey = nextMap.key;
       if (changingMap) state.layerId = undefined;
-      elements.mapSelect.value = String(finding.mapId);
+      elements.mapCategory.value = nextMap.category;
+      populateMapSelect(nextMap.category, nextMap.key);
       elements.mapSearch.value = "";
       elements.editableFilter.checked = false;
       const url = new URL(window.location.href);
-      url.searchParams.set("mapId", String(finding.mapId));
+      setMapUrl(url, nextMap);
       url.searchParams.set("walkerId", finding.routeId);
       window.history.replaceState({}, "", url);
       await loadSnapshot();
@@ -451,7 +483,9 @@
     cancelGroundLookup("update");
     cancelGroundLookup("create");
     state.snapshot = snapshot;
+    state.mapKey = snapshot.map.key;
     state.groups = new Map(snapshot.groups.map(group => [group.key, group]));
+    state.placementContexts = new Map(snapshot.placementContexts.map(context => [context.key, context]));
     state.groupsByNpcId = new Map();
     for (const group of snapshot.groups) {
       const current = state.groupsByNpcId.get(group.npcId);
@@ -465,18 +499,30 @@
     state.nextClientKey = 1;
     const sourceCount = snapshot.map.sourceRelativePaths.length;
     elements.sourceStatus.textContent = snapshot.map.supportsSpawnEditing
-      ? `${sourceCount.toLocaleString()} XML source${sourceCount === 1 ? "" : "s"} · ${snapshot.revision.slice(0, 10)}`
+      ? `${sourceCount.toLocaleString()} ${snapshot.map.spawnKind === "siege" ? "siege " : ""}XML source${sourceCount === 1 ? "" : "s"} · ${snapshot.revision.slice(0, 10)}`
       : "Map view only · no regular spawn XML";
     elements.sourceStatus.title = snapshot.map.supportsSpawnEditing
       ? snapshot.map.sourceRelativePaths.join("\n")
       : "This map is runtime-driven, special-purpose, or has no ordinary NPC/Mob spawn XML.";
     elements.placeToggle.disabled = !snapshot.map.supportsSpawnEditing;
     if (!snapshot.map.supportsSpawnEditing) elements.placePanel.hidden = true;
+    populateSiegeContexts(snapshot.placementContexts);
     elements.map.setAttribute("aria-label", `${snapshot.map.name} spawn map`);
     elements.changeReason.value = `${snapshot.map.name} spawn placement update`;
     populateLayerSelect(snapshot.map);
     updateDraftControls();
     renderInspector();
+  }
+
+  function populateSiegeContexts(contexts) {
+    const isSiege = state.snapshot?.map.spawnKind === "siege";
+    elements.siegeContextField.hidden = !isSiege;
+    elements.siegeContext.innerHTML = isSiege
+      ? `<option value="">Select siege context</option>${contexts.map(context =>
+          `<option value="${escapeHtml(context.key)}">${escapeHtml(context.label)}</option>`,
+        ).join("")}`
+      : "";
+    elements.siegeContext.value = "";
   }
 
   function initializeMap(mapDefinition) {
@@ -548,7 +594,7 @@
       if (draft.kind !== "create") continue;
       entries.push({
         key: draft.clientKey,
-        groupKey: state.groupsByNpcId.get(draft.npcId)?.key || `new:${draft.npcId}`,
+        groupKey: placementGroup(draft.npcId, draft.contextKey)?.key || `new:${draft.npcId}`,
         npcId: draft.npcId,
         ...positionFrom(draft),
         randomWalk: 0,
@@ -562,7 +608,7 @@
         warnings: [],
         attributes: {},
         draftKind: "create",
-        group: state.groupsByNpcId.get(draft.npcId) || pseudoGroup(draft),
+        group: placementGroup(draft.npcId, draft.contextKey) || pseudoGroup(draft),
       });
     }
     return entries;
@@ -580,7 +626,7 @@
     for (const entry of entries) {
       const group = entry.group;
       if (!group) continue;
-      const searchable = `${group.npc.displayName} ${entry.npcId}`.toLocaleLowerCase();
+      const searchable = `${group.npc.displayName} ${entry.npcId} ${group.contextLabel || ""}`.toLocaleLowerCase();
       if (query && !searchable.includes(query)) continue;
       if (type && (group.npc.type || "NONE") !== type) continue;
       if (editableOnly && !entry.editable) continue;
@@ -627,6 +673,7 @@
     return `
       <div class="spawn-tooltip-name">${escapeHtml(group.npc.displayName)}</div>
       <div class="spawn-tooltip-meta">ID ${entry.npcId} · Level ${group.npc.level || "?"} · ${escapeHtml(formatLabel(group.npc.type || "NONE"))}</div>
+      ${group.contextLabel ? `<div class="spawn-tooltip-meta">${escapeHtml(group.contextLabel)}</div>` : ""}
       <div class="spawn-tooltip-position">X ${formatNumber(entry.x)} · Y ${formatNumber(entry.y)} · Z ${formatNumber(entry.z)} · H ${entry.heading}</div>
       ${warnings.length ? `<div class="spawn-tooltip-warning">${escapeHtml(warnings.join(" · "))}</div>` : ""}`;
   }
@@ -669,7 +716,7 @@
 
   function updateSelectedWalkerUrl(walkerId) {
     const url = new URL(window.location.href);
-    url.searchParams.set("mapId", String(state.mapId));
+    setMapUrl(url);
     if (walkerId) url.searchParams.set("walkerId", walkerId);
     else url.searchParams.delete("walkerId");
     window.history.replaceState({}, "", url);
@@ -700,7 +747,7 @@
     elements.detailType.textContent = `${formatLabel(group.npc.type || "NONE")} · ${entry.npcId}`;
     elements.detailName.textContent = group.npc.displayName;
     elements.detailDraft.hidden = !entry.draftKind;
-    elements.detailFacts.innerHTML = factsHtml([
+    const detailFacts = [
       ["Level", group.npc.level || "-"],
       ["Rank", formatLabel(group.npc.rank || "-")],
       ["Rating", formatLabel(group.npc.rating || "-")],
@@ -708,7 +755,9 @@
       ["AI", entry.ai || group.npc.ai || "-"],
       ["Group spots", countNpcSpots(entry.npcId)],
       ["Source", sourceName(entry.sourceRelativePath || group.sourceRelativePath)],
-    ]);
+    ];
+    if (group.contextLabel) detailFacts.splice(1, 0, ["Siege context", group.contextLabel]);
+    elements.detailFacts.innerHTML = factsHtml(detailFacts);
     const warnings = [...(entry.warnings || [])];
     elements.detailWarnings.hidden = warnings.length === 0;
     elements.detailWarnings.innerHTML = warnings.map(warning => `<span>${escapeHtml(warning)}</span>`).join("");
@@ -765,7 +814,7 @@
     renderWalkerPanel(entry);
     try {
       const result = await fetchJson(
-        `/admin/api/spawn-editor/maps/${state.mapId}/walkers/${encodeURIComponent(entry.walkerId)}`,
+        `${mapApiUrl()}/walkers/${encodeURIComponent(entry.walkerId)}`,
       );
       if (requestId !== state.walkerRequestId || state.selectedKey !== entry.key) return;
       state.walkerRoute = result.route;
@@ -1351,7 +1400,7 @@
 
   async function lookupWalkerGround(x, y) {
     return fetchJson(
-      `/admin/api/spawn-editor/maps/${state.mapId}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
+      `${mapApiUrl()}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
     );
   }
 
@@ -1372,7 +1421,7 @@
     refreshWalkerDraftUi();
     elements.walkerReview.disabled = true;
     try {
-      const validation = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/walkers/validate`, {
+      const validation = await fetchJson(`${mapApiUrl()}/walkers/validate`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(walkerEditorChangeRequest()),
@@ -1415,7 +1464,7 @@
     elements.walkerApply.textContent = "Applying...";
     const selectedKey = state.selectedKey;
     try {
-      const result = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/walkers/apply`, {
+      const result = await fetchJson(`${mapApiUrl()}/walkers/apply`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...walkerEditorChangeRequest(), reason }),
@@ -1555,6 +1604,7 @@
     clearWalkerRoute();
     state.selectedKey = undefined;
     state.selectedNpc = undefined;
+    elements.siegeContext.value = "";
     elements.placeTitle.textContent = "Place NPC";
     elements.npcSearch.value = "";
     elements.npcResults.innerHTML = "";
@@ -1619,12 +1669,29 @@
     elements.selectedNpc.innerHTML = `<strong>${escapeHtml(npc.displayName)}</strong><br><span class="muted">ID ${npc.id} · ${escapeHtml(formatLabel(npc.type))} · Level ${npc.level || "?"}</span>`;
     elements.npcResults.innerHTML = "";
     elements.placeFields.hidden = false;
-    const existingGroup = state.groupsByNpcId.get(npc.id);
+    refreshSelectedNpcPlacement();
+  }
+
+  function siegeContextChanged() {
+    if (state.selectedNpc) refreshSelectedNpcPlacement();
+    else updateCreateButton();
+  }
+
+  function refreshSelectedNpcPlacement() {
+    const npc = state.selectedNpc;
+    if (!npc) return;
+    elements.selectedNpc.innerHTML = `<strong>${escapeHtml(npc.displayName)}</strong><br><span class="muted">ID ${npc.id} · ${escapeHtml(formatLabel(npc.type))} · Level ${npc.level || "?"}</span>`;
+    const existingGroup = placementGroup(npc.id, elements.siegeContext.value);
     elements.respawnField.hidden = Boolean(existingGroup);
     if (existingGroup) {
       elements.selectedNpc.innerHTML += `<br><span class="muted">Existing group · ${existingGroup.respawnTime}s respawn${existingGroup.editable ? "" : " · Read-only"}</span>`;
     }
     updateCreateButton();
+  }
+
+  function placementGroup(npcId, contextKey) {
+    if (state.snapshot?.map.spawnKind !== "siege") return state.groupsByNpcId.get(npcId);
+    return [...state.groups.values()].find(group => group.npcId === npcId && group.contextKey === contextKey);
   }
 
   function beginPick(mode) {
@@ -1738,15 +1805,15 @@
   async function resolveGroundHeight(mode, x, y, announce) {
     cancelGroundLookup(mode);
     const requestId = ++state.groundRequestIds[mode];
-    const mapId = state.mapId;
+    const mapKey = state.mapKey;
     state.groundLoading[mode] = true;
     setGroundStatus(mode, "Resolving terrain height...", "");
     updateGroundControl(mode);
     try {
       const result = await fetchJson(
-        `/admin/api/spawn-editor/maps/${mapId}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
+        `${mapApiUrl()}/ground-height?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`,
       );
-      if (!groundRequestIsCurrent(mode, requestId, mapId, x, y)) return;
+      if (!groundRequestIsCurrent(mode, requestId, mapKey, x, y)) return;
 
       if (result.available) {
         groundFields(mode).z.value = formatNumber(result.z);
@@ -1779,8 +1846,8 @@
     }
   }
 
-  function groundRequestIsCurrent(mode, requestId, mapId, x, y) {
-    if (state.groundRequestIds[mode] !== requestId || state.mapId !== mapId) return false;
+  function groundRequestIsCurrent(mode, requestId, mapKey, x, y) {
+    if (state.groundRequestIds[mode] !== requestId || state.mapKey !== mapKey) return false;
     const current = currentGroundPosition(mode);
     return current?.x === x && current?.y === y;
   }
@@ -1807,12 +1874,15 @@
   function updateGroundControl(mode) {
     const fields = groundFields(mode);
     const readOnly = mode === "update" && !selectedEntry()?.editable;
-    const blockedGroup = mode === "create" && state.groupsByNpcId.get(state.selectedNpc?.id)?.editable === false;
+    const contextKey = elements.siegeContext.value;
+    const blockedGroup = mode === "create" && placementGroup(state.selectedNpc?.id, contextKey)?.editable === false;
+    const contextMissing = mode === "create" && state.snapshot?.map.spawnKind === "siege" && !contextKey;
     const missingNpc = mode === "create" && !state.selectedNpc;
     fields.button.disabled = state.groundLoading[mode]
       || !currentGroundPosition(mode)
       || readOnly
       || missingNpc
+      || contextMissing
       || blockedGroup;
   }
 
@@ -1850,15 +1920,17 @@
   }
 
   function updateCreateButton() {
-    const existingGroup = state.selectedNpc ? state.groupsByNpcId.get(state.selectedNpc.id) : undefined;
+    const contextKey = elements.siegeContext.value;
+    const existingGroup = state.selectedNpc ? placementGroup(state.selectedNpc.id, contextKey) : undefined;
     const positionReady = [elements.placeX, elements.placeY, elements.placeZ, elements.placeHeading]
       .every(input => input.value !== "" && Number.isFinite(Number(input.value)));
     const respawn = Number(elements.placeRespawn.value);
     const respawnReady = Boolean(existingGroup) || (Number.isInteger(respawn) && respawn >= 1 && respawn <= 604800);
     const groupReadOnly = existingGroup?.editable === false;
     const mapReadOnly = !state.snapshot?.map.supportsSpawnEditing;
-    elements.placePick.disabled = mapReadOnly || !state.selectedNpc || groupReadOnly;
-    elements.stageCreate.disabled = mapReadOnly || !state.selectedNpc || !positionReady || !respawnReady || groupReadOnly;
+    const contextMissing = state.snapshot?.map.spawnKind === "siege" && !contextKey;
+    elements.placePick.disabled = mapReadOnly || contextMissing || !state.selectedNpc || groupReadOnly;
+    elements.stageCreate.disabled = mapReadOnly || contextMissing || !state.selectedNpc || !positionReady || !respawnReady || groupReadOnly;
     updateGroundControl("create");
   }
 
@@ -1871,13 +1943,15 @@
       heading: Number(elements.placeHeading.value),
     };
     if (!validatePosition(position)) return;
-    const existingGroup = state.groupsByNpcId.get(state.selectedNpc.id);
+    const contextKey = state.snapshot.map.spawnKind === "siege" ? elements.siegeContext.value : undefined;
+    const existingGroup = placementGroup(state.selectedNpc.id, contextKey);
     const clientKey = `new:${state.nextClientKey++}`;
     state.drafts.set(clientKey, {
       kind: "create",
       clientKey,
       npcId: state.selectedNpc.id,
       npc: state.selectedNpc,
+      contextKey,
       ...position,
       respawnTime: existingGroup ? undefined : Number(elements.placeRespawn.value),
     });
@@ -1890,7 +1964,7 @@
     if (!state.drafts.size) return;
     elements.review.disabled = true;
     try {
-      const validation = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/validate`, {
+      const validation = await fetchJson(`${mapApiUrl()}/validate`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(changeRequest()),
@@ -1917,7 +1991,7 @@
       const position = draft.kind === "delete" ? entry : draft;
       return `<div class="spawn-review-row">
         <span class="spawn-review-kind">${escapeHtml(draft.kind)}</span>
-        <span>${escapeHtml(group.npc.displayName)}</span>
+        <span>${escapeHtml(group.npc.displayName)}${group.contextLabel ? `<small class="spawn-review-context">${escapeHtml(group.contextLabel)}</small>` : ""}</span>
         <span class="spawn-review-coordinates">${draft.kind === "delete" ? `X ${formatNumber(position.x)} · Y ${formatNumber(position.y)}` : `X ${formatNumber(position.x)} · Y ${formatNumber(position.y)} · Z ${formatNumber(position.z)}`}</span>
       </div>`;
     }).join("");
@@ -1932,7 +2006,7 @@
     elements.applyChanges.disabled = true;
     elements.applyChanges.textContent = "Applying...";
     try {
-      const result = await fetchJson(`/admin/api/spawn-editor/maps/${state.mapId}/apply`, {
+      const result = await fetchJson(`${mapApiUrl()}/apply`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...changeRequest(), reason }),
@@ -1969,6 +2043,7 @@
             z: draft.z,
             heading: draft.heading,
             respawnTime: draft.respawnTime,
+            contextKey: draft.contextKey,
           };
         }
         return draft;
@@ -1977,7 +2052,7 @@
   }
 
   function pseudoGroup(draft) {
-    const existing = state.groupsByNpcId.get(draft.npcId);
+    const existing = placementGroup(draft.npcId, draft.contextKey);
     if (existing) return existing;
     return {
       key: `new:${draft.npcId}`,
@@ -1989,6 +2064,8 @@
       temporary: false,
       editable: true,
       spotCount: countNpcSpots(draft.npcId),
+      contextKey: draft.contextKey,
+      contextLabel: state.placementContexts.get(draft.contextKey)?.label,
       attributes: {},
     };
   }
@@ -2077,11 +2154,27 @@
 
   function setLoading(loading) {
     elements.mapLoading.hidden = !loading;
+    elements.mapCategory.disabled = loading || state.maps.length === 0;
     elements.mapSelect.disabled = loading || state.maps.length === 0;
   }
 
-  function mapName(mapId) {
-    return state.maps.find(map => map.id === mapId)?.name || `map ${mapId}`;
+  function currentMap() {
+    return state.maps.find(map => map.key === state.mapKey);
+  }
+
+  function mapApiUrl() {
+    return `/admin/api/spawn-editor/maps/${encodeURIComponent(state.mapKey)}`;
+  }
+
+  function setMapUrl(url, map = currentMap()) {
+    if (!map) return;
+    url.searchParams.set("mapId", String(map.id));
+    if (map.spawnKind === "siege") url.searchParams.set("variant", "siege");
+    else url.searchParams.delete("variant");
+  }
+
+  function mapName(mapKey) {
+    return state.maps.find(map => map.key === mapKey)?.name || `map ${mapKey}`;
   }
 
   function sourceName(value) {
