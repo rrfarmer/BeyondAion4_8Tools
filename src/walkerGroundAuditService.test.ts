@@ -119,6 +119,8 @@ function map(id: number, name: string): SpawnEditorMap {
     id,
     name,
     clientName: name,
+    kind: "world",
+    supportsSpawnEditing: true,
     worldSize: 100,
     projection: "calibrated-game-y-x",
     calibration: { offsetX: 0, offsetY: 0, mapWidth: 100, mapHeight: 100 },

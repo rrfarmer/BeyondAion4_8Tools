@@ -4,16 +4,20 @@ The spawn editor serves project-local map images from `assets/maps`. Runtime req
 
 ## Coverage
 
-`assets/maps/manifest.json` catalogs every distinct map id found recursively under the .NET server's `game-server/data/static_data/spawns/Npcs` directory:
+`assets/maps/manifest.json` catalogs every entry in the .NET server's `world_maps.xml`:
 
-- 43 maps
-- 49 artwork layers
-- 32 maps backed by the client's detailed map-window packages
+- 161 maps: 51 world maps and 110 instances
+- 139 maps with regular NPC/Mob XML under `spawns/Npcs` or `spawns/Instances`; these are editable
+- 22 maps without regular spawn XML; these remain visible and are explicitly marked view-only
+- 179 artwork layers
+- 100 maps backed by the client's detailed map-window packages
 - 2 maps backed by the client's radar package (`Wisplight Abbey` and `Fatebound Abbey`)
-- 9 maps with generated coordinate grids because this client has no corresponding detailed/radar artwork
-- 3 Reshanta layers and 2 layers for each of Belus, Aspida, Atanatos, and Disillon
+- 59 maps with generated coordinate grids because this client has no corresponding detailed/radar artwork
+- Multi-layer artwork for Steel Rake, Steel Rake Cabin, Tiamat Stronghold, Dragon Lords Refuge, Raksang Ruins, Anguished Lords Refuge, Linkgate Foundry, Reshanta, Belus, Aspida, Atanatos, and Disillon
 
-The manifest records each map's source XML files, primary write target, client package/hash, tile layout, calibration, coordinate bounds, output asset/hash, and asset kind.
+The view-only set includes runtime-driven instances such as Empyrean Crucible and Shugo Imperial Tomb, special spawn structures such as Transidium Annex, and server test/catalog maps with no ordinary spawn file. The editor does not invent XML write targets for those maps.
+
+The manifest records each map's type, edit capability, source XML files, primary write target, client package/hash, tile layout, calibration, declared/logical coordinate bounds, output asset/hash, and asset kind. Six incomplete catalog entries declare `world_size="0"`; they receive a 1024-unit display canvas but remain view-only.
 
 ## Rebuild From Scratch
 
@@ -66,7 +70,7 @@ Visual map artwork contains no elevation data. The editor resolves default Z val
 
 Each heightmap pixel represents a 2x2 game-unit terrain sample. The backend follows the emulator's `Terrain` behavior: it reads PNG rows as game X and columns as game Y, converts an unsigned sample to `Z = sample * 2048 / 65536`, and interpolates the same two triangles formed by the four surrounding samples. A sample value of `65535` represents missing terrain.
 
-Heightmaps cover 31 of the 43 maps currently exposed by the editor. Geometry-only maps keep manual Z entry because their `.geo` placements and shared `models.mesh` collision surfaces may contain stacked floors or other positions that cannot be selected unambiguously from a two-dimensional click.
+Heightmaps cover 89 of the 161 maps currently exposed by the editor. Geometry-only maps keep manual Z entry because their `.geo` placements and shared `models.mesh` collision surfaces may contain stacked floors or other positions that cannot be selected unambiguously from a two-dimensional click.
 
 ## Patrol Ground Audit
 

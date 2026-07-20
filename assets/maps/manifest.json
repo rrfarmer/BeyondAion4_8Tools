@@ -3,13 +3,16 @@
   "generator": "scripts/cache_client_maps.py",
   "clientRoot": "C:\\Program Files (x86)\\Beyond Aion",
   "repoRoot": "C:\\Users\\ryanf\\Documents\\GitHub\\BeyondAionSharp",
-  "mapCount": 43,
+  "mapCount": 161,
   "maps": [
     {
       "mapId": 110010000,
       "name": "Sanctum",
       "clientName": "LC1",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 785,
         "offsetY": 779,
@@ -59,7 +62,10 @@
       "mapId": 110020000,
       "name": "Cloister of Kaisinel",
       "clientName": "LC2",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -91,7 +97,10 @@
       "mapId": 110070000,
       "name": "Kaisinel Academy",
       "clientName": "Arena_L_Lobby",
+      "kind": "world",
       "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 167,
         "offsetY": 364,
@@ -135,7 +144,10 @@
       "mapId": 120010000,
       "name": "Pandaemonium",
       "clientName": "DC1",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 817,
         "offsetY": 697,
@@ -185,7 +197,10 @@
       "mapId": 120020000,
       "name": "Convent of Marchutan",
       "clientName": "DC2",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -217,7 +232,10 @@
       "mapId": 120080000,
       "name": "Marchutan Priory",
       "clientName": "Arena_D_Lobby",
+      "kind": "world",
       "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 120,
         "offsetY": 322,
@@ -261,7 +279,10 @@
       "mapId": 130090000,
       "name": "Wisplight Abbey",
       "clientName": "Arena_L_CLobby",
+      "kind": "world",
       "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -312,7 +333,10 @@
       "mapId": 140010000,
       "name": "Fatebound Abbey",
       "clientName": "Arena_D_CLobby",
+      "kind": "world",
       "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -363,7 +387,10 @@
       "mapId": 210010000,
       "name": "Poeta",
       "clientName": "LF1",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 697,
         "offsetY": 0,
@@ -407,7 +434,10 @@
       "mapId": 210020000,
       "name": "Eltnen",
       "clientName": "LF2",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -451,7 +481,10 @@
       "mapId": 210030000,
       "name": "Verteron",
       "clientName": "LF1A",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -495,7 +528,10 @@
       "mapId": 210040000,
       "name": "Heiron",
       "clientName": "LF3",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -539,7 +575,10 @@
       "mapId": 210050000,
       "name": "Inggison",
       "clientName": "LF4",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -584,7 +623,10 @@
       "mapId": 210060000,
       "name": "Theobomos",
       "clientName": "LF2A",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -628,7 +670,10 @@
       "mapId": 210070000,
       "name": "Cygnea",
       "clientName": "LF5",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -673,7 +718,10 @@
       "mapId": 210080000,
       "name": "Griffoen",
       "clientName": "LF5_Ship",
+      "kind": "world",
       "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -717,7 +765,10 @@
       "mapId": 210090000,
       "name": "Idian Depths Light",
       "clientName": "LDF5_Under_L",
+      "kind": "world",
       "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -763,7 +814,10 @@
       "mapId": 220010000,
       "name": "Ishalgen",
       "clientName": "DF1",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 740,
         "offsetY": 0,
@@ -807,7 +861,10 @@
       "mapId": 220020000,
       "name": "Morheim",
       "clientName": "DF2",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -851,7 +908,10 @@
       "mapId": 220030000,
       "name": "Altgard",
       "clientName": "DF1A",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 63,
         "offsetY": 541,
@@ -895,7 +955,10 @@
       "mapId": 220040000,
       "name": "Beluslan",
       "clientName": "DF3",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -939,7 +1002,10 @@
       "mapId": 220050000,
       "name": "Brusthonin",
       "clientName": "DF2A",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -983,7 +1049,10 @@
       "mapId": 220070000,
       "name": "Gelkmaros",
       "clientName": "DF4",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1028,7 +1097,10 @@
       "mapId": 220080000,
       "name": "Enshar",
       "clientName": "DF5",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1073,7 +1145,10 @@
       "mapId": 220090000,
       "name": "Habrok",
       "clientName": "DF5_Ship",
+      "kind": "world",
       "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1117,7 +1192,10 @@
       "mapId": 220100000,
       "name": "Idian Depths Dark",
       "clientName": "LDF5_Under_D",
+      "kind": "world",
       "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1160,10 +1238,730 @@
       ]
     },
     {
-      "mapId": 300430000,
-      "name": "Discipline Training Grounds",
-      "clientName": "IDArena_pvp02_T",
+      "mapId": 300010000,
+      "name": "IDAb Pro",
+      "clientName": "IDAbPro",
+      "kind": "world",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300010000-idab-pro-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "dbf3978689d10c8b9d1fdfde7b8479ccfeab6edbc3ba47fc9842633cc7b391bb",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300020000,
+      "name": "IDTest Dungeon",
+      "clientName": "IDTest_Dungeon",
+      "kind": "instance",
+      "worldSize": 256,
+      "declaredWorldSize": 256,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 256,
+        "mapHeight": 256
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 256.0,
+        "minY": 0.0,
+        "maxY": 256.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300020000-idtest-dungeon-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "3a70c1d4f7ca6b85db58b9154d13324f365613dbdb92e475eb166ab42fda2df3",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300030000,
+      "name": "Nochsana Training Camp",
+      "clientName": "IDAb1_MiniCastle",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300030000_Nochsana_Training_Camp.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300030000_Nochsana_Training_Camp.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300030000-nochsana-training-camp-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "328c4a1647156a35d72c3c1f60d7df8a86f579e3242bf5262e9c1ea7c6b148b6",
+          "tileLayout": [
+            "idab1_minicastle_000.dds",
+            "idab1_minicastle_001.dds",
+            "idab1_minicastle_002.dds",
+            "idab1_minicastle_003.dds",
+            "idab1_minicastle_004.dds",
+            "idab1_minicastle_005.dds",
+            "idab1_minicastle_006.dds",
+            "idab1_minicastle_007.dds",
+            "idab1_minicastle_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idab1_minicastle/idab1_minicastle.pak",
+          "clientPakSha256": "4fafd5b1681bfe5b28c1958482df38b308891809f0fb3b16b7ec8d90b70b3e0a"
+        }
+      ]
+    },
+    {
+      "mapId": 300040000,
+      "name": "Dark Poeta",
+      "clientName": "IDLF1",
+      "kind": "instance",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300040000_Dark_Poeta.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300040000_Dark_Poeta.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300040000-dark-poeta-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7c96295e6cb1f18b10bc5e8c7e5dbb3423eefdb780eda960f275106a0b388aa4",
+          "tileLayout": [
+            "idlf1_000.dds",
+            "idlf1_001.dds",
+            "idlf1_002.dds",
+            "idlf1_003.dds",
+            "idlf1_004.dds",
+            "idlf1_005.dds",
+            "idlf1_006.dds",
+            "idlf1_007.dds",
+            "idlf1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idlf1/idlf1.pak",
+          "clientPakSha256": "ace830a97656121fb6c811f56dfcbec1d9017231332886a1ff02ced5c35e508f"
+        }
+      ]
+    },
+    {
+      "mapId": 300050000,
+      "name": "Asteria Chamber",
+      "clientName": "IDAbRe_Up_Asteria",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300050000_Asteria_Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300050000_Asteria_Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300050000-asteria-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "d646dc3cda081abcb5ef9b112742f2ed2ef5ff2962dfde88b0aaac35ca6c8aa1",
+          "tileLayout": [
+            "idabre_up_asteria_000.dds",
+            "idabre_up_asteria_001.dds",
+            "idabre_up_asteria_002.dds",
+            "idabre_up_asteria_003.dds",
+            "idabre_up_asteria_004.dds",
+            "idabre_up_asteria_005.dds",
+            "idabre_up_asteria_006.dds",
+            "idabre_up_asteria_007.dds",
+            "idabre_up_asteria_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up_asteria/idabre_up_asteria.pak",
+          "clientPakSha256": "133dcae8282c2c752c4a91cd2c483f4d0cb972dc0e3cfa189e043fa6b1414636"
+        }
+      ]
+    },
+    {
+      "mapId": 300060000,
+      "name": "Sulfur Tree Nest",
+      "clientName": "IDAbRe_Low_Divine",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 63,
+        "mapWidth": 928,
+        "mapHeight": 928
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300060000_Sulfur_Tree_Nest.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300060000_Sulfur_Tree_Nest.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300060000-sulfur-tree-nest-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a3183a5d106c42a2f2d8c1cf7faebdc6710b7b57bb41023a04b5b140efac654c",
+          "tileLayout": [
+            "idabre_low_divine_000.dds",
+            "idabre_low_divine_001.dds",
+            "idabre_low_divine_002.dds",
+            "idabre_low_divine_003.dds",
+            "idabre_low_divine_004.dds",
+            "idabre_low_divine_005.dds",
+            "idabre_low_divine_006.dds",
+            "idabre_low_divine_007.dds",
+            "idabre_low_divine_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_low_divine/idabre_low_divine.pak",
+          "clientPakSha256": "72bc5cd32f4fe443bc5a9dbab26cdd6f42ecac2ba29d2ca3e55f37bdc075f7de"
+        }
+      ]
+    },
+    {
+      "mapId": 300070000,
+      "name": "Chamber of Roah",
+      "clientName": "IDAbRe_Up_Rhoo",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300070000_Chamber_of_Roah.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300070000_Chamber_of_Roah.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300070000-chamber-of-roah-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "25b23b73d2d6b5e2501531c36ff84a590c0aab0259d437637a9146c6a9738dcd",
+          "tileLayout": [
+            "idabre_up_rhoo_000.dds",
+            "idabre_up_rhoo_001.dds",
+            "idabre_up_rhoo_002.dds",
+            "idabre_up_rhoo_003.dds",
+            "idabre_up_rhoo_004.dds",
+            "idabre_up_rhoo_005.dds",
+            "idabre_up_rhoo_006.dds",
+            "idabre_up_rhoo_007.dds",
+            "idabre_up_rhoo_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up_rhoo/idabre_up_rhoo.pak",
+          "clientPakSha256": "457a06b5d67aeaa3b12279e1211526c836b9be2bc80a5e254fc62c21be18c8f9"
+        }
+      ]
+    },
+    {
+      "mapId": 300080000,
+      "name": "Left Wing Chamber",
+      "clientName": "IDAbRe_Low_Wciel",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300080000_Left_Wing_Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300080000_Left_Wing_Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300080000-left-wing-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4560688edc963971382162b4ddf39f6b9cfae6f044b821370a93c108eca1e563",
+          "tileLayout": [
+            "idabre_low_wciel_000.dds",
+            "idabre_low_wciel_001.dds",
+            "idabre_low_wciel_002.dds",
+            "idabre_low_wciel_003.dds",
+            "idabre_low_wciel_004.dds",
+            "idabre_low_wciel_005.dds",
+            "idabre_low_wciel_006.dds",
+            "idabre_low_wciel_007.dds",
+            "idabre_low_wciel_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_low_wciel/idabre_low_wciel.pak",
+          "clientPakSha256": "9f205ca9972cfc473455d538aa7a085e297e1242d8361df9e05dcf6150c6692c"
+        }
+      ]
+    },
+    {
+      "mapId": 300090000,
+      "name": "Right Wing Chamber",
+      "clientName": "IDAbRe_Low_Eciel",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 565,
+        "mapHeight": 565
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 565.0,
+        "minY": 0.0,
+        "maxY": 565.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300090000_Right_Wing_Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300090000_Right_Wing_Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300090000-right-wing-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "9c81d01e88154817924b7f03016bf58b9c9f6ea0e220e93db2521f5422d8535b",
+          "tileLayout": [
+            "idabre_low_eciel_000.dds",
+            "idabre_low_eciel_001.dds",
+            "idabre_low_eciel_002.dds",
+            "idabre_low_eciel_003.dds",
+            "idabre_low_eciel_004.dds",
+            "idabre_low_eciel_005.dds",
+            "idabre_low_eciel_006.dds",
+            "idabre_low_eciel_007.dds",
+            "idabre_low_eciel_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_low_eciel/idabre_low_eciel.pak",
+          "clientPakSha256": "b926c14fea0ef36210971d98254d6e71b75d768fc57d722292ededb299546b9b"
+        }
+      ]
+    },
+    {
+      "mapId": 300100000,
+      "name": "Steel Rake",
+      "clientName": "IDshulackShip",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300100000_Steel Rake.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300100000_Steel Rake.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300100000-steel-rake-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "65dcd0630f17afbcbb61a564ddd6e31807281b674d72ba129c7b9860ad7c9494",
+          "tileLayout": [
+            "idshulackship_1_000.dds",
+            "idshulackship_1_001.dds",
+            "idshulackship_1_002.dds",
+            "idshulackship_1_003.dds",
+            "idshulackship_1_004.dds",
+            "idshulackship_1_005.dds",
+            "idshulackship_1_006.dds",
+            "idshulackship_1_007.dds",
+            "idshulackship_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship/idshulackship.pak",
+          "clientPakSha256": "3c1ec12bc10ef621d0ba9c48cb6e2117f5466bafe2722fef70e50333a9d9a6b0"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300100000-steel-rake-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a2183a5e7f5fcc5b4728f250f5c7a38b8f39b36859695518f9bc0e392e0596fe",
+          "tileLayout": [
+            "idshulackship_2_000.dds",
+            "idshulackship_2_001.dds",
+            "idshulackship_2_002.dds",
+            "idshulackship_2_003.dds",
+            "idshulackship_2_004.dds",
+            "idshulackship_2_005.dds",
+            "idshulackship_2_006.dds",
+            "idshulackship_2_007.dds",
+            "idshulackship_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship/idshulackship.pak",
+          "clientPakSha256": "3c1ec12bc10ef621d0ba9c48cb6e2117f5466bafe2722fef70e50333a9d9a6b0"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "300100000-steel-rake-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "1b9d37d7c7ab9085e2f264c35cafe7710a52dc9b8f5eb5aeab97560e223c9912",
+          "tileLayout": [
+            "idshulackship_3_000.dds",
+            "idshulackship_3_001.dds",
+            "idshulackship_3_002.dds",
+            "idshulackship_3_003.dds",
+            "idshulackship_3_004.dds",
+            "idshulackship_3_005.dds",
+            "idshulackship_3_006.dds",
+            "idshulackship_3_007.dds",
+            "idshulackship_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship/idshulackship.pak",
+          "clientPakSha256": "3c1ec12bc10ef621d0ba9c48cb6e2117f5466bafe2722fef70e50333a9d9a6b0"
+        }
+      ]
+    },
+    {
+      "mapId": 300110000,
+      "name": "Dredgion",
+      "clientName": "IDAb1_Dreadgion",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300110000_Dredgion.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300110000_Dredgion.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300110000-dredgion-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "9302e5b50c137e3da8602079085e88fe8acfd7dc5a4d9eaa6c19d21bc5f6e088",
+          "tileLayout": [
+            "IDAb1_Dreadgion_000.dds",
+            "IDAb1_Dreadgion_001.dds",
+            "IDAb1_Dreadgion_002.dds",
+            "IDAb1_Dreadgion_003.dds",
+            "IDAb1_Dreadgion_004.dds",
+            "IDAb1_Dreadgion_005.dds",
+            "IDAb1_Dreadgion_006.dds",
+            "IDAb1_Dreadgion_007.dds",
+            "IDAb1_Dreadgion_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idab1_dreadgion/idab1_dreadgion.pak",
+          "clientPakSha256": "5cc4314d5388851431535aa7d0c912067528999ed5d4b5b2ffff6401edd18de0"
+        }
+      ]
+    },
+    {
+      "mapId": 300120000,
+      "name": "Kysis Chamber",
+      "clientName": "IDAbRe_Up3_Dkisas",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 65,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1089.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300120000_Kysis_Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300120000_Kysis_Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300120000-kysis-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "535ec00dbfcb4b00e58c0903480c97a0cb2d3c21c0976f9092376745c2699f57",
+          "tileLayout": [
+            "idabre_up3_dkisas_000.dds",
+            "idabre_up3_dkisas_001.dds",
+            "idabre_up3_dkisas_002.dds",
+            "idabre_up3_dkisas_003.dds",
+            "idabre_up3_dkisas_004.dds",
+            "idabre_up3_dkisas_005.dds",
+            "idabre_up3_dkisas_006.dds",
+            "idabre_up3_dkisas_007.dds",
+            "idabre_up3_dkisas_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_dkisas/idabre_up3_dkisas.pak",
+          "clientPakSha256": "5a8f82702528cf02647e5328452a19249e5a51e98d123295f1f222e25c8c4fcb"
+        }
+      ]
+    },
+    {
+      "mapId": 300130000,
+      "name": "Miren Chamber",
+      "clientName": "IDAbRe_Up3_Lamiren",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300130000_Miren Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300130000_Miren Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300130000-miren-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c057769769047f1eab6c1dd7219a95155884e95b57ac304a58c590cace5449c3",
+          "tileLayout": [
+            "idabre_up3_lamiren_000.dds",
+            "idabre_up3_lamiren_001.dds",
+            "idabre_up3_lamiren_002.dds",
+            "idabre_up3_lamiren_003.dds",
+            "idabre_up3_lamiren_004.dds",
+            "idabre_up3_lamiren_005.dds",
+            "idabre_up3_lamiren_006.dds",
+            "idabre_up3_lamiren_007.dds",
+            "idabre_up3_lamiren_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_lamiren/idabre_up3_lamiren.pak",
+          "clientPakSha256": "26b55178d6836c1ae3a4bbf003acf1c567f25c6a29b98ffa718042cfbeb79ad0"
+        }
+      ]
+    },
+    {
+      "mapId": 300140000,
+      "name": "Krotan Chamber",
+      "clientName": "IDAbRe_Up3_Crotan",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300140000_Krotan_Chamber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300140000_Krotan_Chamber.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300140000-krotan-chamber-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b54c1f3f9f96f9bd99465f2d7c3cd6dbea87c1dc130a13000ea76f5a219bf48b",
+          "tileLayout": [
+            "idabre_up3_crotan_000.dds",
+            "idabre_up3_crotan_001.dds",
+            "idabre_up3_crotan_002.dds",
+            "idabre_up3_crotan_003.dds",
+            "idabre_up3_crotan_004.dds",
+            "idabre_up3_crotan_005.dds",
+            "idabre_up3_crotan_006.dds",
+            "idabre_up3_crotan_007.dds",
+            "idabre_up3_crotan_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_crotan/idabre_up3_crotan.pak",
+          "clientPakSha256": "d14e99fb961d62dde3415a96c37197face178aa82ec23310f600c8c83bc81494"
+        }
+      ]
+    },
+    {
+      "mapId": 300150000,
+      "name": "Udas Temple",
+      "clientName": "IDTemple_Up",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300150000_Udas_Temple.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300150000_Udas_Temple.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300150000-udas-temple-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "eac31c5a7ce10efeb05704973abdc021c8a996b0911a81751ff629ecf169717d",
+          "tileLayout": [
+            "IDTemple_Up_000.dds",
+            "IDTemple_Up_001.dds",
+            "IDTemple_Up_002.dds",
+            "IDTemple_Up_003.dds",
+            "IDTemple_Up_004.dds",
+            "IDTemple_Up_005.dds",
+            "IDTemple_Up_006.dds",
+            "IDTemple_Up_007.dds",
+            "IDTemple_Up_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTemple_Up/IDTemple_Up.pak",
+          "clientPakSha256": "0a5756f90fb7d005cd86736791973ef3983a0a128995160bcbd204d2bbe7a3da"
+        }
+      ]
+    },
+    {
+      "mapId": 300160000,
+      "name": "Lower Udas Temple",
+      "clientName": "IDTemple_Low",
+      "kind": "instance",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1177,9 +1975,686 @@
         "maxY": 2048.0
       },
       "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300160000_Lower_Udas_Temple.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300160000_Lower_Udas_Temple.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300160000-lower-udas-temple-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "e2f58275387a65d052b35f4ff20a57588ba9e1fb1f28625b9da5cc6b9b192994",
+          "tileLayout": [
+            "IDTemple_Low_000.dds",
+            "IDTemple_Low_001.dds",
+            "IDTemple_Low_002.dds",
+            "IDTemple_Low_003.dds",
+            "IDTemple_Low_004.dds",
+            "IDTemple_Low_005.dds",
+            "IDTemple_Low_006.dds",
+            "IDTemple_Low_007.dds",
+            "IDTemple_Low_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTemple_Low/IDTemple_Low.pak",
+          "clientPakSha256": "0865757eac1159331e6c4884cf6f248fa485b0863b6eec31893f85e39bc1c0df"
+        }
+      ]
+    },
+    {
+      "mapId": 300170000,
+      "name": "Beshmundir Temple",
+      "clientName": "IDCatacombs",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": -10,
+        "offsetY": 8,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2056.0,
+        "minY": -10.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300170000_Beshmundir_Temple.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300170000_Beshmundir_Temple.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300170000-beshmundir-temple-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "3a73a5bc58875e4b193b5641b14c52ce9a910624a4dffb3d82634dcbf58509a5",
+          "tileLayout": [
+            "idcatacombs_000.dds",
+            "idcatacombs_001.dds",
+            "idcatacombs_002.dds",
+            "idcatacombs_003.dds",
+            "idcatacombs_004.dds",
+            "idcatacombs_005.dds",
+            "idcatacombs_006.dds",
+            "idcatacombs_007.dds",
+            "idcatacombs_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idcatacombs/idcatacombs.pak",
+          "clientPakSha256": "a47ad7fb462aa45e32dff63604765cb5ed635aea24fb061e59538935c2ef4b14"
+        }
+      ]
+    },
+    {
+      "mapId": 300190000,
+      "name": "Taloc's Hollow",
+      "clientName": "IDElim",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": -230,
+        "mapWidth": 1202,
+        "mapHeight": 1202
+      },
+      "coordinateBounds": {
+        "minX": -230.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300190000_Taloc's_Hollow.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300190000_Taloc's_Hollow.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300190000-taloc-s-hollow-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "38fa8238c4e8526c4394bdab245d42aae27b0572e84d58760b4b0b71dac28aa5",
+          "tileLayout": [
+            "idelim_000.dds",
+            "idelim_001.dds",
+            "idelim_002.dds",
+            "idelim_003.dds",
+            "idelim_004.dds",
+            "idelim_005.dds",
+            "idelim_006.dds",
+            "idelim_007.dds",
+            "idelim_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idelim/idelim.pak",
+          "clientPakSha256": "af70811d1700292c14beb64220690128442ca49a8e2ef62c153fb74993ff2e87"
+        }
+      ]
+    },
+    {
+      "mapId": 300200000,
+      "name": "Haramel",
+      "clientName": "IDNovice",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": -98,
+        "offsetY": -86,
+        "mapWidth": 689,
+        "mapHeight": 689
+      },
+      "coordinateBounds": {
+        "minX": -86.0,
+        "maxX": 603.0,
+        "minY": -98.0,
+        "maxY": 591.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300200000_Haramel.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300200000_Haramel.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300200000-haramel-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "e6affbbfb39858a6e945096579c94e2278351c495063f2ae8dcf838c3d739714",
+          "tileLayout": [
+            "idnovice_000.dds",
+            "idnovice_001.dds",
+            "idnovice_002.dds",
+            "idnovice_003.dds",
+            "idnovice_004.dds",
+            "idnovice_005.dds",
+            "idnovice_006.dds",
+            "idnovice_007.dds",
+            "idnovice_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idnovice/idnovice.pak",
+          "clientPakSha256": "cd1fe8fcaa41f9954265cbef9d23258eb1b7c9bd61e9dce6937f1ea0b7bd817e"
+        }
+      ]
+    },
+    {
+      "mapId": 300210000,
+      "name": "Chantra Dredgion",
+      "clientName": "IDDreadgion_02",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300210000_Chantra_Dredgion.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300210000_Chantra_Dredgion.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300210000-chantra-dredgion-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "9302e5b50c137e3da8602079085e88fe8acfd7dc5a4d9eaa6c19d21bc5f6e088",
+          "tileLayout": [
+            "iddreadgion_02_000.dds",
+            "iddreadgion_02_001.dds",
+            "iddreadgion_02_002.dds",
+            "iddreadgion_02_003.dds",
+            "iddreadgion_02_004.dds",
+            "iddreadgion_02_005.dds",
+            "iddreadgion_02_006.dds",
+            "iddreadgion_02_007.dds",
+            "iddreadgion_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddreadgion_02/iddreadgion_02.pak",
+          "clientPakSha256": "24cd15171ea84fcd972b57ba09b8887ed9cdf683d9b2614222f3a7be9e881682"
+        }
+      ]
+    },
+    {
+      "mapId": 300220000,
+      "name": "Abyssal Splinter",
+      "clientName": "IDAbRe_Core",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1032,
+        "mapHeight": 1032
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1032.0,
+        "minY": 0.0,
+        "maxY": 1032.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300220000_Abyssal_Splinter.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300220000_Abyssal_Splinter.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300220000-abyssal-splinter-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "93f18341114fffe3bbfe9460eb1dbd2842d8be8504dda0d78a57a076239722ae",
+          "tileLayout": [
+            "idabre_core_000.dds",
+            "idabre_core_001.dds",
+            "idabre_core_002.dds",
+            "idabre_core_003.dds",
+            "idabre_core_004.dds",
+            "idabre_core_005.dds",
+            "idabre_core_006.dds",
+            "idabre_core_007.dds",
+            "idabre_core_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_core/idabre_core.pak",
+          "clientPakSha256": "3cf6186f85ab50aae55e953baf041349ad820c5767e22c34d2669704d4b24fbc"
+        }
+      ]
+    },
+    {
+      "mapId": 300230000,
+      "name": "Kromede's Trial",
+      "clientName": "IDCromede",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300230000_Kromede's_Trial.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300230000_Kromede's_Trial.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300230000-kromede-s-trial-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "ca2fb32b83aec64908a1c1eaf0a9c7563ea22c7668e65205ca1552a87bcb93c6",
+          "tileLayout": [
+            "IDCromede_000.dds",
+            "IDCromede_001.dds",
+            "IDCromede_002.dds",
+            "IDCromede_003.dds",
+            "IDCromede_004.dds",
+            "IDCromede_005.dds",
+            "IDCromede_006.dds",
+            "IDCromede_007.dds",
+            "IDCromede_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idcromede/idcromede.pak",
+          "clientPakSha256": "f9139d01e0b02864f3f9efb0a922ce1f2b1c5d4484f07839771eb233cb1027de"
+        }
+      ]
+    },
+    {
+      "mapId": 300240000,
+      "name": "Aturam Sky Fortress",
+      "clientName": "IDStation",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300240000_Aturam_Sky_Fortress.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300240000_Aturam_Sky_Fortress.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300240000-aturam-sky-fortress-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "214ebbbf86b7399d6696ba0400248b4134127c248024f95921aadd459e229a6b",
+          "tileLayout": [
+            "idstation_000.dds",
+            "idstation_001.dds",
+            "idstation_002.dds",
+            "idstation_003.dds",
+            "idstation_004.dds",
+            "idstation_005.dds",
+            "idstation_006.dds",
+            "idstation_007.dds",
+            "idstation_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idstation/idstation.pak",
+          "clientPakSha256": "d769dcdddec547044fb309843ebb5901b4d0c15db288e8dbc845afb0387bc370"
+        }
+      ]
+    },
+    {
+      "mapId": 300250000,
+      "name": "Esoterrace",
+      "clientName": "IDF4Re_Drana",
+      "kind": "instance",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300250000_Esoterrace.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300250000_Esoterrace.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300250000-esoterrace-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "8794ee7c61f6673d5f4c4cf8cc541b76b2c8a301d59c0018754317007539a19f",
+          "tileLayout": [
+            "idf4re_drana_000.dds",
+            "idf4re_drana_001.dds",
+            "idf4re_drana_002.dds",
+            "idf4re_drana_003.dds",
+            "idf4re_drana_004.dds",
+            "idf4re_drana_005.dds",
+            "idf4re_drana_006.dds",
+            "idf4re_drana_007.dds",
+            "idf4re_drana_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idf4re_drana/idf4re_drana.pak",
+          "clientPakSha256": "fe57ebe75fc84a0b674296196400ae5cf01841393e3d2d845a17bf06c9f5d706"
+        }
+      ]
+    },
+    {
+      "mapId": 300280000,
+      "name": "Rentus Base",
+      "clientName": "IDYun",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300280000_Rentus_Base.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300280000_Rentus_Base.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300280000-rentus-base-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "998ec39706155e3e1a329d0621ecdd3819b425c5d7919c0c4acd2bb89b551222",
+          "tileLayout": [
+            "idyun_000.dds",
+            "idyun_001.dds",
+            "idyun_002.dds",
+            "idyun_003.dds",
+            "idyun_004.dds",
+            "idyun_005.dds",
+            "idyun_006.dds",
+            "idyun_007.dds",
+            "idyun_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idyun/idyun.pak",
+          "clientPakSha256": "14210cac354eec0d4e9248fb311f2a8192ea64c4a7f142db90eeffc366b81884"
+        }
+      ]
+    },
+    {
+      "mapId": 300290000,
+      "name": "Test MRT IDZone",
+      "clientName": "Test_MRT_IDZone",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300290000_Test_MRT_IDZone.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300290000_Test_MRT_IDZone.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300290000-test-mrt-idzone-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "78c70f106eb8c90c40bd0817dbfe872ee31d647f55c3bb1a66bc94d282fec9fd",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300300000,
+      "name": "Empyrean Crucible",
+      "clientName": "IDArena",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300300000-empyrean-crucible-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "22844c82d78eb94b9b0f58315bec6a5d5f126d2bbaf140878e7384700ebcc701",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300320000,
+      "name": "Crucible Challenge",
+      "clientName": "IDArena_Solo",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300320000-crucible-challenge-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "568994f183a7445ff583ed5d4086a2935f1ce7c5eb8b89547a31e418685757ff",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300350000,
+      "name": "Arena of Chaos",
+      "clientName": "IDArena_pvp01",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300350000_Arena_of_Chaos.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300350000_Arena_of_Chaos.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300350000-arena-of-chaos-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a7d0bb66a3fd837a5b392abf6a9dcbc6b110a123a4cb956ef0ad06c4850ef0ed",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300360000,
+      "name": "Arena of Discipline",
+      "clientName": "IDArena_pvp02",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300360000_Arena_of_Discipline.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300360000_Arena_of_Discipline.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300360000-arena-of-discipline-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "fdd42d0f7a3c974c8f42604571bab5ad1f696569d120108e90b57e76d43bf77f",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300420000,
+      "name": "Chaos Training Grounds",
+      "clientName": "IDArena_pvp01_T",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300420000_Chaos_Training_Grounds.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300420000_Chaos_Training_Grounds.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300420000-chaos-training-grounds-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "35c0e590073d85dab77cbbe9fa1e1ca8e11b3265fc6de2190fdc8399570def8d",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300430000,
+      "name": "Discipline Training Grounds",
+      "clientName": "IDArena_pvp02_T",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300430000_Discipline_Training_Grounds.xml",
         "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml"
       ],
-      "primarySourceRelativePath": "game-server/data/static_data/spawns/Npcs/Custom/Skill_CD_Reset_Shugo.xml",
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300430000_Discipline_Training_Grounds.xml",
       "layers": [
         {
           "id": "grid",
@@ -1192,10 +2667,3251 @@
       ]
     },
     {
+      "mapId": 300440000,
+      "name": "Terath Dredgion",
+      "clientName": "IDDreadgion_03",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300440000_Terath_Dredgion.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300440000_Terath_Dredgion.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300440000-terath-dredgion-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "9302e5b50c137e3da8602079085e88fe8acfd7dc5a4d9eaa6c19d21bc5f6e088",
+          "tileLayout": [
+            "iddreadgion_03_000.dds",
+            "iddreadgion_03_001.dds",
+            "iddreadgion_03_002.dds",
+            "iddreadgion_03_003.dds",
+            "iddreadgion_03_004.dds",
+            "iddreadgion_03_005.dds",
+            "iddreadgion_03_006.dds",
+            "iddreadgion_03_007.dds",
+            "iddreadgion_03_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddreadgion_03/iddreadgion_03.pak",
+          "clientPakSha256": "7b9dde35330c8f688a23f1bce014e1cc296104b6df5ceafa06df2d90acba8f63"
+        }
+      ]
+    },
+    {
+      "mapId": 300450000,
+      "name": "Arena of Harmony",
+      "clientName": "IDArena_Team01",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300450000_Arena_of_Harmony.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300450000_Arena_of_Harmony.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300450000-arena-of-harmony-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "bf9d8b0c8e270360ccb1cf64c7f7f7b84c9911f96af24678a4ef6571345b624d",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300460000,
+      "name": "Steel Rake Cabin",
+      "clientName": "IDshulackShip_Solo",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300460000_Steel_Rake_Cabin.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300460000_Steel_Rake_Cabin.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300460000-steel-rake-cabin-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "65dcd0630f17afbcbb61a564ddd6e31807281b674d72ba129c7b9860ad7c9494",
+          "tileLayout": [
+            "idshulackship_solo_1_000.dds",
+            "idshulackship_solo_1_001.dds",
+            "idshulackship_solo_1_002.dds",
+            "idshulackship_solo_1_003.dds",
+            "idshulackship_solo_1_004.dds",
+            "idshulackship_solo_1_005.dds",
+            "idshulackship_solo_1_006.dds",
+            "idshulackship_solo_1_007.dds",
+            "idshulackship_solo_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship_solo/idshulackship_solo.pak",
+          "clientPakSha256": "9c54a58587641c3c29ac52807ecb95c6d37ed894b5a096190ddcdbaa68dab62d"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300460000-steel-rake-cabin-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a2183a5e7f5fcc5b4728f250f5c7a38b8f39b36859695518f9bc0e392e0596fe",
+          "tileLayout": [
+            "idshulackship_solo_2_000.dds",
+            "idshulackship_solo_2_001.dds",
+            "idshulackship_solo_2_002.dds",
+            "idshulackship_solo_2_003.dds",
+            "idshulackship_solo_2_004.dds",
+            "idshulackship_solo_2_005.dds",
+            "idshulackship_solo_2_006.dds",
+            "idshulackship_solo_2_007.dds",
+            "idshulackship_solo_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship_solo/idshulackship_solo.pak",
+          "clientPakSha256": "9c54a58587641c3c29ac52807ecb95c6d37ed894b5a096190ddcdbaa68dab62d"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "300460000-steel-rake-cabin-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "1b9d37d7c7ab9085e2f264c35cafe7710a52dc9b8f5eb5aeab97560e223c9912",
+          "tileLayout": [
+            "idshulackship_solo_3_000.dds",
+            "idshulackship_solo_3_001.dds",
+            "idshulackship_solo_3_002.dds",
+            "idshulackship_solo_3_003.dds",
+            "idshulackship_solo_3_004.dds",
+            "idshulackship_solo_3_005.dds",
+            "idshulackship_solo_3_006.dds",
+            "idshulackship_solo_3_007.dds",
+            "idshulackship_solo_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idshulackship_solo/idshulackship_solo.pak",
+          "clientPakSha256": "9c54a58587641c3c29ac52807ecb95c6d37ed894b5a096190ddcdbaa68dab62d"
+        }
+      ]
+    },
+    {
+      "mapId": 300480000,
+      "name": "Sealed Danuar Mysticarium",
+      "clientName": "IDLDF5RE_Solo",
+      "kind": "instance",
+      "worldSize": 768,
+      "declaredWorldSize": 768,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 768.0,
+        "minY": 0.0,
+        "maxY": 768.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300480000_Sealed_Danuar_Mysticarium.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300480000_Sealed_Danuar_Mysticarium.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300480000-sealed-danuar-mysticarium-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "ed35553a9841fce79595793825a4c55eacbedee99f6044a4f46af86960864f86",
+          "tileLayout": [
+            "idldf5re_solo_000.dds",
+            "idldf5re_solo_001.dds",
+            "idldf5re_solo_002.dds",
+            "idldf5re_solo_003.dds",
+            "idldf5re_solo_004.dds",
+            "idldf5re_solo_005.dds",
+            "idldf5re_solo_006.dds",
+            "idldf5re_solo_007.dds",
+            "idldf5re_solo_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5re_solo/idldf5re_solo.pak",
+          "clientPakSha256": "c05d9bfa80a69d545ff0633b6a019c5528c5c9ab6ec00a3fd5f255dabfeb3af5"
+        }
+      ]
+    },
+    {
+      "mapId": 300510000,
+      "name": "Tiamat Stronghold",
+      "clientName": "IDTiamat_1",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300510000_Tiamat_Stronghold.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300510000_Tiamat_Stronghold.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300510000-tiamat-stronghold-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "85310ad98abfabf1bd7c9dc0c1b64f8a6b3e55c0724757c48af4aa76b7e1965c",
+          "tileLayout": [
+            "IDTiamat_1_1_000.dds",
+            "IDTiamat_1_1_001.dds",
+            "IDTiamat_1_1_002.dds",
+            "IDTiamat_1_1_003.dds",
+            "IDTiamat_1_1_004.dds",
+            "IDTiamat_1_1_005.dds",
+            "IDTiamat_1_1_006.dds",
+            "IDTiamat_1_1_007.dds",
+            "IDTiamat_1_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_1/IDTiamat_1.pak",
+          "clientPakSha256": "6024a6555935c48f00a4a0a6f5e37eec5abb773e3b27a516eabf2b52d70973bd"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300510000-tiamat-stronghold-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "79eb4c01802cdfb4cef6f827662ed56db80f91eaa8fe97c267ca496c4fa7d3ae",
+          "tileLayout": [
+            "IDTiamat_1_2_000.dds",
+            "IDTiamat_1_2_001.dds",
+            "IDTiamat_1_2_002.dds",
+            "IDTiamat_1_2_003.dds",
+            "IDTiamat_1_2_004.dds",
+            "IDTiamat_1_2_005.dds",
+            "IDTiamat_1_2_006.dds",
+            "IDTiamat_1_2_007.dds",
+            "IDTiamat_1_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_1/IDTiamat_1.pak",
+          "clientPakSha256": "6024a6555935c48f00a4a0a6f5e37eec5abb773e3b27a516eabf2b52d70973bd"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "300510000-tiamat-stronghold-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "419f1cbb0ee61ed83813497fe271ff03256a303dd42eb0fc1dfe64380f11f441",
+          "tileLayout": [
+            "IDTiamat_1_3_000.dds",
+            "IDTiamat_1_3_001.dds",
+            "IDTiamat_1_3_002.dds",
+            "IDTiamat_1_3_003.dds",
+            "IDTiamat_1_3_004.dds",
+            "IDTiamat_1_3_005.dds",
+            "IDTiamat_1_3_006.dds",
+            "IDTiamat_1_3_007.dds",
+            "IDTiamat_1_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_1/IDTiamat_1.pak",
+          "clientPakSha256": "6024a6555935c48f00a4a0a6f5e37eec5abb773e3b27a516eabf2b52d70973bd"
+        }
+      ]
+    },
+    {
+      "mapId": 300520000,
+      "name": "Dragon Lords Refuge",
+      "clientName": "IDTiamat_2",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300520000_Dragon Lords Refuge.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300520000_Dragon Lords Refuge.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300520000-dragon-lords-refuge-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "1629fd1cf611ac96e81a6e599a6e7929f92887016e24343e879fa6264304e257",
+          "tileLayout": [
+            "IDTiamat_2_1_000.dds",
+            "IDTiamat_2_1_001.dds",
+            "IDTiamat_2_1_002.dds",
+            "IDTiamat_2_1_003.dds",
+            "IDTiamat_2_1_004.dds",
+            "IDTiamat_2_1_005.dds",
+            "IDTiamat_2_1_006.dds",
+            "IDTiamat_2_1_007.dds",
+            "IDTiamat_2_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_2/IDTiamat_2.pak",
+          "clientPakSha256": "b80869723b35d06b2311337036dde7c3ae2c4f3c1bf3c207cd568e97472ccd86"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300520000-dragon-lords-refuge-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7cf4bb3e0ddda5268d29f99fb2488b2e27665995a8f6d45d2a2a1cb54eea1baf",
+          "tileLayout": [
+            "IDTiamat_2_2_000.dds",
+            "IDTiamat_2_2_001.dds",
+            "IDTiamat_2_2_002.dds",
+            "IDTiamat_2_2_003.dds",
+            "IDTiamat_2_2_004.dds",
+            "IDTiamat_2_2_005.dds",
+            "IDTiamat_2_2_006.dds",
+            "IDTiamat_2_2_007.dds",
+            "IDTiamat_2_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_2/IDTiamat_2.pak",
+          "clientPakSha256": "b80869723b35d06b2311337036dde7c3ae2c4f3c1bf3c207cd568e97472ccd86"
+        }
+      ]
+    },
+    {
+      "mapId": 300540000,
+      "name": "Eternal Bastion",
+      "clientName": "IDLDF5b_TD",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300540000_Eternal_Bastion.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300540000_Eternal_Bastion.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300540000-eternal-bastion-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a01a66d1d6a72261676e4323e6997f52313f689ed4f7584b2369c279bc2ce448",
+          "tileLayout": [
+            "idldf5b_td_000.dds",
+            "idldf5b_td_001.dds",
+            "idldf5b_td_002.dds",
+            "idldf5b_td_003.dds",
+            "idldf5b_td_004.dds",
+            "idldf5b_td_005.dds",
+            "idldf5b_td_006.dds",
+            "idldf5b_td_007.dds",
+            "idldf5b_td_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5b_td/idldf5b_td.pak",
+          "clientPakSha256": "0e6dc7cb6b9173d7c13dc6da2095313a717f88454568fc5313df705064795ab0"
+        }
+      ]
+    },
+    {
+      "mapId": 300550000,
+      "name": "Arena Of Glory",
+      "clientName": "IDArena_Glory",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300550000_Arena_Of_Glory.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300550000_Arena_Of_Glory.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300550000-arena-of-glory-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "9da92883ea9192081c57df6815299dd3f2d04eb9cf313a471cd6831b846e1cfd",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300560000,
+      "name": "Shugo Imperial Tomb",
+      "clientName": "IDDF2Flying_Event01",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300560000-shugo-imperial-tomb-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "fba392927b71d7e9953b87838f7a76b2c660ba4e706c40ca4c96ef998551bc15",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300570000,
+      "name": "Arena Team",
+      "clientName": "IDArena_Team01_T",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300570000_Arena_Team.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300570000_Arena_Team.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "300570000-arena-team-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5d6f033511e13517a8980e1b526f960f25a028d3e4ff9b8a10e67b4698fc64bf",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 300590000,
+      "name": "Ophidan Bridge",
+      "clientName": "IDLDF5_Under_01",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300590000_Ophidan_Bridge.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300590000_Ophidan_Bridge.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300590000-ophidan-bridge-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "d30b70fd401a9ec51571431ee6036240642ef18a4ffde38d42b9db277182a3a6",
+          "tileLayout": [
+            "idldf5_under_01_000.dds",
+            "idldf5_under_01_001.dds",
+            "idldf5_under_01_002.dds",
+            "idldf5_under_01_003.dds",
+            "idldf5_under_01_004.dds",
+            "idldf5_under_01_005.dds",
+            "idldf5_under_01_006.dds",
+            "idldf5_under_01_007.dds",
+            "idldf5_under_01_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_01/idldf5_under_01.pak",
+          "clientPakSha256": "547e55952c5a9262bdf8e2bc17579f378c0f0e886c5916e2e076568c340e6f0f"
+        }
+      ]
+    },
+    {
+      "mapId": 300600000,
+      "name": "Unstable Abyssal Splinter",
+      "clientName": "IDAbRe_Core_02",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1032,
+        "mapHeight": 1032
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1032.0,
+        "minY": 0.0,
+        "maxY": 1032.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300600000_Unstable_Abyssal_Splinter.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300600000_Unstable_Abyssal_Splinter.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300600000-unstable-abyssal-splinter-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "93f18341114fffe3bbfe9460eb1dbd2842d8be8504dda0d78a57a076239722ae",
+          "tileLayout": [
+            "idabre_core_02_000.dds",
+            "idabre_core_02_001.dds",
+            "idabre_core_02_002.dds",
+            "idabre_core_02_003.dds",
+            "idabre_core_02_004.dds",
+            "idabre_core_02_005.dds",
+            "idabre_core_02_006.dds",
+            "idabre_core_02_007.dds",
+            "idabre_core_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_core_02/idabre_core_02.pak",
+          "clientPakSha256": "a3538b26f996bb954169a0f749aacf8fe7a54b7482d752df53879bd683f670fd"
+        }
+      ]
+    },
+    {
+      "mapId": 300610000,
+      "name": "Raksang Ruins",
+      "clientName": "IDRaksha_solo",
+      "kind": "instance",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1536,
+        "mapHeight": 1536
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300610000_Raksang_Ruins.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300610000_Raksang_Ruins.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300610000-raksang-ruins-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b4aeffb694f29eaec201905e77822d704bfc03f5e14aa0fa0c45e64aef70513e",
+          "tileLayout": [
+            "IDRaksha_solo_1_000.dds",
+            "IDRaksha_solo_1_001.dds",
+            "IDRaksha_solo_1_002.dds",
+            "IDRaksha_solo_1_003.dds",
+            "IDRaksha_solo_1_004.dds",
+            "IDRaksha_solo_1_005.dds",
+            "IDRaksha_solo_1_006.dds",
+            "IDRaksha_solo_1_007.dds",
+            "IDRaksha_solo_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDRaksha_solo/IDRaksha_solo.pak",
+          "clientPakSha256": "aba9e11522c15bde4eb0cd6893fee7dc76c68564699652134dc3cf7600e4dd81"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300610000-raksang-ruins-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "89cdbaf296355513ebc344e533b5e66a49a86047acfa111878b776c528b01172",
+          "tileLayout": [
+            "IDRaksha_solo_2_000.dds",
+            "IDRaksha_solo_2_001.dds",
+            "IDRaksha_solo_2_002.dds",
+            "IDRaksha_solo_2_003.dds",
+            "IDRaksha_solo_2_004.dds",
+            "IDRaksha_solo_2_005.dds",
+            "IDRaksha_solo_2_006.dds",
+            "IDRaksha_solo_2_007.dds",
+            "IDRaksha_solo_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDRaksha_solo/IDRaksha_solo.pak",
+          "clientPakSha256": "aba9e11522c15bde4eb0cd6893fee7dc76c68564699652134dc3cf7600e4dd81"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "300610000-raksang-ruins-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "b6455366a04733b69f2caccc5646ade5ffcff1e3d82aee938a062c875072814d",
+          "tileLayout": [
+            "IDRaksha_solo_3_000.dds",
+            "IDRaksha_solo_3_001.dds",
+            "IDRaksha_solo_3_002.dds",
+            "IDRaksha_solo_3_003.dds",
+            "IDRaksha_solo_3_004.dds",
+            "IDRaksha_solo_3_005.dds",
+            "IDRaksha_solo_3_006.dds",
+            "IDRaksha_solo_3_007.dds",
+            "IDRaksha_solo_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDRaksha_solo/IDRaksha_solo.pak",
+          "clientPakSha256": "aba9e11522c15bde4eb0cd6893fee7dc76c68564699652134dc3cf7600e4dd81"
+        }
+      ]
+    },
+    {
+      "mapId": 300620000,
+      "name": "Occupied Rentus Base",
+      "clientName": "IDYun_Hard",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300620000_Occupied_Rentus_Base.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300620000_Occupied_Rentus_Base.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300620000-occupied-rentus-base-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "998ec39706155e3e1a329d0621ecdd3819b425c5d7919c0c4acd2bb89b551222",
+          "tileLayout": [
+            "idyun_hard_000.dds",
+            "idyun_hard_001.dds",
+            "idyun_hard_002.dds",
+            "idyun_hard_003.dds",
+            "idyun_hard_004.dds",
+            "idyun_hard_005.dds",
+            "idyun_hard_006.dds",
+            "idyun_hard_007.dds",
+            "idyun_hard_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idyun_hard/idyun_hard.pak",
+          "clientPakSha256": "ed18642114325d30f43ecde7c1a5a888facd3e3cd6194eb49769aa759578fc2c"
+        }
+      ]
+    },
+    {
+      "mapId": 300630000,
+      "name": "Anguished Lords Refuge",
+      "clientName": "IDTiamat_2_Hard",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300630000_Anguished_Lords_Refuge.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300630000_Anguished_Lords_Refuge.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "300630000-anguished-lords-refuge-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "1629fd1cf611ac96e81a6e599a6e7929f92887016e24343e879fa6264304e257",
+          "tileLayout": [
+            "IDTiamat_2_hard_1_000.dds",
+            "IDTiamat_2_hard_1_001.dds",
+            "IDTiamat_2_hard_1_002.dds",
+            "IDTiamat_2_hard_1_003.dds",
+            "IDTiamat_2_hard_1_004.dds",
+            "IDTiamat_2_hard_1_005.dds",
+            "IDTiamat_2_hard_1_006.dds",
+            "IDTiamat_2_hard_1_007.dds",
+            "IDTiamat_2_hard_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_2_Hard/IDTiamat_2_Hard.pak",
+          "clientPakSha256": "6b54b36b3701d528b4d14bdc8ee0db7678a3df9e8fa54f2552d2fbd9bde49438"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "300630000-anguished-lords-refuge-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7cf4bb3e0ddda5268d29f99fb2488b2e27665995a8f6d45d2a2a1cb54eea1baf",
+          "tileLayout": [
+            "IDTiamat_2_hard_2_000.dds",
+            "IDTiamat_2_hard_2_001.dds",
+            "IDTiamat_2_hard_2_002.dds",
+            "IDTiamat_2_hard_2_003.dds",
+            "IDTiamat_2_hard_2_004.dds",
+            "IDTiamat_2_hard_2_005.dds",
+            "IDTiamat_2_hard_2_006.dds",
+            "IDTiamat_2_hard_2_007.dds",
+            "IDTiamat_2_hard_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDTiamat_2_Hard/IDTiamat_2_Hard.pak",
+          "clientPakSha256": "6b54b36b3701d528b4d14bdc8ee0db7678a3df9e8fa54f2552d2fbd9bde49438"
+        }
+      ]
+    },
+    {
+      "mapId": 300700000,
+      "name": "The Hexway",
+      "clientName": "IDUnderpassRe",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300700000_The_Hexway.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300700000_The_Hexway.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300700000-the-hexway-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4560688edc963971382162b4ddf39f6b9cfae6f044b821370a93c108eca1e563",
+          "tileLayout": [
+            "IDUnderpassRe_000.dds",
+            "IDUnderpassRe_001.dds",
+            "IDUnderpassRe_002.dds",
+            "IDUnderpassRe_003.dds",
+            "IDUnderpassRe_004.dds",
+            "IDUnderpassRe_005.dds",
+            "IDUnderpassRe_006.dds",
+            "IDUnderpassRe_007.dds",
+            "IDUnderpassRe_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDUnderpassRe/IDUnderpassRe.pak",
+          "clientPakSha256": "01b892e82ce1877fc5b2475d9f7e0ce986e072416b566bef09689596b0d289e7"
+        }
+      ]
+    },
+    {
+      "mapId": 300800000,
+      "name": "Infinity Shard",
+      "clientName": "IDRuneweapon",
+      "kind": "instance",
+      "worldSize": 256,
+      "declaredWorldSize": 256,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": -7,
+        "offsetY": -22,
+        "mapWidth": 298,
+        "mapHeight": 298
+      },
+      "coordinateBounds": {
+        "minX": -22.0,
+        "maxX": 276.0,
+        "minY": -7.0,
+        "maxY": 291.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/300800000_Infinity_Shard.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/300800000_Infinity_Shard.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "300800000-infinity-shard-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "010faaeb7353f0d97b491fcd172484474e7dd282cff1a7e6286bd303345be3a1",
+          "tileLayout": [
+            "idruneweapon_000.dds",
+            "idruneweapon_001.dds",
+            "idruneweapon_002.dds",
+            "idruneweapon_003.dds",
+            "idruneweapon_004.dds",
+            "idruneweapon_005.dds",
+            "idruneweapon_006.dds",
+            "idruneweapon_007.dds",
+            "idruneweapon_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idruneweapon/idruneweapon.pak",
+          "clientPakSha256": "64a18cf08c09da73df898c292ec6a11e57840db02e37def8acf9f84189c43a4b"
+        }
+      ]
+    },
+    {
+      "mapId": 301100000,
+      "name": "Unity Training Grounds",
+      "clientName": "IDArena_Team01_T2",
+      "kind": "instance",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301100000_Unity_Training_Grounds.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301100000_Unity_Training_Grounds.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301100000-unity-training-grounds-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "160d09e09c08bd34b74427fe9c4cb61d3b639ceb67e7f9fa6e2b6647ae1103ee",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301110000,
+      "name": "Danuar Reliquary",
+      "clientName": "IDLDF5_Under_Rune",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 768.0,
+        "minY": 0.0,
+        "maxY": 768.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301110000_Danuar_Reliquary.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301110000_Danuar_Reliquary.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301110000-danuar-reliquary-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "87840e3bfd99f6da3f881c177ca0d9c1d1edaf5c76b3f05304e8b188c32e40cc",
+          "tileLayout": [
+            "IDLDF5_Under_Rune_000.dds",
+            "IDLDF5_Under_Rune_001.dds",
+            "IDLDF5_Under_Rune_002.dds",
+            "IDLDF5_Under_Rune_003.dds",
+            "IDLDF5_Under_Rune_004.dds",
+            "IDLDF5_Under_Rune_005.dds",
+            "IDLDF5_Under_Rune_006.dds",
+            "IDLDF5_Under_Rune_007.dds",
+            "IDLDF5_Under_Rune_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF5_Under_Rune/IDLDF5_Under_Rune.pak",
+          "clientPakSha256": "4dd69a6e22cea1cac2c43a65ffa85e09acf0867497a60cf0d04ce5e2da34cf5f"
+        }
+      ]
+    },
+    {
+      "mapId": 301120000,
+      "name": "Kamar Battlefield",
+      "clientName": "IDKamar",
+      "kind": "instance",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 1023,
+        "offsetY": 846,
+        "mapWidth": 1029,
+        "mapHeight": 1029
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301120000_Kamar_Battlefield.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301120000_Kamar_Battlefield.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301120000-kamar-battlefield-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "ac143699322e938bec494df8b02c2814c9455aebc2c236a99b24b5c1ea292205",
+          "tileLayout": [
+            "idkamar_000.dds",
+            "idkamar_001.dds",
+            "idkamar_002.dds",
+            "idkamar_003.dds",
+            "idkamar_004.dds",
+            "idkamar_005.dds",
+            "idkamar_006.dds",
+            "idkamar_007.dds",
+            "idkamar_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDKamar/IDKamar.pak",
+          "clientPakSha256": "7157c4598799280322cf4456ed349e9fc2a2277431d09ff9fe2c0d77bb18fc44"
+        }
+      ]
+    },
+    {
+      "mapId": 301130000,
+      "name": "Sauro Supply Base",
+      "clientName": "IDVritra_Base",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 64,
+        "offsetY": 40,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301130000_Sauro_Supply_Base.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301130000_Sauro_Supply_Base.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301130000-sauro-supply-base-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "8ec873596089a266bc825255c85e4bad575b263adf8658b61553e23957575761",
+          "tileLayout": [
+            "IDVritra_Base_000.dds",
+            "IDVritra_Base_001.dds",
+            "IDVritra_Base_002.dds",
+            "IDVritra_Base_003.dds",
+            "IDVritra_Base_004.dds",
+            "IDVritra_Base_005.dds",
+            "IDVritra_Base_006.dds",
+            "IDVritra_Base_007.dds",
+            "IDVritra_Base_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDVritra_Base/IDVritra_Base.pak",
+          "clientPakSha256": "e0f2960f2afd1d426cc90c5135a5f1d6fc7ef9b049a8d605540a9073d9fc3abd"
+        }
+      ]
+    },
+    {
+      "mapId": 301140000,
+      "name": "Seized Danuar Sanctuary",
+      "clientName": "IDLDF5_Under_02",
+      "kind": "instance",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 213,
+        "offsetY": 130,
+        "mapWidth": 1247,
+        "mapHeight": 1247
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301140000_Seized_Danuar_Sanctuary.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301140000_Seized_Danuar_Sanctuary.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301140000-seized-danuar-sanctuary-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c7e35fe2b901bd6e802f9c91b8ff5f8ef1a792df191e9477aefece084a5b5259",
+          "tileLayout": [
+            "idldf5_under_02_000.dds",
+            "idldf5_under_02_001.dds",
+            "idldf5_under_02_002.dds",
+            "idldf5_under_02_003.dds",
+            "idldf5_under_02_004.dds",
+            "idldf5_under_02_005.dds",
+            "idldf5_under_02_006.dds",
+            "idldf5_under_02_007.dds",
+            "idldf5_under_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_02/idldf5_under_02.pak",
+          "clientPakSha256": "741ae8480d76b66b68f097e49405df588e8430d3b63a660d44db6706b20bbb28"
+        }
+      ]
+    },
+    {
+      "mapId": 301150000,
+      "name": "Rumakikis Conspiracy Solo",
+      "clientName": "IDAsteria_IU_Solo",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301150000-rumakikis-conspiracy-solo-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c058bf371eb93247001a7de8ac9d225f0abca7a2b1d4070931aa1ecf619b31c6",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301160000,
+      "name": "Nightmare Circus",
+      "clientName": "IDAsteria_IU_Party",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301160000-nightmare-circus-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "25d1b8618db3720eb9d0d455fff8f50139ac4a878d101d851085fdc9dc07410e",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301200000,
+      "name": "Nightmare Circus",
+      "clientName": "IDAsteria_IU_World",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301200000_Nightmare_Circus.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301200000_Nightmare_Circus.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301200000-nightmare-circus-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "25d1b8618db3720eb9d0d455fff8f50139ac4a878d101d851085fdc9dc07410e",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301210000,
+      "name": "Engulfed Ophidan Bridge",
+      "clientName": "IDLDF5_Under_01_War",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 119,
+        "offsetY": 157,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301210000_Engulfed_Ophidan_Bridge.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301210000_Engulfed_Ophidan_Bridge.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301210000-engulfed-ophidan-bridge-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4e8a243996bc4727e7ec077369c78810abeda1e2429f0f3505cc398681084645",
+          "tileLayout": [
+            "IDLDF5_Under_01_War_000.dds",
+            "IDLDF5_Under_01_War_001.dds",
+            "IDLDF5_Under_01_War_002.dds",
+            "IDLDF5_Under_01_War_003.dds",
+            "IDLDF5_Under_01_War_004.dds",
+            "IDLDF5_Under_01_War_005.dds",
+            "IDLDF5_Under_01_War_006.dds",
+            "IDLDF5_Under_01_War_007.dds",
+            "IDLDF5_Under_01_War_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF5_Under_01_War/IDLDF5_Under_01_War.pak",
+          "clientPakSha256": "915b767a010c0cc17f9c867ea16b4cd2b7c28f50ff28c0c0007e5ddbd28728cf"
+        }
+      ]
+    },
+    {
+      "mapId": 301220000,
+      "name": "Iron Wall Warfront",
+      "clientName": "IDF5_TD_War",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301220000_Iron_Wall_Warfront.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301220000_Iron_Wall_Warfront.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301220000-iron-wall-warfront-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "503af32db60aa41598abc336e41d609da8e51ac4f180c127b9bfb361f083bd1a",
+          "tileLayout": [
+            "IDF5_TD_War_000.dds",
+            "IDF5_TD_War_001.dds",
+            "IDF5_TD_War_002.dds",
+            "IDF5_TD_War_003.dds",
+            "IDF5_TD_War_004.dds",
+            "IDF5_TD_War_005.dds",
+            "IDF5_TD_War_006.dds",
+            "IDF5_TD_War_007.dds",
+            "IDF5_TD_War_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDF5_TD_War/IDF5_TD_War.pak",
+          "clientPakSha256": "5a42eba5046d84c1dff7bbd6df1425104f9cd949adaf91fed2084625fe22cdbe"
+        }
+      ]
+    },
+    {
+      "mapId": 301230000,
+      "name": "The Illuminary Obelisk",
+      "clientName": "IDLDF5_Under_03",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301230000_The_Illuminary_Obelisk.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301230000_The_Illuminary_Obelisk.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301230000-the-illuminary-obelisk-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4c6eef552987d074d4cb4afd01b19bd35cac6e05a2dc9c5fe5ead83c2ef8642a",
+          "tileLayout": [
+            "IDLDF5_Under_03_000.dds",
+            "IDLDF5_Under_03_001.dds",
+            "IDLDF5_Under_03_002.dds",
+            "IDLDF5_Under_03_003.dds",
+            "IDLDF5_Under_03_004.dds",
+            "IDLDF5_Under_03_005.dds",
+            "IDLDF5_Under_03_006.dds",
+            "IDLDF5_Under_03_007.dds",
+            "IDLDF5_Under_03_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_03/idldf5_under_03.pak",
+          "clientPakSha256": "3ff2210688cfbb992ba1deb436b3467a9f4ec8cb98f251e15764dc319a7142b8"
+        }
+      ]
+    },
+    {
+      "mapId": 301240000,
+      "name": "Legion's Kysis Barracks",
+      "clientName": "IDAbRe_Up3_Dkisas_02",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 65,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1089.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301240000_Legion's_Kysis_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301240000_Legion's_Kysis_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301240000-legion-s-kysis-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "6bc365c6ede357cbd5306e7d6a03413199f765d7956671aca026925b22a67a1e",
+          "tileLayout": [
+            "idabre_up3_dkisas_02_000.dds",
+            "idabre_up3_dkisas_02_001.dds",
+            "idabre_up3_dkisas_02_002.dds",
+            "idabre_up3_dkisas_02_003.dds",
+            "idabre_up3_dkisas_02_004.dds",
+            "idabre_up3_dkisas_02_005.dds",
+            "idabre_up3_dkisas_02_006.dds",
+            "idabre_up3_dkisas_02_007.dds",
+            "idabre_up3_dkisas_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_dkisas_02/idabre_up3_dkisas_02.pak",
+          "clientPakSha256": "a0432fa5eaaf92ec0acf59026ea9a6e0724d5b508f2fb369e5fa73f83e689b21"
+        }
+      ]
+    },
+    {
+      "mapId": 301250000,
+      "name": "Legion's Miren Barracks",
+      "clientName": "IDAbRe_Up3_Lamiren_02",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301250000_Legion's_Miren_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301250000_Legion's_Miren_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301250000-legion-s-miren-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "d0e44dc967293eaade3aa740c997dcd65328be805f38e8ce77287d153a6f2b9b",
+          "tileLayout": [
+            "idabre_up3_lamiren_02_000.dds",
+            "idabre_up3_lamiren_02_001.dds",
+            "idabre_up3_lamiren_02_002.dds",
+            "idabre_up3_lamiren_02_003.dds",
+            "idabre_up3_lamiren_02_004.dds",
+            "idabre_up3_lamiren_02_005.dds",
+            "idabre_up3_lamiren_02_006.dds",
+            "idabre_up3_lamiren_02_007.dds",
+            "idabre_up3_lamiren_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_lamiren_02/idabre_up3_lamiren_02.pak",
+          "clientPakSha256": "a9a1ba34db7e90e2403f8aa2edc97d2405cc02356f60f6c274d41e409515fbfd"
+        }
+      ]
+    },
+    {
+      "mapId": 301260000,
+      "name": "Legion's Krotan Barracks",
+      "clientName": "IDAbRe_Up3_Crotan_02",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301260000_Legion's_Krotan_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301260000_Legion's_Krotan_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301260000-legion-s-krotan-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7c305bc6d5c64c8796eeae5827d642764f9239bb78f5b6a08ff0c9216d9c177c",
+          "tileLayout": [
+            "idabre_up3_crotan_02_000.dds",
+            "idabre_up3_crotan_02_001.dds",
+            "idabre_up3_crotan_02_002.dds",
+            "idabre_up3_crotan_02_003.dds",
+            "idabre_up3_crotan_02_004.dds",
+            "idabre_up3_crotan_02_005.dds",
+            "idabre_up3_crotan_02_006.dds",
+            "idabre_up3_crotan_02_007.dds",
+            "idabre_up3_crotan_02_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_crotan_02/idabre_up3_crotan_02.pak",
+          "clientPakSha256": "ef6ebcda00cfa2812e6bf4b8b739788e5db0a5024bb8acf1abbcd4c1dd6be62d"
+        }
+      ]
+    },
+    {
+      "mapId": 301270000,
+      "name": "Linkgate Foundry",
+      "clientName": "IDLDF4Re_01",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 89,
+        "offsetY": 94,
+        "mapWidth": 345,
+        "mapHeight": 345
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301270000_Linkgate_Foundry.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301270000_Linkgate_Foundry.xml",
+      "layers": [
+        {
+          "id": "layer-1",
+          "name": "Layer 1",
+          "asset": "301270000-linkgate-foundry-layer-1.webp",
+          "assetKind": "map-window",
+          "assetSha256": "6e045727335982b26dcc6d93f01a84e3045ff891ca0e85903ae1c0db532b9b08",
+          "tileLayout": [
+            "IDLDF4Re_01_1_000.dds",
+            "IDLDF4Re_01_1_001.dds",
+            "IDLDF4Re_01_1_002.dds",
+            "IDLDF4Re_01_1_003.dds",
+            "IDLDF4Re_01_1_004.dds",
+            "IDLDF4Re_01_1_005.dds",
+            "IDLDF4Re_01_1_006.dds",
+            "IDLDF4Re_01_1_007.dds",
+            "IDLDF4Re_01_1_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF4Re_01/IDLDF4Re_01.pak",
+          "clientPakSha256": "8e881aaa067333d52a4bcbcd44e66b94468e1ef1d8669c8acfd7927103f3221b"
+        },
+        {
+          "id": "layer-2",
+          "name": "Layer 2",
+          "asset": "301270000-linkgate-foundry-layer-2.webp",
+          "assetKind": "map-window",
+          "assetSha256": "3d52be7dc8fe2b1a9624c1404bdfd4862672f9877845820e2ac3592cfc6522ba",
+          "tileLayout": [
+            "IDLDF4Re_01_2_000.dds",
+            "IDLDF4Re_01_2_001.dds",
+            "IDLDF4Re_01_2_002.dds",
+            "IDLDF4Re_01_2_003.dds",
+            "IDLDF4Re_01_2_004.dds",
+            "IDLDF4Re_01_2_005.dds",
+            "IDLDF4Re_01_2_006.dds",
+            "IDLDF4Re_01_2_007.dds",
+            "IDLDF4Re_01_2_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF4Re_01/IDLDF4Re_01.pak",
+          "clientPakSha256": "8e881aaa067333d52a4bcbcd44e66b94468e1ef1d8669c8acfd7927103f3221b"
+        },
+        {
+          "id": "layer-3",
+          "name": "Layer 3",
+          "asset": "301270000-linkgate-foundry-layer-3.webp",
+          "assetKind": "map-window",
+          "assetSha256": "bdfa5b8d9bbec01728f57c1b6c1a72e0ac0edde8ccfd9fbc5c6e04346b67b81b",
+          "tileLayout": [
+            "IDLDF4Re_01_3_000.dds",
+            "IDLDF4Re_01_3_001.dds",
+            "IDLDF4Re_01_3_002.dds",
+            "IDLDF4Re_01_3_003.dds",
+            "IDLDF4Re_01_3_004.dds",
+            "IDLDF4Re_01_3_005.dds",
+            "IDLDF4Re_01_3_006.dds",
+            "IDLDF4Re_01_3_007.dds",
+            "IDLDF4Re_01_3_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF4Re_01/IDLDF4Re_01.pak",
+          "clientPakSha256": "8e881aaa067333d52a4bcbcd44e66b94468e1ef1d8669c8acfd7927103f3221b"
+        }
+      ]
+    },
+    {
+      "mapId": 301280000,
+      "name": "Kysis Barracks",
+      "clientName": "IDAbRe_Up3_Dkisas_02_N",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 65,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1089.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301280000_Kysis_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301280000_Kysis_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301280000-kysis-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "6bc365c6ede357cbd5306e7d6a03413199f765d7956671aca026925b22a67a1e",
+          "tileLayout": [
+            "idabre_up3_dkisas_02_N_000.dds",
+            "idabre_up3_dkisas_02_N_001.dds",
+            "idabre_up3_dkisas_02_N_002.dds",
+            "idabre_up3_dkisas_02_N_003.dds",
+            "idabre_up3_dkisas_02_N_004.dds",
+            "idabre_up3_dkisas_02_N_005.dds",
+            "idabre_up3_dkisas_02_N_006.dds",
+            "idabre_up3_dkisas_02_N_007.dds",
+            "idabre_up3_dkisas_02_N_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_dkisas_02_N/idabre_up3_dkisas_02_N.pak",
+          "clientPakSha256": "7ca44b7e65b08f0dff09621aa227b67797260a476b526e0da917e0c65a53e63c"
+        }
+      ]
+    },
+    {
+      "mapId": 301290000,
+      "name": "Miren Barracks",
+      "clientName": "IDAbRe_Up3_Lamiren_02_N",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301290000_Miren_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301290000_Miren_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301290000-miren-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "d0e44dc967293eaade3aa740c997dcd65328be805f38e8ce77287d153a6f2b9b",
+          "tileLayout": [
+            "idabre_up3_lamiren_02_N_000.dds",
+            "idabre_up3_lamiren_02_N_001.dds",
+            "idabre_up3_lamiren_02_N_002.dds",
+            "idabre_up3_lamiren_02_N_003.dds",
+            "idabre_up3_lamiren_02_N_004.dds",
+            "idabre_up3_lamiren_02_N_005.dds",
+            "idabre_up3_lamiren_02_N_006.dds",
+            "idabre_up3_lamiren_02_N_007.dds",
+            "idabre_up3_lamiren_02_N_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_lamiren_02_N/idabre_up3_lamiren_02_N.pak",
+          "clientPakSha256": "64d8b1eb9fa700e2ac331330c92aaf20079c2898fcfc5d89c4e65c2b0bb8db5d"
+        }
+      ]
+    },
+    {
+      "mapId": 301300000,
+      "name": "Krotan Barracks",
+      "clientName": "IDAbRe_Up3_Crotan_02_N",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301300000_Krotan_Barracks.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301300000_Krotan_Barracks.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301300000-krotan-barracks-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "7c305bc6d5c64c8796eeae5827d642764f9239bb78f5b6a08ff0c9216d9c177c",
+          "tileLayout": [
+            "idabre_up3_crotan_02_N_000.dds",
+            "idabre_up3_crotan_02_N_001.dds",
+            "idabre_up3_crotan_02_N_002.dds",
+            "idabre_up3_crotan_02_N_003.dds",
+            "idabre_up3_crotan_02_N_004.dds",
+            "idabre_up3_crotan_02_N_005.dds",
+            "idabre_up3_crotan_02_N_006.dds",
+            "idabre_up3_crotan_02_N_007.dds",
+            "idabre_up3_crotan_02_N_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idabre_up3_crotan_02_N/idabre_up3_crotan_02_N.pak",
+          "clientPakSha256": "3cc4fdc6c3cf731b47345dda30e1bdf2c9de97dbe5de1cc8fc109c2b74decaba"
+        }
+      ]
+    },
+    {
+      "mapId": 301310000,
+      "name": "Idgel Dome",
+      "clientName": "IDLDF5_Fortress_Re",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 123,
+        "offsetY": 118,
+        "mapWidth": 294,
+        "mapHeight": 294
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301310000_Idgel_Dome.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301310000_Idgel_Dome.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301310000-idgel-dome-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "cf57a3c98fb431328fb22f322e73c8639050bd70f52c1eade9c0b7ac943cc2bb",
+          "tileLayout": [
+            "IDLDF5_Fortress_re_000.dds",
+            "IDLDF5_Fortress_re_001.dds",
+            "IDLDF5_Fortress_re_002.dds",
+            "IDLDF5_Fortress_re_003.dds",
+            "IDLDF5_Fortress_re_004.dds",
+            "IDLDF5_Fortress_re_005.dds",
+            "IDLDF5_Fortress_re_006.dds",
+            "IDLDF5_Fortress_re_007.dds",
+            "IDLDF5_Fortress_re_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF5_Fortress_re/IDLDF5_Fortress_re.pak",
+          "clientPakSha256": "fd4f208922ef132659fc5ef5f2214b19aedc5b50c5093e77cfde0c435117a846"
+        }
+      ]
+    },
+    {
+      "mapId": 301320000,
+      "name": "Lucky Ophidan Bridge",
+      "clientName": "IDLDF5_Under_01_PC",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301320000_Lucky_Ophidan_Bridge.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301320000_Lucky_Ophidan_Bridge.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301320000-lucky-ophidan-bridge-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "969f4a0017eac9c0d46ed11ccd0edd2727e2d7502520e7ef263b69dd5629a683",
+          "tileLayout": [
+            "idldf5_under_01_PC_000.dds",
+            "idldf5_under_01_PC_001.dds",
+            "idldf5_under_01_PC_002.dds",
+            "idldf5_under_01_PC_003.dds",
+            "idldf5_under_01_PC_004.dds",
+            "idldf5_under_01_PC_005.dds",
+            "idldf5_under_01_PC_006.dds",
+            "idldf5_under_01_PC_007.dds",
+            "idldf5_under_01_PC_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_01_PC/idldf5_under_01_PC.pak",
+          "clientPakSha256": "8753ac1dcc55465b8e9c313c29378aa974c585308bbda705d660fdf54ef21bee"
+        }
+      ]
+    },
+    {
+      "mapId": 301330000,
+      "name": "Lucky Danaur Reliquary",
+      "clientName": "IDLDF5_Under_Rune_PC",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 768.0,
+        "minY": 0.0,
+        "maxY": 768.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301330000_Lucky_Danaur_Reliquary.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301330000_Lucky_Danaur_Reliquary.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301330000-lucky-danaur-reliquary-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "87840e3bfd99f6da3f881c177ca0d9c1d1edaf5c76b3f05304e8b188c32e40cc",
+          "tileLayout": [
+            "IDLDF5_Under_Rune_PC_000.dds",
+            "IDLDF5_Under_Rune_PC_001.dds",
+            "IDLDF5_Under_Rune_PC_002.dds",
+            "IDLDF5_Under_Rune_PC_003.dds",
+            "IDLDF5_Under_Rune_PC_004.dds",
+            "IDLDF5_Under_Rune_PC_005.dds",
+            "IDLDF5_Under_Rune_PC_006.dds",
+            "IDLDF5_Under_Rune_PC_007.dds",
+            "IDLDF5_Under_Rune_PC_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF5_Under_Rune_PC/IDLDF5_Under_Rune_PC.pak",
+          "clientPakSha256": "c7ed447ae387068ec3f461167b40129cd51d5d4ad7433a4eed60c86f5cb370c1"
+        }
+      ]
+    },
+    {
+      "mapId": 301340000,
+      "name": "Linkgate Foundry",
+      "clientName": "IDLDF4Re_01_Q",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301340000_Linkgate_Foundry.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301340000_Linkgate_Foundry.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301340000-linkgate-foundry-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "2a0c196f954c3e57f83145576f9cd6fc999f1452e240daa0afc1ce72590c1417",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301360000,
+      "name": "Infernal Danuar Reliquary",
+      "clientName": "IDLDF5_Under_Rune_H",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 768,
+        "mapHeight": 768
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 768.0,
+        "minY": 0.0,
+        "maxY": 768.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301360000_Infernal_Danuar_Reliquary.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301360000_Infernal_Danuar_Reliquary.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301360000-infernal-danuar-reliquary-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "87840e3bfd99f6da3f881c177ca0d9c1d1edaf5c76b3f05304e8b188c32e40cc",
+          "tileLayout": [
+            "IDLDF5_Under_Rune_H_000.dds",
+            "IDLDF5_Under_Rune_H_001.dds",
+            "IDLDF5_Under_Rune_H_002.dds",
+            "IDLDF5_Under_Rune_H_003.dds",
+            "IDLDF5_Under_Rune_H_004.dds",
+            "IDLDF5_Under_Rune_H_005.dds",
+            "IDLDF5_Under_Rune_H_006.dds",
+            "IDLDF5_Under_Rune_H_007.dds",
+            "IDLDF5_Under_Rune_H_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLDF5_Under_Rune_H/IDLDF5_Under_Rune_H.pak",
+          "clientPakSha256": "59fe364e5dad9b0d33ea6ee573a528f81642657e490de0aee11f1440a46b543f"
+        }
+      ]
+    },
+    {
+      "mapId": 301370000,
+      "name": "Infernal Illuminary Obelisk",
+      "clientName": "IDLDF5_Under_03_H",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301370000_Infernal_Illuminary_Obelisk.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301370000_Infernal_Illuminary_Obelisk.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301370000-infernal-illuminary-obelisk-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4c6eef552987d074d4cb4afd01b19bd35cac6e05a2dc9c5fe5ead83c2ef8642a",
+          "tileLayout": [
+            "IDLDF5_Under_03_H_000.dds",
+            "IDLDF5_Under_03_H_001.dds",
+            "IDLDF5_Under_03_H_002.dds",
+            "IDLDF5_Under_03_H_003.dds",
+            "IDLDF5_Under_03_H_004.dds",
+            "IDLDF5_Under_03_H_005.dds",
+            "IDLDF5_Under_03_H_006.dds",
+            "IDLDF5_Under_03_H_007.dds",
+            "IDLDF5_Under_03_H_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_03_H/idldf5_under_03_H.pak",
+          "clientPakSha256": "a3db2ba1764936874037a4ae6238d0173d77503436bd6d60c3e80160ff0a2782"
+        }
+      ]
+    },
+    {
+      "mapId": 301380000,
+      "name": "Danuar Sanctuary",
+      "clientName": "IDLDF5_Under_02_E",
+      "kind": "instance",
+      "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 213,
+        "offsetY": 130,
+        "mapWidth": 1247,
+        "mapHeight": 1247
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1536.0,
+        "minY": 0.0,
+        "maxY": 1536.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301380000_Danuar_Sanctuary.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301380000_Danuar_Sanctuary.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301380000-danuar-sanctuary-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c7e35fe2b901bd6e802f9c91b8ff5f8ef1a792df191e9477aefece084a5b5259",
+          "tileLayout": [
+            "idldf5_under_02_e_000.dds",
+            "idldf5_under_02_e_001.dds",
+            "idldf5_under_02_e_002.dds",
+            "idldf5_under_02_e_003.dds",
+            "idldf5_under_02_e_004.dds",
+            "idldf5_under_02_e_005.dds",
+            "idldf5_under_02_e_006.dds",
+            "idldf5_under_02_e_007.dds",
+            "idldf5_under_02_e_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idldf5_under_02_e/idldf5_under_02_e.pak",
+          "clientPakSha256": "ab0185efd1e47ba296703c56091c0dc15f935bc61e2a299e3f76ffb233fae7cd"
+        }
+      ]
+    },
+    {
+      "mapId": 301390000,
+      "name": "Drakenspire Depths",
+      "clientName": "IDSeal",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301390000_Drakenspire_Depths.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301390000_Drakenspire_Depths.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301390000-drakenspire-depths-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "6559f6699471be39b6a8af8ebbc977e2526c9a166c60d4fa57c2f1a486d5d651",
+          "tileLayout": [
+            "IDSeal_000.dds",
+            "IDSeal_001.dds",
+            "IDSeal_002.dds",
+            "IDSeal_003.dds",
+            "IDSeal_004.dds",
+            "IDSeal_005.dds",
+            "IDSeal_006.dds",
+            "IDSeal_007.dds",
+            "IDSeal_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDSeal/IDSeal.pak",
+          "clientPakSha256": "db031cbd1c820dff4ed64dbd918e3cab8e39ca9128968676333502bd51938a5f"
+        }
+      ]
+    },
+    {
+      "mapId": 301400000,
+      "name": "The Shugo Emperors Vault",
+      "clientName": "IDSweep",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "301400000-the-shugo-emperors-vault-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c196407aa390486e0bbfbdeb69bf1c76f090cfe0f46a165d3e7bb0cf5c45406b",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 301500000,
+      "name": "Stonespear Reach",
+      "clientName": "IDLegion",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/301500000_Stonespear_Reach.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/301500000_Stonespear_Reach.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "301500000-stonespear-reach-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "06977816e74a2b3437a15f2ede44b0780ff4fe9dd296cf6305ae6358e38ea98c",
+          "tileLayout": [
+            "IDLegion_000.dds",
+            "IDLegion_001.dds",
+            "IDLegion_002.dds",
+            "IDLegion_003.dds",
+            "IDLegion_004.dds",
+            "IDLegion_005.dds",
+            "IDLegion_006.dds",
+            "IDLegion_007.dds",
+            "IDLegion_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLegion/IDLegion.pak",
+          "clientPakSha256": "3fc048a981c66e41d08c52da06c24fc95c5fa2cc361b86367b94ccaa930355f3"
+        }
+      ]
+    },
+    {
+      "mapId": 310010000,
+      "name": "Karamatis",
+      "clientName": "IDAbProL1",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310010000_Karamatis.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310010000_Karamatis.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310010000-karamatis-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "62e6f9fd8ae18777b8edf7dffc65b2a67a012889ac704ecef1d2aa61764b9ac4",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310020000,
+      "name": "Karamatis",
+      "clientName": "IDAbProL2",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310020000_Karamatis.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310020000_Karamatis.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310020000-karamatis-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "62e6f9fd8ae18777b8edf7dffc65b2a67a012889ac704ecef1d2aa61764b9ac4",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310030000,
+      "name": "Aerdina",
+      "clientName": "IDAbGateL1",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310030000_Aerdina.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310030000_Aerdina.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310030000-aerdina-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c1c8e6bac5440a8200467d3d943d4e9a78db34e44bb5b2c8b727a46acde5c38e",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310040000,
+      "name": "Geranaia",
+      "clientName": "IDAbGateL2",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310040000_Geranaia.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310040000_Geranaia.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310040000-geranaia-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "85288be6d14d3258a07ca5e68872492ffe390e88c76a26e9cf69db742d735025",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310050000,
+      "name": "Aetherogenetics Lab",
+      "clientName": "IDLF3Lp",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": -129,
+        "offsetY": -129,
+        "mapWidth": 770,
+        "mapHeight": 770
+      },
+      "coordinateBounds": {
+        "minX": -129.0,
+        "maxX": 641.0,
+        "minY": -129.0,
+        "maxY": 641.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310050000_Aetherogenetics_Lab.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310050000_Aetherogenetics_Lab.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "310050000-aetherogenetics-lab-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "fa59c048268ef946c7cbce4f316acfcfb26551e3f8fd7247998454109597c8b0",
+          "tileLayout": [
+            "IDLF3lp_000.dds",
+            "IDLF3lp_001.dds",
+            "IDLF3lp_002.dds",
+            "IDLF3lp_003.dds",
+            "IDLF3lp_004.dds",
+            "IDLF3lp_005.dds",
+            "IDLF3lp_006.dds",
+            "IDLF3lp_007.dds",
+            "IDLF3lp_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/IDLF3lp/IDLF3lp.pak",
+          "clientPakSha256": "ce2a390bc3de2d0b304b248ba52583357765a947c7cc99dd0cf98a49779384e5"
+        }
+      ]
+    },
+    {
+      "mapId": 310060000,
+      "name": "Sliver of Darkness",
+      "clientName": "IDLF1B",
+      "kind": "instance",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310060000_Sliver_of_Darkness.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310060000_Sliver_of_Darkness.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310060000-sliver-of-darkness-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a7aab047c5ca2586c8eec52daaa0b8ff22a3a93183fd9a4b00937937fe84f3cb",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310070000,
+      "name": "Sliver of Darkness",
+      "clientName": "IDLF1B_Stigma",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310070000_Sliver_of_Darkness.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310070000_Sliver_of_Darkness.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310070000-sliver-of-darkness-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "f2c57e69c72438c821c3b5d1dd500687c694cc1b84d31a8b63e90b6d23bec92e",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310080000,
+      "name": "Sanctum Underground Arena",
+      "clientName": "IDLC1_arena",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310080000_Sanctum_Underground_Arena.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310080000_Sanctum_Underground_Arena.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310080000-sanctum-underground-arena-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a9628b7bda9e6c28c84882249303c946f8e9fc373d6076073435bd2272abe2bb",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 310090000,
+      "name": "Indratu Fortress",
+      "clientName": "IDLF3_Castle_indratoo",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1029,
+        "mapHeight": 1029
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1029.0,
+        "minY": 0.0,
+        "maxY": 1029.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310090000_Indratu_Fortress.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310090000_Indratu_Fortress.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "310090000-indratu-fortress-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "d9edfdca3567f1f1834619ab8ac314e5fc12594e6f87f7a659aa758250efd923",
+          "tileLayout": [
+            "idlf3_castle_indratoo_000.dds",
+            "idlf3_castle_indratoo_001.dds",
+            "idlf3_castle_indratoo_002.dds",
+            "idlf3_castle_indratoo_003.dds",
+            "idlf3_castle_indratoo_004.dds",
+            "idlf3_castle_indratoo_005.dds",
+            "idlf3_castle_indratoo_006.dds",
+            "idlf3_castle_indratoo_007.dds",
+            "idlf3_castle_indratoo_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idlf3_castle_indratoo/idlf3_castle_indratoo.pak",
+          "clientPakSha256": "a620417bf01f54caf0a93a5dc7871d82e0671681b15aeb0990cc90fe024df34b"
+        }
+      ]
+    },
+    {
+      "mapId": 310100000,
+      "name": "Azoturan Fortress",
+      "clientName": "IDLF3_Castle_Lehpar",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 1,
+        "offsetY": 2,
+        "mapWidth": 1029,
+        "mapHeight": 1029
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1031.0,
+        "minY": 0.0,
+        "maxY": 1030.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310100000_Azoturan_Fortress.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310100000_Azoturan_Fortress.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "310100000-azoturan-fortress-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "a2461e9567483c48969917f56e9c88f2176336398e67d24e9d8e396f54d901bb",
+          "tileLayout": [
+            "idlf3_castle_lehpar_000.dds",
+            "idlf3_castle_lehpar_001.dds",
+            "idlf3_castle_lehpar_002.dds",
+            "idlf3_castle_lehpar_003.dds",
+            "idlf3_castle_lehpar_004.dds",
+            "idlf3_castle_lehpar_005.dds",
+            "idlf3_castle_lehpar_006.dds",
+            "idlf3_castle_lehpar_007.dds",
+            "idlf3_castle_lehpar_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idlf3_castle_lehpar/idlf3_castle_lehpar.pak",
+          "clientPakSha256": "2c59e717a8c890d1c0f3bc697dd4ed65000a958481dd624b040d515299e271ce"
+        }
+      ]
+    },
+    {
+      "mapId": 310110000,
+      "name": "Theobomos Lab",
+      "clientName": "IDLF2a_Lab",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1030,
+        "mapHeight": 1030
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1030.0,
+        "minY": 0.0,
+        "maxY": 1030.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310110000_Theobomos_Lab.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310110000_Theobomos_Lab.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "310110000-theobomos-lab-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "82f14446e0f316a8c106900e03e456d101aca6d531a4ecb20c499641a1d80466",
+          "tileLayout": [
+            "idlf2a_lab_000.dds",
+            "idlf2a_lab_001.dds",
+            "idlf2a_lab_002.dds",
+            "idlf2a_lab_003.dds",
+            "idlf2a_lab_004.dds",
+            "idlf2a_lab_005.dds",
+            "idlf2a_lab_006.dds",
+            "idlf2a_lab_007.dds",
+            "idlf2a_lab_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/idlf2a_lab/idlf2a_lab.pak",
+          "clientPakSha256": "0fb58ff3dba9a5451d94b086364de2cda905335b1db168902cd3fcb041723183"
+        }
+      ]
+    },
+    {
+      "mapId": 310120000,
+      "name": "Karamatis",
+      "clientName": "IDAbProL3",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/310120000_Karamatis.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/310120000_Karamatis.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "310120000-karamatis-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "62e6f9fd8ae18777b8edf7dffc65b2a67a012889ac704ecef1d2aa61764b9ac4",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320010000,
+      "name": "Ataxiar",
+      "clientName": "IDAbProD1",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320010000_Ataxiar.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320010000_Ataxiar.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320010000-ataxiar-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a10fcbb84fa93fb615fd4b827454a14d15fee14332246a19addb471653d689af",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320020000,
+      "name": "Ataxiar",
+      "clientName": "IDAbProD2",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320020000_Ataxiar.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320020000_Ataxiar.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320020000-ataxiar-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a10fcbb84fa93fb615fd4b827454a14d15fee14332246a19addb471653d689af",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320030000,
+      "name": "Bregirun",
+      "clientName": "IDAbGateD1",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320030000_Bregirun.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320030000_Bregirun.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320030000-bregirun-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a7b1d41c0e0c807234a7149d66fe5e239965b5d948b0ec31bcbe83e76d56be4b",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320040000,
+      "name": "Nidalber",
+      "clientName": "IDAbGateD2",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320040000_Nidalber.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320040000_Nidalber.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320040000-nidalber-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5bf9406063069c4f21cbd89e91f9d1cb117a4232779db1f1c97e270632829106",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320050000,
+      "name": "Sky Temple Interior",
+      "clientName": "IDDF2Flying",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 537,
+        "mapHeight": 537
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 537.0,
+        "minY": 0.0,
+        "maxY": 537.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320050000_Sky_Temple_Interior.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320050000_Sky_Temple_Interior.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "320050000-sky-temple-interior-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "dac8720eac21d7324bbb73c94a09d5dbd3298c8db262ea7411211cb874db02c5",
+          "tileLayout": [
+            "iddf2flying_000.dds",
+            "iddf2flying_001.dds",
+            "iddf2flying_002.dds",
+            "iddf2flying_003.dds",
+            "iddf2flying_004.dds",
+            "iddf2flying_005.dds",
+            "iddf2flying_006.dds",
+            "iddf2flying_007.dds",
+            "iddf2flying_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddf2flying/iddf2flying.pak",
+          "clientPakSha256": "d2b5d70d793e8a13f4395e0b73246ac92f7b723930a83db162f4589b139b6fe0"
+        }
+      ]
+    },
+    {
+      "mapId": 320060000,
+      "name": "Space of Oblivion",
+      "clientName": "IDDF1B",
+      "kind": "instance",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320060000-space-of-oblivion-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "e99b296711af76f32b963a7d3a61419c1d13eac214a39eab97a4b94f2e39e664",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320070000,
+      "name": "Space of Destiny",
+      "clientName": "IDSpace",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320070000_Space_of_Destiny.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320070000_Space_of_Destiny.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320070000-space-of-destiny-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "37981c025947f6d1274955122cbd001ab388cf2a7dce055022ce52c9ec4143ff",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320080000,
+      "name": "Draupnir Cave",
+      "clientName": "IDDF3_Dragon",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1035,
+        "mapHeight": 1035
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1035.0,
+        "minY": 0.0,
+        "maxY": 1035.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320080000_Draupnir_Cave.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320080000_Draupnir_Cave.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "320080000-draupnir-cave-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "2b88d35e1d8046a1487dc1e04725167a2a4b53654ce86b816357034cd1c50d87",
+          "tileLayout": [
+            "iddf3_dragon_000.dds",
+            "iddf3_dragon_001.dds",
+            "iddf3_dragon_002.dds",
+            "iddf3_dragon_003.dds",
+            "iddf3_dragon_004.dds",
+            "iddf3_dragon_005.dds",
+            "iddf3_dragon_006.dds",
+            "iddf3_dragon_007.dds",
+            "iddf3_dragon_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddf3_dragon/iddf3_dragon.pak",
+          "clientPakSha256": "45e990b63c1f4e0c795181c2c27e0d90a11408f261a95f93fc53c9a38164a50a"
+        }
+      ]
+    },
+    {
+      "mapId": 320090000,
+      "name": "Triniel Underground Arena",
+      "clientName": "IDDC1_arena",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320090000_Triniel_Underground_Arena.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320090000_Triniel_Underground_Arena.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320090000-triniel-underground-arena-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "dfa09cedf8f573433e4640be890e9b5bf22f6165c788c502407af73d88585b2d",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320100000,
+      "name": "Fire Temple",
+      "clientName": "IDDF2_Dflame",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 515,
+        "mapHeight": 515
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 515.0,
+        "minY": 0.0,
+        "maxY": 515.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320100000_Fire_Temple.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320100000_Fire_Temple.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "320100000-fire-temple-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "9c9b9f7410640f2f8d99b1d9cc5aa1f6933cc7805a03dd3f87f834bae6ba41bb",
+          "tileLayout": [
+            "iddf2_dflame_000.dds",
+            "iddf2_dflame_001.dds",
+            "iddf2_dflame_002.dds",
+            "iddf2_dflame_003.dds",
+            "iddf2_dflame_004.dds",
+            "iddf2_dflame_005.dds",
+            "iddf2_dflame_006.dds",
+            "iddf2_dflame_007.dds",
+            "iddf2_dflame_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddf2_dflame/iddf2_dflame.pak",
+          "clientPakSha256": "62ec41a182fb417512560915a1a567da326b0a0bc0b344428de6628a61111be0"
+        }
+      ]
+    },
+    {
+      "mapId": 320110000,
+      "name": "Alquimia Research Center",
+      "clientName": "IDDF3_LP",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 3,
+        "offsetY": 3,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1027.0,
+        "minY": 0.0,
+        "maxY": 1027.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320110000_Alquimia_Research_Center.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320110000_Alquimia_Research_Center.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "320110000-alquimia-research-center-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "aadc2a8254f8f3cb4252834f8dcd09a15cd025b8546caeb8476b5d10aa5c69f8",
+          "tileLayout": [
+            "iddf3_lp_000.dds",
+            "iddf3_lp_001.dds",
+            "iddf3_lp_002.dds",
+            "iddf3_lp_003.dds",
+            "iddf3_lp_004.dds",
+            "iddf3_lp_005.dds",
+            "iddf3_lp_006.dds",
+            "iddf3_lp_007.dds",
+            "iddf3_lp_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddf3_lp/iddf3_lp.pak",
+          "clientPakSha256": "8f08aead74f9f8165e1254e54bbad71c8aac133214838ecde4a48147f2ef9c94"
+        }
+      ]
+    },
+    {
+      "mapId": 320120000,
+      "name": "Shadow Court Dungeon",
+      "clientName": "IDDC1_Arena_3F",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320120000_Shadow_Court_Dungeon.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320120000_Shadow_Court_Dungeon.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320120000-shadow-court-dungeon-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c67cb24f060c28d04eabfa0d631e0a49e5d8339e8ed59783e2c4c4cf6d80b819",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320130000,
+      "name": "Adma Stronghold",
+      "clientName": "IDDf2a_Adma",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": -1,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": -1.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320130000_Adma_Stronghold.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320130000_Adma_Stronghold.xml",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "320130000-adma-stronghold-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "c6d451692ed800154f5b0b26ab4cef26550c82c55d47cd82894801ba2ae03f16",
+          "tileLayout": [
+            "iddf2a_adma_000.dds",
+            "iddf2a_adma_001.dds",
+            "iddf2a_adma_002.dds",
+            "iddf2a_adma_003.dds",
+            "iddf2a_adma_004.dds",
+            "iddf2a_adma_005.dds",
+            "iddf2a_adma_006.dds",
+            "iddf2a_adma_007.dds",
+            "iddf2a_adma_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/iddf2a_adma/iddf2a_adma.pak",
+          "clientPakSha256": "a8ff9b2b392a42e38b6f47f45efbc581be2260c0488f2714d2335050bf48a25c"
+        }
+      ]
+    },
+    {
+      "mapId": 320140000,
+      "name": "Ataxiar",
+      "clientName": "IDAbProD3",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320140000_Ataxiar.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320140000_Ataxiar.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320140000-ataxiar-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "a10fcbb84fa93fb615fd4b827454a14d15fee14332246a19addb471653d689af",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 320150000,
+      "name": "Padmarashka's Cave",
+      "clientName": "IDDramata_01",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/320150000_Padmarashka's_Cave.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/320150000_Padmarashka's_Cave.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "320150000-padmarashka-s-cave-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5f0a41df55bdb69cd609c3ba9596089c899c78a5eed1382a6860b6f998b747c8",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 400010000,
       "name": "Reshanta",
       "clientName": "Ab1",
+      "kind": "world",
       "worldSize": 4096,
+      "declaredWorldSize": 4096,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1279,7 +5995,10 @@
       "mapId": 400020000,
       "name": "Belus",
       "clientName": "Gab1_01",
+      "kind": "world",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1340,10 +6059,58 @@
       ]
     },
     {
+      "mapId": 400030000,
+      "name": "Transidium Annex",
+      "clientName": "GAb1_Sub",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "map",
+          "name": "Map",
+          "asset": "400030000-transidium-annex-map.webp",
+          "assetKind": "map-window",
+          "assetSha256": "4e04dd5c36f1fd249c21a4ea2e7fcbd92693a360e308eec313de86346edc9e9e",
+          "tileLayout": [
+            "GAb1_Sub_000.dds",
+            "GAb1_Sub_001.dds",
+            "GAb1_Sub_002.dds",
+            "GAb1_Sub_003.dds",
+            "GAb1_Sub_004.dds",
+            "GAb1_Sub_005.dds",
+            "GAb1_Sub_006.dds",
+            "GAb1_Sub_007.dds",
+            "GAb1_Sub_008.dds"
+          ],
+          "clientPak": "Textures/ui/newmap/GAb1_Sub/GAb1_Sub.pak",
+          "clientPakSha256": "7f08f2e287ff1d34da35ecbec097ce2cb2063987ac9fed6ee9b789c03e916059"
+        }
+      ]
+    },
+    {
       "mapId": 400040000,
       "name": "Aspida",
       "clientName": "Gab1_02",
+      "kind": "world",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1407,7 +6174,10 @@
       "mapId": 400050000,
       "name": "Atanatos",
       "clientName": "Gab1_03",
+      "kind": "world",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1471,7 +6241,10 @@
       "mapId": 400060000,
       "name": "Disillon",
       "clientName": "Gab1_04",
+      "kind": "world",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1532,10 +6305,79 @@
       ]
     },
     {
+      "mapId": 510010000,
+      "name": "LF Prison",
+      "clientName": "LF_Prison",
+      "kind": "world",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "510010000-lf-prison-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "52b8b224bb6775630934e6a5aee65c3f3abb4a84e453e95958e7161e2e825eb8",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 520010000,
+      "name": "DF Prison",
+      "clientName": "DF_Prison",
+      "kind": "world",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "520010000-df-prison-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "9c7cff0698fa91653661ca5f0955d1cb62d393ad4452b8e6770ca49a0f3c9697",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 600010000,
       "name": "Silentera Canyon",
       "clientName": "Underpass",
+      "kind": "world",
       "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1579,7 +6421,10 @@
       "mapId": 600080000,
       "name": "Live Party Concert Hall",
       "clientName": "IDIU",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1611,7 +6456,10 @@
       "mapId": 600090000,
       "name": "Kaldor",
       "clientName": "LDF5_Fortress",
+      "kind": "world",
       "worldSize": 1536,
+      "declaredWorldSize": 1536,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1656,7 +6504,10 @@
       "mapId": 600100000,
       "name": "Levinshor",
       "clientName": "LDF4_Advance",
+      "kind": "world",
       "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1701,7 +6552,10 @@
       "mapId": 700010000,
       "name": "Oriel",
       "clientName": "Housing_LF_personal",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1743,10 +6597,46 @@
       ]
     },
     {
+      "mapId": 700020000,
+      "name": "Elyos Legion Housing",
+      "clientName": "Housing_LC_legion",
+      "kind": "world",
+      "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 3072,
+        "mapHeight": 3072
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 3072.0,
+        "minY": 0.0,
+        "maxY": 3072.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "700020000-elyos-legion-housing-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "c39a157bb5b841484008cd6383e213c941c78d2b4152dd41165aba380785066d",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 710010000,
       "name": "Pernon",
       "clientName": "Housing_DF_personal",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1788,10 +6678,116 @@
       ]
     },
     {
+      "mapId": 710020000,
+      "name": "Asmodian Legion Housing",
+      "clientName": "Housing_DC_legion",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "710020000-asmodian-legion-housing-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "b0225c2b4487813c8e69c8768fe00b9c2aa81601a859b71d7309b2bfd2ec3b8c",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 720010000,
+      "name": "Studio",
+      "clientName": "housing_idlf_personal",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/720010000_Studio.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/720010000_Studio.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "720010000-studio-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5f3c517e4f4652953207b82658ab011805191aee8246c5f2a67d9159d34fa813",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 730010000,
+      "name": "Studio",
+      "clientName": "housing_iddf_personal",
+      "kind": "instance",
+      "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 512,
+        "mapHeight": 512
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 512.0,
+        "minY": 0.0,
+        "maxY": 512.0
+      },
+      "sourceRelativePaths": [
+        "game-server/data/static_data/spawns/Instances/730010000_Studio.xml"
+      ],
+      "primarySourceRelativePath": "game-server/data/static_data/spawns/Instances/730010000_Studio.xml",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "730010000-studio-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5f3c517e4f4652953207b82658ab011805191aee8246c5f2a67d9159d34fa813",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 900020000,
       "name": "Test Basic",
       "clientName": "Test_Basic",
+      "kind": "world",
       "worldSize": 256,
+      "declaredWorldSize": 256,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1820,10 +6816,79 @@
       ]
     },
     {
+      "mapId": 900030000,
+      "name": "Test Server",
+      "clientName": "Test_Server",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900030000-test-server-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "b9aaccef2595dcd774bc8f4917f1acf950c65f02caff5e06c0fe6736baa85bce",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900100000,
+      "name": "Test Giant Monster",
+      "clientName": "Test_GiantMonster",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900100000-test-giant-monster-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "6291f58e7b1c041c448e0a3e8da4b87798002ac2e74f71cfe8161adcf6e31774",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 900110000,
       "name": "GM Isle",
       "clientName": "Housing_barrack",
+      "kind": "world",
       "worldSize": 3072,
+      "declaredWorldSize": 3072,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1852,10 +6917,211 @@
       ]
     },
     {
+      "mapId": 900120000,
+      "name": "Test IDArena",
+      "clientName": "Test_IDArena",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900120000-test-idarena-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "ce5b6fa412908954ad0aff103260e74227ad878e3fee0fc4ebf540d3f720d5dd",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900130000,
+      "name": "IDLDF5RE test",
+      "clientName": "IDLDF5RE_test",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900130000-idldf5re-test-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "3657cc158a4c59576a765bdd66b8dafb079eafbd20d4f04842ad0bc2b6bdf050",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900140000,
+      "name": "Instanced Dungeon Test",
+      "clientName": "Test_Kgw",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900140000-instanced-dungeon-test-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "5cca3c707073e4815bfe64f2870fd473980d0cdb417b7ba636ed05714d70ecc8",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900150000,
+      "name": "Instanced Dungeon Test2",
+      "clientName": "Test_Basic_Mj",
+      "kind": "instance",
+      "worldSize": 1024,
+      "declaredWorldSize": 0,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900150000-instanced-dungeon-test2-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "518c2109de932166e3d0e0b776f0d971cca6c93305e74e6ded392585b8a52699",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900170000,
+      "name": "test intro",
+      "clientName": "test_intro",
+      "kind": "world",
+      "worldSize": 2048,
+      "declaredWorldSize": 2048,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 2048,
+        "mapHeight": 2048
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 2048.0,
+        "minY": 0.0,
+        "maxY": 2048.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900170000-test-intro-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "167bf3c487865bfd2651856d8a9a27b540c3e11fe982d5c839eef2cf0c752da7",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
+      "mapId": 900180000,
+      "name": "Test server art",
+      "clientName": "Test_server_art",
+      "kind": "world",
+      "worldSize": 1024,
+      "declaredWorldSize": 1024,
+      "supportsSpawnEditing": false,
+      "calibration": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "mapWidth": 1024,
+        "mapHeight": 1024
+      },
+      "coordinateBounds": {
+        "minX": 0.0,
+        "maxX": 1024.0,
+        "minY": 0.0,
+        "maxY": 1024.0
+      },
+      "sourceRelativePaths": [],
+      "primarySourceRelativePath": "",
+      "layers": [
+        {
+          "id": "grid",
+          "name": "Coordinate grid",
+          "asset": "900180000-test-server-art-grid.webp",
+          "assetKind": "grid-fallback",
+          "assetSha256": "ca345090cd0a725289609e546947549f4dd02d497d61b524f89b5013bc84f828",
+          "tileLayout": []
+        }
+      ]
+    },
+    {
       "mapId": 900190000,
       "name": "Tag Match Test Level",
       "clientName": "Test_TagMatch",
+      "kind": "instance",
       "worldSize": 256,
+      "declaredWorldSize": 256,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1887,7 +7153,10 @@
       "mapId": 900200000,
       "name": "Test Time Attack Instanced Dungeon 02",
       "clientName": "test_timeattack",
+      "kind": "instance",
       "worldSize": 256,
+      "declaredWorldSize": 256,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,
@@ -1919,7 +7188,10 @@
       "mapId": 900220000,
       "name": "System Basic",
       "clientName": "System_Basic",
+      "kind": "world",
       "worldSize": 512,
+      "declaredWorldSize": 512,
+      "supportsSpawnEditing": true,
       "calibration": {
         "offsetX": 0,
         "offsetY": 0,

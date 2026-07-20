@@ -230,8 +230,13 @@
     const result = await fetchJson("/admin/api/spawn-editor/maps");
     state.maps = result.maps;
     if (!state.maps.length) throw new Error("No spawn maps are available.");
-    elements.mapSelect.innerHTML = state.maps
-      .map(map => `<option value="${map.id}">${escapeHtml(map.name)} · ${map.id}</option>`)
+    elements.mapSelect.innerHTML = [
+      ["World maps", state.maps.filter(map => map.kind === "world")],
+      ["Instances", state.maps.filter(map => map.kind === "instance")],
+    ].filter(([, maps]) => maps.length > 0)
+      .map(([label, maps]) => `<optgroup label="${label}">${maps
+        .map(map => `<option value="${map.id}">${escapeHtml(map.name)} · ${map.id}${map.supportsSpawnEditing ? "" : " · view only"}</option>`)
+        .join("")}</optgroup>`)
       .join("");
     const searchParams = new URLSearchParams(window.location.search);
     const requestedMapId = Number(searchParams.get("mapId"));
@@ -459,8 +464,14 @@
     clearWalkerRoute();
     state.nextClientKey = 1;
     const sourceCount = snapshot.map.sourceRelativePaths.length;
-    elements.sourceStatus.textContent = `${sourceCount.toLocaleString()} XML source${sourceCount === 1 ? "" : "s"} · ${snapshot.revision.slice(0, 10)}`;
-    elements.sourceStatus.title = snapshot.map.sourceRelativePaths.join("\n");
+    elements.sourceStatus.textContent = snapshot.map.supportsSpawnEditing
+      ? `${sourceCount.toLocaleString()} XML source${sourceCount === 1 ? "" : "s"} · ${snapshot.revision.slice(0, 10)}`
+      : "Map view only · no regular spawn XML";
+    elements.sourceStatus.title = snapshot.map.supportsSpawnEditing
+      ? snapshot.map.sourceRelativePaths.join("\n")
+      : "This map is runtime-driven, special-purpose, or has no ordinary NPC/Mob spawn XML.";
+    elements.placeToggle.disabled = !snapshot.map.supportsSpawnEditing;
+    if (!snapshot.map.supportsSpawnEditing) elements.placePanel.hidden = true;
     elements.map.setAttribute("aria-label", `${snapshot.map.name} spawn map`);
     elements.changeReason.value = `${snapshot.map.name} spawn placement update`;
     populateLayerSelect(snapshot.map);
@@ -1538,6 +1549,7 @@
   }
 
   function openPlacement() {
+    if (!state.snapshot?.map.supportsSpawnEditing) return;
     if (walkerDraftIsDirty() && !window.confirm("Discard draft patrol path changes and place a new NPC?")) return;
     cancelGroundLookup("create");
     clearWalkerRoute();
@@ -1844,8 +1856,9 @@
     const respawn = Number(elements.placeRespawn.value);
     const respawnReady = Boolean(existingGroup) || (Number.isInteger(respawn) && respawn >= 1 && respawn <= 604800);
     const groupReadOnly = existingGroup?.editable === false;
-    elements.placePick.disabled = !state.selectedNpc || groupReadOnly;
-    elements.stageCreate.disabled = !state.selectedNpc || !positionReady || !respawnReady || groupReadOnly;
+    const mapReadOnly = !state.snapshot?.map.supportsSpawnEditing;
+    elements.placePick.disabled = mapReadOnly || !state.selectedNpc || groupReadOnly;
+    elements.stageCreate.disabled = mapReadOnly || !state.selectedNpc || !positionReady || !respawnReady || groupReadOnly;
     updateGroundControl("create");
   }
 

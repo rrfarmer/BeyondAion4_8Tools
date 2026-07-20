@@ -1,5 +1,20 @@
 # Progress
 
+## 2026-07-19 Iteration 106
+
+- Expanded the spawn-map selector from the 139 regular-XML maps to all 161 entries in the server's `world_maps.xml` catalog: 51 world maps and 110 instances.
+- Kept all 139 regular `Npcs`/`Instances` XML maps editable and exposed the remaining 22 runtime, special-purpose, or source-less maps as clearly labeled view-only entries instead of silently omitting them.
+- Regenerated the local client-derived map cache to 179 layers: 100 detailed map-window maps, 2 radar maps, and 59 coordinate-grid fallbacks. No runtime map request uses an external image host.
+- Added view-only enforcement in both the browser and backend, including a regression test proving a runtime-only instance can be viewed but cannot be mutated as fictional XML.
+
+## 2026-07-19 Iteration 105
+
+- Expanded the NPC/Mob spawn editor from the `Npcs` tree to both regular-spawn trees, adding all 97 instance XML maps and producing 139 distinct editable map entries after the one shared id is merged.
+- Classified maps from `.NET` `world_maps.xml` and grouped the selector into World maps and Instances instead of presenting one unstructured list.
+- Regenerated the local client-derived catalog to 157 layers: 99 maps have detailed map-window artwork, 2 use radar artwork, and 38 use coordinate grids where this client has no dedicated package.
+- Added a writable Docker mount for `spawns/Instances`; instance edits now persist to their authoritative XML just like open-world edits.
+- Verified Haramel and Fire Temple resolve to their real local map-window artwork and authoritative `Instances/*.xml` sources. Haramel supports heightmap ground snapping; Fire Temple remains manual-Z because only collision `.geo` is available.
+
 ## 2026-07-19 Iteration 104
 
 - Increased the default patrol ground-audit tolerance from 0.75m to 2m for both the CLI report and admin review. The real scan now flags 747 paths and 10,983 points, down from 858 paths and 12,400 points.

@@ -24,6 +24,8 @@ export type SpawnEditorMap = {
   id: number;
   name: string;
   clientName: string;
+  kind: "world" | "instance";
+  supportsSpawnEditing: boolean;
   worldSize: number;
   projection: "calibrated-game-y-x";
   calibration: {
@@ -169,7 +171,7 @@ type MapSourceDefinition = {
 
 type MapDefinition = SpawnEditorMap & {
   sources: MapSourceDefinition[];
-  primarySource: MapSourceDefinition;
+  primarySource?: MapSourceDefinition;
 };
 
 type ParsedSource = {
@@ -238,6 +240,8 @@ type ManifestMap = {
   mapId: number;
   name: string;
   clientName: string;
+  kind: SpawnEditorMap["kind"];
+  supportsSpawnEditing: boolean;
   worldSize: number;
   calibration: SpawnEditorMap["calibration"];
   coordinateBounds: SpawnEditorMap["coordinateBounds"];
@@ -407,6 +411,13 @@ export class SpawnEditorService {
 
   private async prepareChange(mapId: number, request: SpawnEditorChangeRequest): Promise<AppliedDocuments> {
     const parsed = await this.readMap(mapId);
+    if (!parsed.definition.supportsSpawnEditing) {
+      throw new SpawnEditorError(
+        400,
+        "MAP_VIEW_ONLY",
+        `${parsed.definition.name} has no regular NPC/Mob spawn XML and is available as a map view only.`,
+      );
+    }
     if (!request || typeof request.revision !== "string" || request.revision !== parsed.revision) {
       throw new SpawnEditorError(
         409,
@@ -789,6 +800,9 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
     if (!Number.isFinite(entry.worldSize) || entry.worldSize <= 0) {
       throw new Error(`Spawn map ${entry.mapId} has an invalid world size.`);
     }
+    if (entry.kind !== "world" && entry.kind !== "instance") {
+      throw new Error(`Spawn map ${entry.mapId} has an invalid map kind.`);
+    }
     const calibration = entry.calibration;
     if (
       !calibration
@@ -798,8 +812,14 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
     ) {
       throw new Error(`Spawn map ${entry.mapId} has invalid coordinate calibration.`);
     }
-    if (!Array.isArray(entry.sourceRelativePaths) || entry.sourceRelativePaths.length === 0) {
-      throw new Error(`Spawn map ${entry.mapId} has no spawn XML sources.`);
+    if (typeof entry.supportsSpawnEditing !== "boolean") {
+      throw new Error(`Spawn map ${entry.mapId} has no spawn editing capability flag.`);
+    }
+    if (!Array.isArray(entry.sourceRelativePaths)) {
+      throw new Error(`Spawn map ${entry.mapId} has invalid spawn XML sources.`);
+    }
+    if (entry.supportsSpawnEditing !== (entry.sourceRelativePaths.length > 0)) {
+      throw new Error(`Spawn map ${entry.mapId} has inconsistent spawn editing metadata.`);
     }
     const sources = [...new Set(entry.sourceRelativePaths)].map(sourceRelativePath => {
       const normalizedRelativePath = sourceRelativePath.replaceAll("\\", "/");
@@ -834,6 +854,8 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
       id: entry.mapId,
       name: entry.name,
       clientName: entry.clientName,
+      kind: entry.kind,
+      supportsSpawnEditing: entry.supportsSpawnEditing,
       worldSize: entry.worldSize,
       projection: "calibrated-game-y-x",
       calibration,
@@ -841,10 +863,10 @@ function loadMapDefinitions(repoRoot: string, manifestPath: string): Map<number,
       layers,
       defaultLayerId: layers[0]!.id,
       imageUrl: layers[0]!.imageUrl,
-      sourceRelativePath: primarySource!.sourceRelativePath,
+      sourceRelativePath: primarySource?.sourceRelativePath ?? "",
       sourceRelativePaths: sources.map(source => source.sourceRelativePath),
       sources,
-      primarySource: primarySource!,
+      primarySource,
     });
   }
   return definitions;

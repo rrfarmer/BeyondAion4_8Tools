@@ -19,7 +19,10 @@ from typing import Iterable
 from PIL import Image, ImageDraw, ImageFont
 
 
-NPC_SOURCE_ROOT = Path("game-server/data/static_data/spawns/Npcs")
+SPAWN_SOURCE_ROOTS = (
+    Path("game-server/data/static_data/spawns/Npcs"),
+    Path("game-server/data/static_data/spawns/Instances"),
+)
 WORLD_MAPS_PATH = Path("game-server/data/static_data/world_maps.xml")
 RADAR_FALLBACKS = {
     130090000: ("Arena_L_Clobby", "Radar_Arena_L_Clobby_"),
@@ -98,13 +101,18 @@ def main() -> None:
     radar_root: Path | None = None
     manifest_maps: list[dict[str, object]] = []
 
-    map_ids = sorted(source_inventory)
-    print(f"Building {len(map_ids)} spawn maps from local client data...")
+    map_ids = sorted(world_maps)
+    print(f"Building all {len(map_ids)} world-map catalog entries from local client data...")
     for index, map_id in enumerate(map_ids, start=1):
         world = world_maps[map_id]
-        calibration = calibration_for(world, calibrations.get(map_id))
-        sources = source_inventory[map_id]
-        primary_source = next((source for source in sources if "/Custom/" not in f"/{source}"), sources[0])
+        declared_world_size = int(world["worldSize"])
+        logical_world_size = declared_world_size if declared_world_size > 0 else 1024
+        calibration = calibration_for(logical_world_size, calibrations.get(map_id))
+        sources = source_inventory.get(map_id, [])
+        primary_source = next(
+            (source for source in sources if "/Custom/" not in f"/{source}"),
+            sources[0] if sources else "",
+        )
         display_name = display_name_for(world["name"], map_id, primary_source)
         package = find_package(pak_index, str(world["clientName"]), calibrations.get(map_id, {}).get("name"))
         layers: list[dict[str, object]] = []
@@ -170,14 +178,14 @@ def main() -> None:
         if not layers:
             asset_name = asset_filename(map_id, display_name, "grid")
             asset_path = args.output_dir / asset_name
-            grid = coordinate_grid(display_name, int(world["worldSize"]))
+            grid = coordinate_grid(display_name, logical_world_size)
             save_webp(grid, asset_path, args.webp_quality)
             layers.append(
                 layer_manifest("grid", "Coordinate grid", asset_name, "grid-fallback", asset_path, None, None, [])
             )
 
         bounds = coordinate_bounds(
-            int(world["worldSize"]),
+            logical_world_size,
             calibration,
             coordinate_inventory.get(map_id, []),
         )
@@ -186,7 +194,10 @@ def main() -> None:
                 "mapId": map_id,
                 "name": display_name,
                 "clientName": world["clientName"],
-                "worldSize": world["worldSize"],
+                "kind": world["kind"],
+                "worldSize": logical_world_size,
+                "declaredWorldSize": declared_world_size,
+                "supportsSpawnEditing": bool(sources),
                 "calibration": calibration,
                 "coordinateBounds": bounds,
                 "sourceRelativePaths": sources,
@@ -273,20 +284,21 @@ def decode_zonemap(args: argparse.Namespace, tools: dict[str, Path]) -> Path:
 
 
 def scan_spawn_sources(repo_root: Path) -> tuple[dict[int, list[str]], dict[int, list[tuple[float, float]]]]:
-    root = repo_root / NPC_SOURCE_ROOT
     sources: dict[int, set[str]] = defaultdict(set)
     coordinates: dict[int, list[tuple[float, float]]] = defaultdict(list)
-    for source_path in sorted(root.rglob("*.xml"), key=lambda item: str(item).lower()):
-        tree = ET.parse(source_path)
-        relative = source_path.relative_to(repo_root).as_posix()
-        for map_element in tree.findall(".//spawn_map"):
-            map_id = int(map_element.attrib["map_id"])
-            sources[map_id].add(relative)
-            for spot in map_element.findall(".//spot"):
-                try:
-                    coordinates[map_id].append((float(spot.attrib["x"]), float(spot.attrib["y"])))
-                except (KeyError, ValueError):
-                    continue
+    for source_root in SPAWN_SOURCE_ROOTS:
+        root = repo_root / source_root
+        for source_path in sorted(root.rglob("*.xml"), key=lambda item: str(item).lower()):
+            tree = ET.parse(source_path)
+            relative = source_path.relative_to(repo_root).as_posix()
+            for map_element in tree.findall(".//spawn_map"):
+                map_id = int(map_element.attrib["map_id"])
+                sources[map_id].add(relative)
+                for spot in map_element.findall(".//spot"):
+                    try:
+                        coordinates[map_id].append((float(spot.attrib["x"]), float(spot.attrib["y"])))
+                    except (KeyError, ValueError):
+                        continue
     ordered_sources = {
         map_id: sorted(paths, key=lambda item: ("/Custom/" in f"/{item}", item.lower()))
         for map_id, paths in sources.items()
@@ -301,6 +313,7 @@ def read_world_maps(path: Path) -> dict[int, dict[str, object]]:
         maps[map_id] = {
             "name": element.attrib.get("name", f"Map {map_id}"),
             "clientName": element.attrib.get("cName", element.attrib.get("name", str(map_id))),
+            "kind": "instance" if element.attrib.get("instance", "").lower() == "true" else "world",
             "worldSize": int(element.attrib["world_size"]),
         }
     return maps
@@ -321,8 +334,8 @@ def read_zonemap(path: Path) -> dict[int, dict[str, object]]:
     return maps
 
 
-def calibration_for(world: dict[str, object], client: dict[str, object] | None) -> dict[str, int]:
-    size = int(world["worldSize"])
+def calibration_for(world_size: int, client: dict[str, object] | None) -> dict[str, int]:
+    size = world_size
     client = client or {}
     width = int(client.get("mapWidth", 0) or 0)
     height = int(client.get("mapHeight", 0) or 0)
@@ -488,8 +501,8 @@ def safe_slug(value: str) -> str:
     return normalized or "map"
 
 
-def display_name_for(world_name: object, map_id: int, primary_source: str) -> str:
-    source_stem = Path(primary_source).stem
+def display_name_for(world_name: object, map_id: int, primary_source: str = "") -> str:
+    source_stem = Path(primary_source).stem if primary_source else ""
     prefix = f"{map_id}_"
     raw = source_stem[len(prefix):] if source_stem.startswith(prefix) else str(world_name)
     if raw[:1].islower():

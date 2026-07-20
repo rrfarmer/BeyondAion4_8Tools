@@ -28,6 +28,8 @@ test("applies validated Ishalgen changes atomically to repository XML", async t 
   assert.equal(initial.groupCount, 2);
   assert.equal(initial.spotCount, 3);
   assert.equal(initial.editableSpotCount, 2);
+  assert.equal(initial.map.kind, "world");
+  assert.equal(initial.map.supportsSpawnEditing, true);
   assert.equal(initial.map.projection, "calibrated-game-y-x");
   assert.deepEqual(initial.map.calibration, { offsetX: 740, offsetY: 0, mapWidth: 2300, mapHeight: 2300 });
   assert.equal(initial.groups[0]?.npc.displayName, "Test Mob");
@@ -179,6 +181,29 @@ test("assigns a walker route to an editable spawn", async t => {
   );
 });
 
+test("keeps catalog maps without regular spawn XML available as view-only maps", async t => {
+  const fixture = await createFixture();
+  t.after(() => rm(fixture.root, { recursive: true, force: true }));
+
+  const mapId = 300300000;
+  const map = fixture.service.listMaps().find(candidate => candidate.id === mapId)!;
+  assert.equal(map.name, "Empyrean Crucible");
+  assert.equal(map.kind, "instance");
+  assert.equal(map.supportsSpawnEditing, false);
+  assert.deepEqual(map.sourceRelativePaths, []);
+
+  const snapshot = await fixture.service.snapshot(mapId);
+  assert.equal(snapshot.groupCount, 0);
+  assert.equal(snapshot.spotCount, 0);
+  await assert.rejects(
+    fixture.service.validate(mapId, {
+      revision: snapshot.revision,
+      operations: [{ kind: "create", npcId: 210000, x: 10, y: 20, z: 30, heading: 0 }],
+    }),
+    (error: unknown) => error instanceof SpawnEditorError && error.code === "MAP_VIEW_ONLY",
+  );
+});
+
 async function createFixture(includeOverlay = false): Promise<{
   root: string;
   repoRoot: string;
@@ -260,12 +285,26 @@ async function createFixture(includeOverlay = false): Promise<{
       mapId: ISHALGEN_MAP_ID,
       name: "Ishalgen",
       clientName: "DF1",
+      kind: "world",
+      supportsSpawnEditing: true,
       worldSize: 3072,
       calibration: { offsetX: 740, offsetY: 0, mapWidth: 2300, mapHeight: 2300 },
       coordinateBounds: { minX: 0, maxX: 3072, minY: 0, maxY: 3072 },
       sourceRelativePaths,
       primarySourceRelativePath: SPAWN_RELATIVE_PATH.replaceAll("\\", "/"),
       layers: [{ id: "map", name: "Map", asset: "ishalgen.webp", assetKind: "map-window" }],
+    }, {
+      mapId: 300300000,
+      name: "Empyrean Crucible",
+      clientName: "IDArena",
+      kind: "instance",
+      supportsSpawnEditing: false,
+      worldSize: 2048,
+      calibration: { offsetX: 0, offsetY: 0, mapWidth: 2048, mapHeight: 2048 },
+      coordinateBounds: { minX: 0, maxX: 2048, minY: 0, maxY: 2048 },
+      sourceRelativePaths: [],
+      primarySourceRelativePath: "",
+      layers: [{ id: "grid", name: "Coordinate grid", asset: "empyrean-grid.webp", assetKind: "grid-fallback" }],
     }],
   }), "utf8");
 
