@@ -1,5 +1,11 @@
 # Progress
 
+## 2026-07-19 Iteration 108
+
+- Added a siege-only Fortress owner selector sourced directly from each map's `siege_race` values, with Elyos, Asmodian, and Balaur presented in a stable order when available.
+- Siege markers, editable counts, NPC type options, and new-placement contexts now show only the selected owner's dataset instead of overlaying every faction on one map.
+- Persisted the selected owner in shareable siege URLs and kept staged changes from other owner views visible in the review step with their full siege context.
+
 ## 2026-07-19 Iteration 107
 
 - Added seven siege spawn-map variants for Inggison, Gelkmaros, Reshanta, Belus, Atanatos, Kaldor, and Levinshor. They reuse the calibrated local client artwork while reading and writing only the authoritative `spawns/Sieges` XML.

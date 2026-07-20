@@ -19,6 +19,8 @@
     mapSelect: root.querySelector("[data-map-select]"),
     layerControl: root.querySelector("[data-layer-control]"),
     layerSelect: root.querySelector("[data-layer-select]"),
+    siegeFactionControl: root.querySelector("[data-siege-faction-control]"),
+    siegeFaction: root.querySelector("[data-siege-faction]"),
     mapSearch: root.querySelector("[data-map-search]"),
     typeFilter: root.querySelector("[data-type-filter]"),
     editableFilter: root.querySelector("[data-editable-filter]"),
@@ -109,6 +111,7 @@
   const state = {
     maps: [],
     mapKey: initialMapKey,
+    siegeFaction: undefined,
     layerId: undefined,
     snapshot: undefined,
     groups: new Map(),
@@ -153,6 +156,7 @@
     elements.mapCategory.addEventListener("change", changeMapCategory);
     elements.mapSelect.addEventListener("change", changeMap);
     elements.layerSelect.addEventListener("change", changeLayer);
+    elements.siegeFaction.addEventListener("change", changeSiegeFaction);
     elements.mapSearch.addEventListener("input", renderMarkers);
     elements.typeFilter.addEventListener("change", renderMarkers);
     elements.editableFilter.addEventListener("change", renderMarkers);
@@ -241,6 +245,8 @@
     const requestedMapKey = searchParams.get("variant") === "siege"
       ? `siege-${requestedMapId}`
       : String(requestedMapId);
+    const requestedFaction = searchParams.get("faction")?.trim().toLocaleUpperCase();
+    state.siegeFaction = requestedFaction === "ASMODIAN" ? "ASMODIANS" : requestedFaction || undefined;
     const requestedWalkerId = searchParams.get("walkerId")?.trim();
     const selectedMap = state.maps.find(map => map.key === requestedMapKey)
       || state.maps.find(map => map.key === initialMapKey)
@@ -479,6 +485,31 @@
     updateMapImage(state.snapshot.map, false);
   }
 
+  function changeSiegeFaction() {
+    if (state.snapshot?.map.spawnKind !== "siege") return;
+    const previousFaction = state.siegeFaction;
+    const nextFaction = elements.siegeFaction.value;
+    if (!nextFaction || nextFaction === previousFaction) return;
+    if (walkerDraftIsDirty() && !window.confirm("Discard patrol path changes and switch fortress owners?")) {
+      elements.siegeFaction.value = previousFaction || "";
+      return;
+    }
+
+    const previousSelection = selectedEntry();
+    state.siegeFaction = nextFaction;
+    cancelPick();
+    populateSiegeContexts(state.snapshot.placementContexts);
+    if (previousSelection && !groupMatchesSiegeFaction(previousSelection.group)) {
+      clearWalkerRoute();
+      state.selectedKey = undefined;
+    }
+    if (state.selectedNpc && !elements.placePanel.hidden) refreshSelectedNpcPlacement();
+    populateTypeFilter();
+    renderMarkers();
+    renderInspector();
+    updateSelectedWalkerUrl(state.selectedKey ? selectedEntry()?.walkerId : undefined);
+  }
+
   function installSnapshot(snapshot) {
     cancelGroundLookup("update");
     cancelGroundLookup("create");
@@ -506,6 +537,7 @@
       : "This map is runtime-driven, special-purpose, or has no ordinary NPC/Mob spawn XML.";
     elements.placeToggle.disabled = !snapshot.map.supportsSpawnEditing;
     if (!snapshot.map.supportsSpawnEditing) elements.placePanel.hidden = true;
+    populateSiegeFactions(snapshot.placementContexts);
     populateSiegeContexts(snapshot.placementContexts);
     elements.map.setAttribute("aria-label", `${snapshot.map.name} spawn map`);
     elements.changeReason.value = `${snapshot.map.name} spawn placement update`;
@@ -514,11 +546,40 @@
     renderInspector();
   }
 
+  function populateSiegeFactions(contexts) {
+    const isSiege = state.snapshot?.map.spawnKind === "siege";
+    elements.siegeFactionControl.hidden = !isSiege;
+    if (!isSiege) {
+      state.siegeFaction = undefined;
+      elements.siegeFaction.innerHTML = "";
+      return;
+    }
+
+    const preferredOrder = ["ELYOS", "ASMODIANS", "BALAUR"];
+    const factions = [...new Set(contexts.map(context => context.race))].sort((left, right) => {
+      const leftIndex = preferredOrder.indexOf(left);
+      const rightIndex = preferredOrder.indexOf(right);
+      if (leftIndex >= 0 || rightIndex >= 0) {
+        return (leftIndex >= 0 ? leftIndex : preferredOrder.length) - (rightIndex >= 0 ? rightIndex : preferredOrder.length);
+      }
+      return left.localeCompare(right, "en-US");
+    });
+    state.siegeFaction = factions.includes(state.siegeFaction) ? state.siegeFaction : factions[0];
+    elements.siegeFaction.innerHTML = factions
+      .map(faction => `<option value="${escapeHtml(faction)}">${escapeHtml(siegeFactionLabel(faction))}</option>`)
+      .join("");
+    elements.siegeFaction.value = state.siegeFaction || "";
+    updateMapUrl();
+  }
+
   function populateSiegeContexts(contexts) {
     const isSiege = state.snapshot?.map.spawnKind === "siege";
+    const visibleContexts = isSiege
+      ? contexts.filter(context => context.race === state.siegeFaction)
+      : [];
     elements.siegeContextField.hidden = !isSiege;
     elements.siegeContext.innerHTML = isSiege
-      ? `<option value="">Select siege context</option>${contexts.map(context =>
+      ? `<option value="">Select siege context</option>${visibleContexts.map(context =>
           `<option value="${escapeHtml(context.key)}">${escapeHtml(context.label)}</option>`,
         ).join("")}`
       : "";
@@ -571,11 +632,18 @@
 
   function populateTypeFilter() {
     const current = elements.typeFilter.value;
-    const types = [...new Set(state.snapshot.groups.map(group => group.npc.type || "NONE"))].sort();
+    const groups = state.snapshot.groups.filter(group => groupMatchesSiegeFaction(group));
+    const types = [...new Set(groups.map(group => group.npc.type || "NONE"))].sort();
     elements.typeFilter.innerHTML = `<option value="">All types</option>${types
       .map(type => `<option value="${escapeHtml(type)}">${escapeHtml(formatLabel(type))}</option>`)
       .join("")}`;
     elements.typeFilter.value = types.includes(current) ? current : "";
+  }
+
+  function groupMatchesSiegeFaction(group) {
+    if (state.snapshot?.map.spawnKind !== "siege" || !state.siegeFaction) return true;
+    const context = state.placementContexts.get(group?.contextKey);
+    return context?.race === state.siegeFaction;
   }
 
   function effectiveEntries() {
@@ -620,7 +688,7 @@
     const query = elements.mapSearch.value.trim().toLocaleLowerCase();
     const type = elements.typeFilter.value;
     const editableOnly = elements.editableFilter.checked;
-    const entries = effectiveEntries();
+    const entries = effectiveEntries().filter(entry => groupMatchesSiegeFaction(entry.group));
     let shown = 0;
 
     for (const entry of entries) {
@@ -648,7 +716,8 @@
     }
 
     const editable = entries.filter(entry => entry.editable).length;
-    elements.mapStats.textContent = `${shown.toLocaleString()} shown · ${entries.length.toLocaleString()} total · ${editable.toLocaleString()} editable`;
+    const totalLabel = state.siegeFaction ? "faction total" : "total";
+    elements.mapStats.textContent = `${shown.toLocaleString()} shown · ${entries.length.toLocaleString()} ${totalLabel} · ${editable.toLocaleString()} editable`;
     renderSelectionOverlay();
   }
 
@@ -2156,6 +2225,7 @@
     elements.mapLoading.hidden = !loading;
     elements.mapCategory.disabled = loading || state.maps.length === 0;
     elements.mapSelect.disabled = loading || state.maps.length === 0;
+    elements.siegeFaction.disabled = loading || state.snapshot?.map.spawnKind !== "siege";
   }
 
   function currentMap() {
@@ -2169,12 +2239,35 @@
   function setMapUrl(url, map = currentMap()) {
     if (!map) return;
     url.searchParams.set("mapId", String(map.id));
-    if (map.spawnKind === "siege") url.searchParams.set("variant", "siege");
-    else url.searchParams.delete("variant");
+    if (map.spawnKind === "siege") {
+      url.searchParams.set("variant", "siege");
+      if (state.siegeFaction) url.searchParams.set("faction", siegeFactionUrlValue(state.siegeFaction));
+      else url.searchParams.delete("faction");
+    } else {
+      url.searchParams.delete("variant");
+      url.searchParams.delete("faction");
+    }
+  }
+
+  function updateMapUrl() {
+    const url = new URL(window.location.href);
+    setMapUrl(url);
+    window.history.replaceState({}, "", url);
   }
 
   function mapName(mapKey) {
     return state.maps.find(map => map.key === mapKey)?.name || `map ${mapKey}`;
+  }
+
+  function siegeFactionLabel(value) {
+    if (value === "ASMODIANS") return "Asmodian";
+    if (value === "ELYOS") return "Elyos";
+    if (value === "BALAUR") return "Balaur";
+    return formatLabel(value);
+  }
+
+  function siegeFactionUrlValue(value) {
+    return value === "ASMODIANS" ? "asmodian" : value.toLocaleLowerCase();
   }
 
   function sourceName(value) {

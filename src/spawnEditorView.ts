@@ -27,6 +27,10 @@ export function spawnEditorPage(): string {
           <span>Layer</span>
           <select data-layer-select aria-label="Map layer"></select>
         </label>
+        <label class="spawn-control spawn-faction-control" data-siege-faction-control hidden>
+          <span>Fortress owner</span>
+          <select data-siege-faction aria-label="Fortress owner"></select>
+        </label>
         <label class="spawn-control spawn-search-control">
           <span>Find on map</span>
           <input type="search" data-map-search placeholder="NPC name or ID" autocomplete="off">

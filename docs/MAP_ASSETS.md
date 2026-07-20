@@ -19,7 +19,7 @@ The spawn editor serves project-local map images from `assets/maps`. Runtime req
 
 The view-only set includes runtime-driven instances such as Empyrean Crucible and Shugo Imperial Tomb, special spawn structures such as Transidium Annex, and server test/catalog maps with no ordinary spawn file. The editor does not invent XML write targets for those maps.
 
-Siege XML is not a second kind of artwork. The seven siege entries expose alternate spawn data on an existing world map and appear under the Others map set. Existing placements retain their fortress id, faction, and siege mode; new placements require selecting that exact context before they can be staged.
+Siege XML is not a second kind of artwork. The seven siege entries expose alternate spawn data on an existing world map and appear under the Others map set. A siege-only Fortress owner selector filters the map to the XML's Elyos, Asmodian, or Balaur dataset. Existing placements retain their fortress id, faction, and siege mode; new placements require selecting a context belonging to the visible owner before they can be staged.
 
 The manifest records each map's type, edit capability, source XML files, primary write target, client package/hash, tile layout, calibration, declared/logical coordinate bounds, output asset/hash, and asset kind. Six incomplete catalog entries declare `world_size="0"`; they receive a 1024-unit display canvas but remain view-only.
 

@@ -96,7 +96,7 @@ The editor:
 - loads NPC metadata from `BeyondAionSharp/game-server/data/static_data/npcs/npc_templates.xml`
 - aggregates base and `Custom` XML sources, including repeated `<spawn_map>` blocks
 - filters the complete catalog into World Maps, Instance Maps, and Others, with map/layer switching, hover/search, coordinate updates, deletion, and new NPC placement
-- edits alternate siege spawn datasets on their physical world maps while preserving fortress, faction, and siege-mode context
+- edits alternate siege spawn datasets on their physical world maps, with a Fortress owner selector and preserved fortress, faction, and siege-mode context
 - uses client `zonemap.xml` calibration and the exact reversible game-coordinate/image transform
 - resolves ground Z from the server's prepared 16-bit terrain heightmaps after map picks or X/Y edits, while retaining manual Z entry
 - resolves selected `walker_id` routes from the complete recursive `npc_walker` catalog and draws numbered runtime paths over the calibrated map
