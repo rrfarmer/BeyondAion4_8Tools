@@ -5,7 +5,7 @@ import type {
 import type { TerrainHeightLookup, TerrainHeightService } from "./terrainHeightService.js";
 import type { WalkerRoute, WalkerRouteService } from "./walkerRouteService.js";
 
-export const DEFAULT_WALKER_GROUND_TOLERANCE_METERS = 0.75;
+export const DEFAULT_WALKER_GROUND_TOLERANCE_METERS = 2;
 
 export type WalkerGroundAuditUsage = {
   spotKey: string;

@@ -1,8 +1,12 @@
 # Progress
 
+## 2026-07-19 Iteration 104
+
+- Increased the default patrol ground-audit tolerance from 0.75m to 2m for both the CLI report and admin review. The real scan now flags 747 paths and 10,983 points, down from 858 paths and 12,400 points.
+
 ## 2026-07-19 Iteration 103
 
-- Added a shared patrol-ground audit that joins walker references from NPC spawn XML to each map's terrain heightmap and flags authored waypoints whose Z differs from terrain by more than the configurable tolerance (0.75m by default).
+- Added a shared patrol-ground audit that joins walker references from NPC spawn XML to each map's terrain heightmap and flags authored waypoints whose Z differs from terrain by more than the configurable tolerance.
 - Added `npm run walkers:audit-ground` for terminal reports and optional complete JSON output. The real repository audit currently checks 58,938 points across 3,133 map-specific patrol paths in about five seconds.
 - Added a level-9 Patrol ground review dialog with map/text filters, mismatch counts and point deltas, terrain-unavailable reporting, and rescanning without restarting the portal.
 - Each finding can open its exact patrol in the spawn editor: the portal changes maps, selects an attached spawn, loads the walker overlay, fits the map to the route, and records the selected walker in the URL for reloadable links.

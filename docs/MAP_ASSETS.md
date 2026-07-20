@@ -76,10 +76,10 @@ Run the same terrain comparison used by the admin review dialog from the reposit
 npm run walkers:audit-ground
 ```
 
-The default tolerance is 0.75 meters. A complete machine-readable report can be written without changing any spawn or walker XML:
+The default tolerance is 2 meters. A complete machine-readable report can be written without changing any spawn or walker XML:
 
 ```powershell
-npm run walkers:audit-ground -- --tolerance-m 0.75 --output data\walker-ground-audit.json
+npm run walkers:audit-ground -- --tolerance-m 2 --output data\walker-ground-audit.json
 ```
 
 Walker routes do not contain a map id, so the scanner first finds every `walker_id` usage in NPC spawn XML and audits the route separately on each referenced map. A route reused on two maps can therefore produce two findings. Missing heightmaps and `65535` terrain samples are reported as unavailable rather than treated as off-ground.
